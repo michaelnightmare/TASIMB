@@ -11,13 +11,12 @@ public class GameManagerScr : MonoBehaviour {
 
     //Enemies
     public GameObject WolfRef;
-    public Transform WolfSpawnLocation;
 
 
 
     // Use this for initialization
     void Start () {
-        SpawnWolf(WolfSpawnLocation.position);
+       
 
     }
 	

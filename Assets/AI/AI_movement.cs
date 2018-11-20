@@ -79,11 +79,11 @@ public class AI_movement : MonoBehaviour {
     }
     public void enemyTakeDamage()
     {
-        //Debug.LogError("hit");
+        
         enemyHealth--;
         anim.SetTrigger("enemyHurt");
 
-        if (enemyHealth <= 0)
+        if (enemyHealth == 0)
         {
             Debug.Log("Dead");
             enemyDeath();

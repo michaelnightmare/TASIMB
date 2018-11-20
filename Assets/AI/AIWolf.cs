@@ -15,6 +15,7 @@ public class AIWolf : MonoBehaviour {
     public float wolfHealth = 1;
     public bool wolfAlive;
     public ObjectDestroyer clearBodies;
+    public GameObject steakRef; 
 
     // Use this for initialization
     void Start ()
@@ -78,8 +79,9 @@ public class AIWolf : MonoBehaviour {
         {
             
             clearBodies.enabled = true;
+            Invoke("spawnSteak", 5);
+      
 
-           
         }
 		
 	}
@@ -97,5 +99,13 @@ public class AIWolf : MonoBehaviour {
         wolfAlive = false;
         anim.SetBool("dead", true);
         EnemySpeed = 0;
+        
+        
+    }
+    public void spawnSteak()
+    {
+        GameObject steakTemp = Instantiate(steakRef, transform.position, Quaternion.identity) as GameObject;
+        //steakTemp.GetComponent<SteakScr>().Player = playerRef.GetComponent<PlayerScript>();
+        //steakTemp.GetComponent<SteakScr>().playerInteraction = PlayerRef.GetComponent<PlayerScript>();
     }
 }

@@ -1254,6 +1254,7 @@ MonoBehaviour:
   wolfHealth: 1
   wolfAlive: 0
   clearBodies: {fileID: 0}
+  steakRef: {fileID: 1916922070368244, guid: 64b0e0dd819a11f40942be69abcc9f30, type: 2}
 --- !u!114 &114542844720314416
 MonoBehaviour:
   m_ObjectHideFlags: 1

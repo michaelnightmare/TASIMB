@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerScript : MonoBehaviour {
+public class PlayerScript : MonoBehaviour
+{
 
     public int playerHealth = 3;
     public int healthIcons;
@@ -14,7 +15,8 @@ public class PlayerScript : MonoBehaviour {
     Animator anims;
     public float healthLossDelay = 1.0f;
     public float nextDelay = 0.0f;
-
+ 
+    
 
     void Start()
     {
@@ -23,19 +25,16 @@ public class PlayerScript : MonoBehaviour {
 
     }
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            playerTakeDamage();
-        }
 
-        if(playerHealth>= healthIcons)
+
+        if (playerHealth >= healthIcons)
         {
             playerHealth = healthIcons;
         }
 
-        for (int i =0; i<stars.Length;i++)
+        for (int i = 0; i < stars.Length; i++)
         {
             if (i < playerHealth)
             {
@@ -53,7 +52,11 @@ public class PlayerScript : MonoBehaviour {
             playerDead();
         }
 
+      
+
     }
+
+   
 
     public void playerTakeDamage()
     {
@@ -63,7 +66,26 @@ public class PlayerScript : MonoBehaviour {
             anims.SetTrigger("PlayerHurt");
             nextDelay = Time.time + healthLossDelay;
         }
-      
+
+    }
+    public void playerGetHealth()
+    {
+        if (playerHealth < 5)
+        {
+            playerHealth++;
+            for (int i = 0; i < stars.Length; i++)
+            {
+                if (i > playerHealth)
+                {
+                    stars[i].sprite = star;
+                }
+                else
+                {
+                    stars[i].enabled = true;
+                }
+            }
+        }
+
     }
 
     void playerDead()
@@ -71,10 +93,13 @@ public class PlayerScript : MonoBehaviour {
         playerAlive = false;
         anims.SetBool("PlayerAlive", false);
 
-
+   
         if (bodyTimer >= 10f && playerAlive == false)
         {
             Destroy(gameObject);
         }
     }
+
+    
+
 }
