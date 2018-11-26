@@ -1,15 +1,34 @@
 fileFormatVersion: 2
 guid: 526b8341fc722fc45852a2c197c1118d
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
+    100000: Top
+    100002: //RootNode
+    100004: Wings
+    400000: Top
+    400002: //RootNode
+    400004: Wings
+    2300000: Top
+    2300002: //RootNode
+    2300004: Wings
+    3300000: Top
+    3300002: //RootNode
+    3300004: Wings
     4300000: WiatrakGR
     4300002: W_OS_ZGR
     4300004: W_SkrzydlaGR
     4300006: Windmill
     4300008: Top
     4300010: Wings
-  externalObjects: {}
+    7400000: modo_Anim
+    11100000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Windmill
+    second: {fileID: 2100000, guid: acef21e980199824c9e6036f6a5bbc46, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -60,6 +79,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 0
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 0
     normalImportMode: 1
@@ -79,7 +100,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

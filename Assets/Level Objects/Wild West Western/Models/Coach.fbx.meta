@@ -1,14 +1,29 @@
 fileFormatVersion: 2
 guid: 9210f739e2467864d973e462fbf0cf15
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
+    100000: //RootNode
+    100002: Coach_Wheels
+    400000: //RootNode
+    400002: Coach_Wheels
+    2300000: //RootNode
+    2300002: Coach_Wheels
+    3300000: //RootNode
+    3300002: Coach_Wheels
     4300000: Buda_GR
     4300002: kolpaki
     4300004: Kola_GR
     4300006: Coach_TOP
     4300008: Coach_Wheels
-  externalObjects: {}
+    7400000: modo_Anim
+    11100000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Coach
+    second: {fileID: 2100000, guid: 8f6f33be335cb8f4b8b237856e6a864c, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -59,6 +74,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 0
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 0
     normalImportMode: 1
@@ -78,7 +95,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

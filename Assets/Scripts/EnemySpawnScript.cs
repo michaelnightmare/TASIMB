@@ -9,7 +9,7 @@ public class EnemySpawnScript : MonoBehaviour
     int spawnPointIndex;
     public GameObject spawnBox;
     public GameObject[] enemyType;
-   
+    public float tempEnemiesAcceleration;
     
    
 
@@ -52,6 +52,7 @@ public class EnemySpawnScript : MonoBehaviour
         GameObject enemyTemp = Instantiate(enemyType, spawnLocation, Quaternion.identity) as GameObject;
         if (enemyTemp.GetComponent<AI_movement>())
         {
+            enemyTemp.GetComponent<AI_movement>().EnemyAcceleration = tempEnemiesAcceleration;
             enemyTemp.GetComponent<AI_movement>().Player = PlayerRef.transform;
         }
         if(enemyTemp.GetComponent<AIWolf>())

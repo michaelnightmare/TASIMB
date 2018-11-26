@@ -8,14 +8,15 @@ public class AI_movement : MonoBehaviour {
     public float EnemySpeed;
     public AIShootingScript Gun;
     Animator anim;
+    public float Shoot = 0.0f;
     public float EnemyDistance;
     public float EnemyCloseness;
+    public float EnemyAcceleration;
     public float enemyHealth = 2;
     public bool enemyAlive;
     public bool playingReloadAnim = false;
     public ObjectDestroyer clearBodies;
- 
-    
+
 
     // Use this for initialization
     void Start ()
@@ -45,9 +46,16 @@ public class AI_movement : MonoBehaviour {
 
             if(direction.magnitude > EnemyCloseness)
             {
-                this.transform.Translate(0, 0, EnemySpeed= 0.05f);
-                anim.SetFloat("Forward", EnemySpeed);
                 anim.SetBool("Aim", false);
+
+                EnemySpeed = EnemySpeed + Time.deltaTime / EnemyAcceleration;
+                if (EnemySpeed > 0.05f)
+                {
+                    EnemySpeed = 0.05f;
+                }
+                this.transform.Translate(0, 0, EnemySpeed);
+                anim.SetFloat("Forward", EnemySpeed);
+                
             }
             else
             {
@@ -56,9 +64,14 @@ public class AI_movement : MonoBehaviour {
                 if (Gun.enemyBulletCount >0 )
                 {
                     EnemySpeed = 0;
+                    ShootPlayer();
                     anim.SetBool("Aim", true);
                     Gun.gameObject.SetActive(true);
-                    Gun.Shoot();
+                    if (Time.time > Shoot)
+                    {
+                        Gun.Shoot();
+                        Shoot = Time.time + 1.0f;
+                    }
                 }
                 else
                 {
@@ -99,6 +112,15 @@ public class AI_movement : MonoBehaviour {
 
 
     }
+
+    void ShootPlayer()
+    {
+        if (anim.GetBool("Aim") == false)
+        {
+            Shoot = Time.time + 1.0f;
+        }
+    }
+
     void enemyDeath()
     {
         
