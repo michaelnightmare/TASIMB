@@ -17,6 +17,7 @@ public class AIWolf : MonoBehaviour {
     public ObjectDestroyer clearBodies;
     public GameObject steakRef;
     public AudioSource wolfSound;
+    public int enemyWolfDeathCounter = 0; 
 
     // Use this for initialization
     void Start ()
@@ -101,6 +102,7 @@ public class AIWolf : MonoBehaviour {
     {
         wolfAlive = false;
         anim.SetBool("dead", true);
+        enemyWolfDeathCounter++;
         EnemySpeed = 0;
         
         

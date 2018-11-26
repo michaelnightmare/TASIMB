@@ -11,6 +11,9 @@ public class EnemySpawnScript : MonoBehaviour
     public GameObject[] enemyType;
     public float tempEnemiesAcceleration;
     
+    
+  
+    
    
 
 
@@ -54,6 +57,8 @@ public class EnemySpawnScript : MonoBehaviour
         {
             enemyTemp.GetComponent<AI_movement>().EnemyAcceleration = tempEnemiesAcceleration;
             enemyTemp.GetComponent<AI_movement>().Player = PlayerRef.transform;
+            
+
         }
         if(enemyTemp.GetComponent<AIWolf>())
           {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class GameManagerScr : MonoBehaviour {
@@ -11,11 +12,16 @@ public class GameManagerScr : MonoBehaviour {
 
     //Enemies
     public GameObject WolfRef;
+    public GameObject EnemyCowboyRef;
+    public int updatedDeathCounter; 
+    public Text displayedText;
+    public GameObject[] enemiesIngame;
 
 
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
        
 
     }
@@ -23,13 +29,12 @@ public class GameManagerScr : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		
-	}
+        
+        updatedDeathCounter += WolfRef.GetComponent<AIWolf>().enemyWolfDeathCounter + EnemyCowboyRef.GetComponent<AI_movement>().enemyDeathCounter;
+       
+        displayedText.text = updatedDeathCounter.ToString();
 
-    public void SpawnWolf(Vector3 SpawnLocation)
-    {
-        GameObject WolfRefTemp = Instantiate(WolfRef, SpawnLocation, Quaternion.identity) as GameObject;
-        WolfRefTemp.GetComponent<AIWolf>().Player = PlayerRef.transform;
-        WolfRefTemp.GetComponent<AIWolf>().playerInteraction = PlayerRef.GetComponent<PlayerScript>();
     }
+
+  
 }

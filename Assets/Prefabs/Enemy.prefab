@@ -1720,7 +1720,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 16
+  m_Constraints: 48
   m_CollisionDetection: 0
 --- !u!65 &65147915125729290
 BoxCollider:
@@ -1886,10 +1886,13 @@ MonoBehaviour:
   Player: {fileID: 0}
   EnemySpeed: 0.03
   Gun: {fileID: 0}
+  Shoot: 0
   EnemyDistance: 12
   EnemyCloseness: 6
+  EnemyAcceleration: 0
   enemyHealth: 2
   enemyAlive: 0
+  enemyDeathCounter: 0
   playingReloadAnim: 0
   clearBodies: {fileID: 0}
 --- !u!114 &114182334688717112
