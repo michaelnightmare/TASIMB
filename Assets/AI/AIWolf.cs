@@ -18,7 +18,7 @@ public class AIWolf : MonoBehaviour {
     public ObjectDestroyer clearBodies;
     public GameObject steakRef;
     public AudioSource wolfSound;
-    public int enemyWolfDeathCounter = 0; 
+
 
     // Use this for initialization
     void Start ()
@@ -80,19 +80,7 @@ public class AIWolf : MonoBehaviour {
             EnemySpeed = 0;
           
         }
-        if (wolfHealth <=0)
-        {
-            wolfDeath();
-        }
-
-        if(wolfAlive==false)
-        {
-            
-            clearBodies.enabled = true;
-            Invoke("spawnSteak", 2);
-      
-
-        }
+    
 		
 	}
     void damagePlayer()
@@ -103,13 +91,28 @@ public class AIWolf : MonoBehaviour {
    public void wolfTakeDamage()
     {
         wolfHealth--;
+
+        if (wolfHealth <= 0)
+        {
+            wolfDeath();
+        }
+
+        if (wolfAlive == false)
+        {
+
+            clearBodies.enabled = true;
+            Invoke("spawnSteak", 2);
+
+
+        }
     }
     void wolfDeath()
     {
+
         wolfAlive = false;
         anim.SetBool("dead", true);
-        enemyWolfDeathCounter++;
         EnemySpeed = 0;
+        GameManagerScr._instance.enemyCounterIncrease();
         
         
     }

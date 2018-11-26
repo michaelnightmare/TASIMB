@@ -15,8 +15,19 @@ public class GameManagerScr : MonoBehaviour {
     public GameObject EnemyCowboyRef;
     public int updatedDeathCounter; 
     public Text displayedText;
+    public static GameManagerScr _instance;
     
-
+    void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
 
 
     // Use this for initialization
@@ -30,10 +41,15 @@ public class GameManagerScr : MonoBehaviour {
 	void Update ()
     {
         
-        updatedDeathCounter += WolfRef.GetComponent<AIWolf>().enemyWolfDeathCounter + EnemyCowboyRef.GetComponent<AI_movement>().enemyDeathCounter;
+
        
-        displayedText.text = updatedDeathCounter.ToString();
+       
         
+    }
+   public void enemyCounterIncrease()
+    {
+        updatedDeathCounter++;
+        displayedText.text = updatedDeathCounter.ToString();
     }
 
   

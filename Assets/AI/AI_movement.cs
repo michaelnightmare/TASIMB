@@ -14,7 +14,7 @@ public class AI_movement : MonoBehaviour {
     public float EnemyAcceleration;
     public float enemyHealth = 2;
     public bool enemyAlive;
-    public int enemyDeathCounter = 0; 
+ 
     public bool playingReloadAnim = false;
     public ObjectDestroyer clearBodies;
 
@@ -99,7 +99,7 @@ public class AI_movement : MonoBehaviour {
 
         if (enemyHealth == 0)
         {
-            enemyDeathCounter++;
+           
          
             Debug.Log("Dead");
             enemyDeath();
@@ -130,6 +130,7 @@ public class AI_movement : MonoBehaviour {
         
         enemyAlive = false;
         anim.SetBool("enemyAlive", false);
+        GameManagerScr._instance.enemyCounterIncrease();
 
     }
 
