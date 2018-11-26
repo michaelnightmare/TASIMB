@@ -12,9 +12,9 @@ public class EnemySpawnScript : MonoBehaviour
     public float tempEnemiesAcceleration;
     
     
-  
-    
-   
+
+
+
 
 
     void Start()
@@ -28,14 +28,18 @@ public class EnemySpawnScript : MonoBehaviour
     {
         if(other.gameObject.layer== 9)
         {
+           
+            
             if (spawnPointsLocation.Length == enemyType.Length)
             {
                 for (int i = 0; i < spawnPointsLocation.Length; i++)
                 {
                     spawnEnemies(spawnPointsLocation[spawnPointIndex + i].position, enemyType[i]);
-
+                    
+                  
                     if (i == spawnPointsLocation.Length - 1)
                     {
+                        
                         Destroy(spawnBox);
                     }
 

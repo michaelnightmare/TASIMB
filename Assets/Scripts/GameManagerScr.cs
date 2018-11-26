@@ -15,7 +15,7 @@ public class GameManagerScr : MonoBehaviour {
     public GameObject EnemyCowboyRef;
     public int updatedDeathCounter; 
     public Text displayedText;
-    public GameObject[] enemiesIngame;
+    
 
 
 
@@ -33,7 +33,7 @@ public class GameManagerScr : MonoBehaviour {
         updatedDeathCounter += WolfRef.GetComponent<AIWolf>().enemyWolfDeathCounter + EnemyCowboyRef.GetComponent<AI_movement>().enemyDeathCounter;
        
         displayedText.text = updatedDeathCounter.ToString();
-
+        
     }
 
   

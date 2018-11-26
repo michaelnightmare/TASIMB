@@ -10,6 +10,7 @@ public class AIWolf : MonoBehaviour {
     Animator anim;
     public float EnemyDistance;
     public float EnemyCloseness;
+    public float EnemyAcceleration;
     float attackRate = 2.0f;
     float nextAttack = 0.0f;
     public float wolfHealth = 1;
@@ -43,7 +44,12 @@ public class AIWolf : MonoBehaviour {
 
             if(direction.magnitude > EnemyCloseness)
             {
-                this.transform.Translate(0, 0, EnemySpeed= 0.05f);
+                EnemySpeed = EnemySpeed + Time.deltaTime / EnemyAcceleration;
+                if (EnemySpeed > 0.05f)
+                {
+                    EnemySpeed = 0.05f;
+                }
+                this.transform.Translate(0, 0, EnemySpeed);
                 
                 anim.SetBool("walk", true);
               
