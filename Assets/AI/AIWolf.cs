@@ -15,13 +15,15 @@ public class AIWolf : MonoBehaviour {
     public float wolfHealth = 1;
     public bool wolfAlive;
     public ObjectDestroyer clearBodies;
-    public GameObject steakRef; 
+    public GameObject steakRef;
+    public AudioSource wolfSound;
 
     // Use this for initialization
     void Start ()
     {
         anim = GetComponent<Animator>();
         clearBodies = GetComponent<ObjectDestroyer>();
+        wolfSound= GetComponent<AudioSource>();
         wolfAlive = true; 
     }
 	
@@ -41,6 +43,7 @@ public class AIWolf : MonoBehaviour {
             if(direction.magnitude > EnemyCloseness)
             {
                 this.transform.Translate(0, 0, EnemySpeed= 0.05f);
+                
                 anim.SetBool("walk", true);
               
             }
@@ -65,7 +68,7 @@ public class AIWolf : MonoBehaviour {
         else
         {
             anim.SetBool("idle", true);
-         
+            wolfSound.Play();
             anim.SetBool("walk", false);
             EnemySpeed = 0;
           
@@ -79,7 +82,7 @@ public class AIWolf : MonoBehaviour {
         {
             
             clearBodies.enabled = true;
-            Invoke("spawnSteak", 5);
+            Invoke("spawnSteak", 2);
       
 
         }

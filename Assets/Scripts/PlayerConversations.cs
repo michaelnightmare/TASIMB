@@ -5,16 +5,24 @@ using UnityEngine.UI;
 
 public class PlayerConversations : MonoBehaviour
 {
-   public DialogScr currentDialog;
+    public DialogScr currentDialog;
     public GameObject dialogBoxDisplay;
     int dialogLine = 0;
+
     public Text displayedText;
 
+    public DialogScr currentSoundClip;
+    public AudioSource NPCSounds;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+  
+
+
+    // Use this for initialization
+    void Start ()
+    {
+        NPCSounds = GetComponent<AudioSource>();
+
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -26,18 +34,28 @@ public class PlayerConversations : MonoBehaviour
                 if (dialogLine > currentDialog.dialog.Count-1)
                 {
                     closeDialog();
+                 
                 }
-                else
+                else 
                 {
                     dialogBoxDisplay.SetActive(true);
                     displayedText.text = currentDialog.dialog[dialogLine];
-                    dialogLine++;
+                    
+                    if(dialogLine <= 0)
+                    {
+                        NPCSounds.clip = currentSoundClip.howdyClip;
+                        NPCSounds.Play();
+                        dialogLine++;
+                    }
+                    else
+                    {
+                        dialogLine++;
+                    }
+
                 }
 
-                
-                
             }
-            if(Input.GetButtonDown("StopConversation"))
+            if (Input.GetButtonDown("StopConversation"))
             {
                 closeDialog();
                 
@@ -45,7 +63,7 @@ public class PlayerConversations : MonoBehaviour
         }
 	}
 
-    void closeDialog()
+   public void closeDialog()
     {
         dialogBoxDisplay.SetActive(false);
         dialogLine = 0;
@@ -59,6 +77,8 @@ public class PlayerConversations : MonoBehaviour
             if (other.GetComponent<DialogScr>())
             {
                 currentDialog = other.GetComponent<DialogScr>();
+                currentSoundClip = other.GetComponent<DialogScr>();
+              
                 currentDialog.showOverhead();
 
             }
@@ -76,6 +96,8 @@ public class PlayerConversations : MonoBehaviour
             {
 
                 currentDialog.hideOverhead();
+                dialogBoxDisplay.SetActive(false);
+                dialogLine = 0;
                 currentDialog = null;
             }
 

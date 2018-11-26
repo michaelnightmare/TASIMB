@@ -5,13 +5,17 @@ using UnityEngine;
 public class DialogScr : MonoBehaviour
 {
     public List<string> dialog = new List<string>();
+    public List<string> dialog2 = new List<string>();
     public GameObject OverHeadUIPrefab;
     GameObject spawnedOverheadRef;
+  
+    AudioSource NPCSounds;
+    public AudioClip howdyClip;
 
 
     void Start()
     {
-
+        NPCSounds = GetComponent<AudioSource>();
     }
 
 
@@ -41,6 +45,7 @@ public class DialogScr : MonoBehaviour
         if(spawnedOverheadRef != null)
         {
             spawnedOverheadRef.SetActive(false);
+         
         }
         else
         {
