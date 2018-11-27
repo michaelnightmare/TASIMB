@@ -15,7 +15,6 @@ public class PlayerScript : MonoBehaviour
     Animator anims;
     public float healthLossDelay = 1.0f;
     public float nextDelay = 0.0f;
- 
     
 
     void Start()

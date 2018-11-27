@@ -57,7 +57,7 @@ public class PistolBullet : MonoBehaviour {
         }
         if (other.gameObject.layer == 14)
         {
-            other.transform.GetComponent<AI_movement>().enemyTakeDamage();
+            other.transform.GetComponent<SimpleNavMeshAITest>().enemyTakeDamage();
             
 
         }

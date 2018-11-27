@@ -52,6 +52,7 @@ public class EnemyPistolBullet : MonoBehaviour {
    
         if (other.gameObject.layer == 9)
         {
+            Debug.Log(other.gameObject.name);
             other.transform.GetComponent<PlayerScript>().playerTakeDamage();
         
         }

@@ -12,9 +12,10 @@ public class ShootingController : MonoBehaviour
     public float aimSpeed = 10f;
     public float aimRotationOffset = 20f;
     public float fireRate = .5f;
-    public float nextShot = 0.0f; 
+    public float nextShot = 0.0f;
+    public Transform shootT;
 
-  
+
 
     // Use this for initialization
     void Start () {
@@ -50,18 +51,36 @@ public class ShootingController : MonoBehaviour
 
             if (aimWithMouse)
             {
-                Vector3 charScreenPos = Camera.main.WorldToScreenPoint(transform.position);
-                Vector2 aimDir2D = charScreenPos - Input.mousePosition;
+                bool hitEnemy = false;
+                RaycastHit hit;
+                Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if(Physics.Raycast(mouseRay, out hit, Mathf.Infinity, LayerMask.GetMask("enemyCowboy")))
+                {
+                    hitEnemy = true;
+                }
 
+                Vector3 aimDir = Vector3.zero;
+                if (false)
+                {
+                    aimDir = hit.collider.transform.position - transform.position;
+                    aimDir.Scale(new Vector3(1f, 0, 1f));
+                }
+                else
+                {
+                    Vector3 charScreenPos = Camera.main.WorldToScreenPoint(transform.position);
+                    Vector2 aimDir2D = charScreenPos - Input.mousePosition;
+                    aimDir = new Vector3(aimDir2D.x, 0, aimDir2D.y);
+                    aimDir = Vector3.Scale(aimDir, new Vector3(1, 0, 1));
+                    aimDir.Normalize();
+                }
 
-                Vector3 aimDir = new Vector3(aimDir2D.x, 0, aimDir2D.y);
-                aimDir = Vector3.Scale(aimDir, new Vector3(1, 0, 1));
-                aimDir.Normalize();
 
                 Debug.DrawLine(transform.position, transform.position + aimDir * 2f);
 
+                Quaternion diff = Quaternion.Inverse(Quaternion.LookRotation(shootT.forward)) * Quaternion.LookRotation(aimDir);
+                Quaternion targetRot = transform.rotation * diff;
 
-                Quaternion targetRot = Quaternion.LookRotation(aimDir) * Quaternion.Euler(0,aimRotationOffset, 0);
+                //Quaternion targetRot = Quaternion.LookRotation(aimDir) * Quaternion.Euler(0,aimRotationOffset, 0);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * aimSpeed);
 
             }
