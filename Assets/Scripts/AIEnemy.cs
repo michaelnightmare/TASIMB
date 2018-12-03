@@ -99,7 +99,7 @@ public class AIEnemy : MonoBehaviour
     {
         float distFromTarget = Vector3.Distance(transform.position, target.position);
 
-        Debug.Log(distFromTarget);
+      
 
         if(distFromTarget < StoppingDist)
         {
