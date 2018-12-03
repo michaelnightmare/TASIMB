@@ -16,6 +16,8 @@ public class GameManagerScr : MonoBehaviour {
     public int updatedDeathCounter; 
     public Text displayedText;
     public static GameManagerScr _instance;
+
+    bool test = false;
     
     void Awake()
     {

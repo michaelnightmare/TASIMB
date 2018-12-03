@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemySpawnScript : MonoBehaviour
 {
+    GameManagerScr GameManager;
+
     public GameObject PlayerRef;
     public Transform[] spawnPointsLocation;
     int spawnPointIndex;
@@ -19,8 +21,9 @@ public class EnemySpawnScript : MonoBehaviour
 
     void Start()
     {
-    
-       
+        
+
+
     }
 
 
@@ -28,8 +31,8 @@ public class EnemySpawnScript : MonoBehaviour
     {
         if(other.gameObject.layer== 9)
         {
-           
-            
+            //GameManagerScr._instance.test;
+
             if (spawnPointsLocation.Length == enemyType.Length)
             {
                 for (int i = 0; i < spawnPointsLocation.Length; i++)
@@ -66,8 +69,8 @@ public class EnemySpawnScript : MonoBehaviour
         }
         if(enemyTemp.GetComponent<AIWolf>())
           {
-            enemyTemp.GetComponent<AIWolf>().Player = PlayerRef.transform;
-            enemyTemp.GetComponent<AIWolf>().playerInteraction = PlayerRef.GetComponent<PlayerScript>();
+            //enemyTemp.GetComponent<AIWolf>().Player = PlayerRef.transform;
+            //enemyTemp.GetComponent<AIWolf>().playerInteraction = PlayerRef.GetComponent<PlayerScript>();
         }
 
     }

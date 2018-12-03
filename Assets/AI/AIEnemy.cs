@@ -16,10 +16,12 @@ public class AIEnemy : MonoBehaviour
     bool canShoot = true;
     int numBullets = 6;
     float reloadTimer = 0f;
-    
+    float distFromTarget;
+
     [Header("Enemy Settings")]
     public float enemyHealth = 2;
     public bool enemyAlive = true;
+    public float AggroDist = 10f;
     public float StoppingDist = 5f;
     public float ShootAngleThreshold = 5f;
     public float turningSpeed = 2f;
@@ -97,11 +99,28 @@ public class AIEnemy : MonoBehaviour
 
     bool InRangeOfTarget()
     {
-        float distFromTarget = Vector3.Distance(transform.position, target.position);
 
-      
+        distFromTarget = Vector3.Distance(transform.position, target.position);
 
-        if(distFromTarget < StoppingDist)
+
+
+        if (distFromTarget < StoppingDist)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    bool IsAwareOfTarget()
+    {
+        distFromTarget = Vector3.Distance(transform.position, target.position);
+        
+
+
+        if (distFromTarget < AggroDist)
         {
             return true;
         }
@@ -120,6 +139,7 @@ public class AIEnemy : MonoBehaviour
             if (NavMesh.SamplePosition(target.position, out hit, Mathf.Infinity, NavMesh.AllAreas))
             {
                 nma.SetDestination(hit.position);
+                
             }
         }
     }
@@ -200,18 +220,20 @@ public class AIEnemy : MonoBehaviour
             Reloading();
             //Debug.Log("Reloading");
         }
-        else if (!InRangeOfTarget())
+        else if (IsAwareOfTarget())
         {
             anim.SetBool("Aim", false);
             ChasingPlayer();
-            //Debug.Log("ChasingPlayer");
+            
+            //Debug.Log("isChasingPlayer");
+            if (InRangeOfTarget())
+            {
+                
+                ShootingPlayer();
+                //Debug.Log("ShootingPlayer");
+            }
         }
-        else
-        {
-            ShootingPlayer();
-            //Debug.Log("ShootingPlayer");
-        }
-
+        
         
 
 
