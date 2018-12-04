@@ -1358,10 +1358,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   clearBodies: {fileID: 0}
-  steakRef: {fileID: 0}
+  steakRef: {fileID: 1916922070368244, guid: 64b0e0dd819a11f40942be69abcc9f30, type: 2}
+  wolfCollider: {fileID: 1070783029835688}
   playerInteraction: {fileID: 0}
-  enemyHealth: 2
-  enemyAlive: 1
+  wolfHealth: 2
+  wolfAlive: 1
   AggroDist: 10
   StoppingDist: 2
   ShootAngleThreshold: 5

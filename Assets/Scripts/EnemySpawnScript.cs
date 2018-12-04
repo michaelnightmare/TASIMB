@@ -12,6 +12,7 @@ public class EnemySpawnScript : MonoBehaviour
     public GameObject spawnBox;
     public GameObject[] enemyType;
     public float tempEnemiesAcceleration;
+    bool spawned = false; 
     
     
 
@@ -29,15 +30,16 @@ public class EnemySpawnScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer== 9)
+        if(other.gameObject.layer== 9 && spawned == false)
         {
-            //GameManagerScr._instance.test;
 
             if (spawnPointsLocation.Length == enemyType.Length)
             {
                 for (int i = 0; i < spawnPointsLocation.Length; i++)
                 {
+                    spawned = true;
                     spawnEnemies(spawnPointsLocation[spawnPointIndex + i].position, enemyType[i]);
+                    
                     
                   
                     if (i == spawnPointsLocation.Length - 1)
@@ -60,17 +62,15 @@ public class EnemySpawnScript : MonoBehaviour
     {
        
         GameObject enemyTemp = Instantiate(enemyType, spawnLocation, Quaternion.identity) as GameObject;
-        if (enemyTemp.GetComponent<AI_movement>())
+        if (enemyTemp.GetComponent<AIEnemy>())
         {
-            enemyTemp.GetComponent<AI_movement>().EnemyAcceleration = tempEnemiesAcceleration;
-            enemyTemp.GetComponent<AI_movement>().Player = PlayerRef.transform;
-            
+           enemyTemp.GetComponent<AIEnemy>().target = PlayerRef.transform;
 
         }
         if(enemyTemp.GetComponent<AIWolf>())
           {
-            //enemyTemp.GetComponent<AIWolf>().Player = PlayerRef.transform;
-            //enemyTemp.GetComponent<AIWolf>().playerInteraction = PlayerRef.GetComponent<PlayerScript>();
+            enemyTemp.GetComponent<AIWolf>().target = PlayerRef.transform;
+           enemyTemp.GetComponent<AIWolf>().playerInteraction = PlayerRef.GetComponent<PlayerScript>();
         }
 
     }

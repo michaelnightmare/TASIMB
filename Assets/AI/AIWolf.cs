@@ -11,6 +11,7 @@ public class AIWolf : MonoBehaviour
     Animator anim;
     public ObjectDestroyer clearBodies;
     public GameObject steakRef;
+    BoxCollider m_collider; 
 
 
     bool canAttack = true;
@@ -28,6 +29,7 @@ public class AIWolf : MonoBehaviour
     public float turningSpeed = 2f;
     public float reloadTime = 4f;
     public float timeToAttack;
+   
 
     [Header("Audio Settings")]
     public AudioSource PlayerSounds;
@@ -43,7 +45,9 @@ public class AIWolf : MonoBehaviour
         nma.stoppingDistance = StoppingDist;
         clearBodies = GetComponent<ObjectDestroyer>();
         wolfAlive = true;
-        Debug.Log(isCoolingDown);
+        m_collider = GetComponent<BoxCollider>();
+     
+       
     }
 
     void wolfDeath()
@@ -52,8 +56,14 @@ public class AIWolf : MonoBehaviour
         wolfAlive = false;
         anim.SetBool("dead", true);
         Invoke("spawnSteak", 2);
-        GameManagerScr._instance.enemyCounterIncrease();
         clearBodies.enabled = true;
+
+        m_collider.enabled = false;
+        Debug.Log("boxcolliderdisabled");
+        
+   
+        
+        
 
     }
 
@@ -166,7 +176,7 @@ public class AIWolf : MonoBehaviour
         return Mathf.Abs(dot) < 0.1f;
     }
 
-    void ShootingPlayer()
+    void attackingPlayer()
     {
         if (nma.velocity.sqrMagnitude > 0.1f) return;
 
@@ -203,16 +213,16 @@ public class AIWolf : MonoBehaviour
         if (IsAwareOfTarget())
         {
             anim.SetBool("walk", true);
-            //anim.SetBool("Aim", false);
+          
             ChasingPlayer();
             
-            //Debug.Log("isChasingPlayer");
+           
             if (InRangeOfTarget())
             {
                 
                 anim.SetBool("walk", false);
-                ShootingPlayer();
-                //Debug.Log("ShootingPlayer");
+                attackingPlayer();
+                
             }
         }
 
