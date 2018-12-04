@@ -11,8 +11,11 @@ public class AIEnemy : MonoBehaviour
     Animator anim;
     public ShootingScript gun;
     public ObjectDestroyer clearBodies;
-    BoxCollider m_collider; 
-    
+    public Collider hitbox;
+    public Collider mCollider;
+    public Rigidbody mRB;
+
+
 
     bool isReloading;
     bool canShoot = true;
@@ -45,7 +48,8 @@ public class AIEnemy : MonoBehaviour
         nma.stoppingDistance = StoppingDist;
         clearBodies = GetComponent<ObjectDestroyer>();
         enemyAlive = true;
-        m_collider = GetComponent<BoxCollider>();
+        mRB = GetComponent<Rigidbody>();
+        mCollider = GetComponent<Collider>();
     }
 
     void enemyDeath()
@@ -55,8 +59,9 @@ public class AIEnemy : MonoBehaviour
         anim.SetBool("enemyAlive", false);
         GameManagerScr._instance.enemyCounterIncrease();
         clearBodies.enabled = true;
-        m_collider.isTrigger = false; 
-        
+        hitbox.enabled = false;
+        mRB.isKinematic = true;
+        mCollider.enabled = false;
 
     }
 

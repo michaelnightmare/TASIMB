@@ -60,8 +60,9 @@ public class EnemySpawnScript : MonoBehaviour
 
     public void spawnEnemies(Vector3 spawnLocation, GameObject enemyType)
     {
-       
-        GameObject enemyTemp = Instantiate(enemyType, spawnLocation, Quaternion.identity) as GameObject;
+        Vector3 playerDir = PlayerRef.transform.position - spawnLocation;
+        playerDir.Scale(new Vector3(1, 0, 1));
+        GameObject enemyTemp = Instantiate(enemyType, spawnLocation, Quaternion.LookRotation(playerDir)) as GameObject;
         if (enemyTemp.GetComponent<AIEnemy>())
         {
            enemyTemp.GetComponent<AIEnemy>().target = PlayerRef.transform;

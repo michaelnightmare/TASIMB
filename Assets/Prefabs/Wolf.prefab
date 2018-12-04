@@ -111,7 +111,6 @@ GameObject:
   - component: {fileID: 4365634578553350}
   - component: {fileID: 54853407654936492}
   - component: {fileID: 95272626129367396}
-  - component: {fileID: 65697396613694990}
   - component: {fileID: 114954127133359832}
   - component: {fileID: 65841442909480582}
   - component: {fileID: 114542844720314416}
@@ -485,6 +484,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1739440780445232
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4597639082920388}
+  - component: {fileID: 65511193123279948}
+  m_Layer: 13
+  m_Name: HitBox
+  m_TagString: Hitbox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1852365297561364
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,11 +847,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1070783029835688}
   m_LocalRotation: {x: -0, y: -0.46884325, z: -0, w: 0.8832814}
-  m_LocalPosition: {x: 70.41368, y: 0, z: 28.044184}
+  m_LocalPosition: {x: 57.199913, y: 0, z: 56.05407}
   m_LocalScale: {x: 0.11093435, y: 0.11093435, z: 0.11093435}
   m_Children:
   - {fileID: 4582337419972668}
   - {fileID: 4080957550091078}
+  - {fileID: 4597639082920388}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -55.918003, z: 0}
@@ -939,6 +955,19 @@ Transform:
   - {fileID: 4637454141244214}
   m_Father: {fileID: 4177572440917436}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4597639082920388
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1739440780445232}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4365634578553350}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4636533947553834
 Transform:
@@ -1195,12 +1224,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 122
   m_CollisionDetection: 0
---- !u!65 &65697396613694990
+--- !u!65 &65511193123279948
 BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1070783029835688}
+  m_GameObject: {fileID: 1739440780445232}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
@@ -1359,7 +1388,7 @@ MonoBehaviour:
   target: {fileID: 0}
   clearBodies: {fileID: 0}
   steakRef: {fileID: 1916922070368244, guid: 64b0e0dd819a11f40942be69abcc9f30, type: 2}
-  wolfCollider: {fileID: 1070783029835688}
+  hitbox: {fileID: 65511193123279948}
   playerInteraction: {fileID: 0}
   wolfHealth: 2
   wolfAlive: 1

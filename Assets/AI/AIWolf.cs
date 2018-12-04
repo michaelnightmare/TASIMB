@@ -11,14 +11,17 @@ public class AIWolf : MonoBehaviour
     Animator anim;
     public ObjectDestroyer clearBodies;
     public GameObject steakRef;
-    BoxCollider m_collider; 
-
+    public Collider hitbox;
+    Rigidbody mRB;
+    Collider mCollider;
 
     bool canAttack = true;
     bool isCoolingDown = true;
     float CoolDownTimer = 0f;
     float distFromTarget;
 
+
+    
     [Header("Wolf Settings")]
     public PlayerScript playerInteraction;
     public float wolfHealth = 2;
@@ -45,8 +48,8 @@ public class AIWolf : MonoBehaviour
         nma.stoppingDistance = StoppingDist;
         clearBodies = GetComponent<ObjectDestroyer>();
         wolfAlive = true;
-        m_collider = GetComponent<BoxCollider>();
-     
+        mRB = GetComponent<Rigidbody>();
+        mCollider = GetComponent<Collider>();
        
     }
 
@@ -58,7 +61,9 @@ public class AIWolf : MonoBehaviour
         Invoke("spawnSteak", 2);
         clearBodies.enabled = true;
 
-        m_collider.enabled = false;
+        hitbox.enabled = false;
+        mCollider.enabled = false;
+        mRB.isKinematic = true;
         Debug.Log("boxcolliderdisabled");
         
    

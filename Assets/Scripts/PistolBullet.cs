@@ -50,14 +50,14 @@ public class PistolBullet : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
    
-        if (other.gameObject.layer == 13)
+        if (other.gameObject.layer == 13 && other.gameObject.tag == "Hitbox")
         {
-            other.transform.GetComponent<AIWolf>().wolfTakeDamage();
+            other.transform.parent.GetComponent<AIWolf>().wolfTakeDamage();
         
         }
-        if (other.gameObject.layer == 14)
+        if (other.gameObject.layer == 14 && other.gameObject.tag == "Hitbox")
         {
-            other.transform.GetComponent<AIEnemy>().enemyTakeDamage();
+            other.transform.parent.GetComponent<AIEnemy>().enemyTakeDamage();
             
 
         }
