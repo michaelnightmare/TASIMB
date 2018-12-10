@@ -1390,7 +1390,7 @@ MonoBehaviour:
   steakRef: {fileID: 1916922070368244, guid: 64b0e0dd819a11f40942be69abcc9f30, type: 2}
   hitbox: {fileID: 65511193123279948}
   playerInteraction: {fileID: 0}
-  wolfHealth: 2
+  wolfHealth: 1
   wolfAlive: 1
   AggroDist: 10
   StoppingDist: 2

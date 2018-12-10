@@ -5,7 +5,7 @@ using UnityEngine;
 public class DialogScr : MonoBehaviour
 {
     public List<string> dialog = new List<string>();
-    public List<string> dialog2 = new List<string>();
+ 
     public GameObject OverHeadUIPrefab;
     GameObject spawnedOverheadRef;
   
