@@ -15,6 +15,7 @@ public class ShootingController : MonoBehaviour
     public float nextShot = 0.0f;
     public Transform shootT;
 
+    public bool disabledShooting = false;
 
 
     // Use this for initialization
@@ -23,10 +24,26 @@ public class ShootingController : MonoBehaviour
         gun = GetComponentInChildren<GunScript>();
        
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+
+    [ContextMenu("Enable Movement")]
+    void enablePlayerMovement()
     {
+        disabledShooting = false;
+    }
+
+    [ContextMenu("Disable Movement")]
+    void disablePlayerMovement()
+    {
+        disabledShooting = true;
+    }
+
+
+    // Update is called once per frame
+    void Update ()
+    {
+        if (disabledShooting) return;
+
         if (Input.GetKey(KeyCode.Mouse1))
         {
             aiming = true;

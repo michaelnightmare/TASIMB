@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SteakScr : MonoBehaviour
+public class LifePotionScr : MonoBehaviour
 {
 
     public PlayerScript playerInteraction;
@@ -28,7 +28,7 @@ public class SteakScr : MonoBehaviour
         if (other.gameObject.layer == 9)
         {
             playerInteraction = other.GetComponent<PlayerScript>();
-            consumeSteak();
+            consumePotion();
             Debug.Log("health++");
             Destroy(gameObject);
 
@@ -36,9 +36,10 @@ public class SteakScr : MonoBehaviour
     }
 
 
-    void consumeSteak()
+    void consumePotion()
     {
-        playerInteraction.playerGetHealth(1);
+        playerInteraction.playerGetHealth(3);
+     
     }       
     
 }

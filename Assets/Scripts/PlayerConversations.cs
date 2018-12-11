@@ -11,7 +11,7 @@ public class PlayerConversations : MonoBehaviour
 
     public Text displayedText;
 
-    public DialogScr currentSoundClip;
+    public AudioClip currentSoundClip;
     public AudioSource NPCSounds;
 
   
@@ -23,7 +23,19 @@ public class PlayerConversations : MonoBehaviour
         NPCSounds = GetComponent<AudioSource>();
 
     }
-	
+
+    public void InitiateDialog(DialogScr D)
+    {
+        currentDialog = D;
+        currentSoundClip = currentDialog.howdyClip;
+        dialogLine = 0;
+        dialogBoxDisplay.SetActive(true);
+        displayedText.text = currentDialog.dialog[dialogLine];
+        NPCSounds.clip = currentSoundClip;
+        NPCSounds.Play();
+        dialogLine++;
+    }
+
 	// Update is called once per frame
 	void Update ()
     {
@@ -43,7 +55,7 @@ public class PlayerConversations : MonoBehaviour
                     
                     if(dialogLine <= 0)
                     {
-                        NPCSounds.clip = currentSoundClip.howdyClip;
+                        NPCSounds.clip = currentSoundClip;
                         NPCSounds.Play();
                         dialogLine++;
                     }
@@ -67,6 +79,10 @@ public class PlayerConversations : MonoBehaviour
     {
         dialogBoxDisplay.SetActive(false);
         dialogLine = 0;
+        if (currentDialog.disableDialogOnceComplete)
+        {
+            currentDialog = null;
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -77,7 +93,7 @@ public class PlayerConversations : MonoBehaviour
             if (other.GetComponent<DialogScr>())
             {
                 currentDialog = other.GetComponent<DialogScr>();
-                currentSoundClip = other.GetComponent<DialogScr>();
+                currentSoundClip = currentDialog.howdyClip;
               
                 currentDialog.showOverhead();
 

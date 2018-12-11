@@ -28,16 +28,13 @@ public class EventDialogScr : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 17)
+        if (other.gameObject.layer == 9)
         {
 
             if (other.GetComponent<DialogScr>())
             {
                 currentDialog = other.GetComponent<DialogScr>();
-              
-
-                currentDialog.showOverhead();
-
+                Debug.Log("Triggered");
             }
 
         }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SimpleCameraTarget : MonoBehaviour
 {
+    Transform defaultTarget;
     public Transform target;
     public float followSpeed = 2f;
     Vector3 offset;
@@ -11,6 +12,18 @@ public class SimpleCameraTarget : MonoBehaviour
     void Start()
     {
         offset =  transform.position - target.position;
+        defaultTarget = target;
+    }
+
+    public void SetFollowTarget(Transform t)
+    {
+        target = t;
+    }
+
+
+    public void Reset()
+    {
+        target = defaultTarget;
     }
 
 	// Update is called once per frame

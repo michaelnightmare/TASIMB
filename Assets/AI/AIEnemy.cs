@@ -14,6 +14,7 @@ public class AIEnemy : MonoBehaviour
     public Collider hitbox;
     public Collider mCollider;
     public Rigidbody mRB;
+    public bool disableAI;
 
 
 
@@ -33,6 +34,7 @@ public class AIEnemy : MonoBehaviour
     public float reloadTime = 4f;
     public float timeToShoot = 1f;
     public int clipSize = 6;
+    public float speedScaler = 0.5f;
 
     [Header("Audio Settings")]
     public AudioSource PlayerSounds;
@@ -43,9 +45,12 @@ public class AIEnemy : MonoBehaviour
     void Start ()
     {
         nma = GetComponent<NavMeshAgent>();
+        if(target== null)
+        {
+            target = GameObject.Find("JamesPlayer").transform;
+        }
         lastTargetPos = target.position;
         anim = GetComponent<Animator>();
-        nma.stoppingDistance = StoppingDist;
         clearBodies = GetComponent<ObjectDestroyer>();
         enemyAlive = true;
         mRB = GetComponent<Rigidbody>();
@@ -80,17 +85,26 @@ public class AIEnemy : MonoBehaviour
         }
 
 
-
-
-
-
     }
+
+    public void enemyMoveToPoint(Vector3 eventTargetLocation)
+    {
+        NavMeshHit hit;
+
+        if (NavMesh.SamplePosition(eventTargetLocation, out hit, Mathf.Infinity, NavMesh.AllAreas))
+        {
+            nma.SetDestination(hit.position);
+        }
+        
+    }
+
 
 
     void UpdateAnims()
     {
         Vector3 s = nma.transform.InverseTransformDirection(nma.velocity).normalized;
         float speed = nma.velocity.magnitude / nma.speed;
+        speed *= speedScaler;
         float turn = s.x;
 
         anim.SetFloat("Forward", speed);
@@ -114,7 +128,7 @@ public class AIEnemy : MonoBehaviour
 
 
 
-        if (distFromTarget < StoppingDist)
+        if (distFromTarget <= StoppingDist)
         {
             return true;
         }
@@ -142,13 +156,22 @@ public class AIEnemy : MonoBehaviour
 
     void ChasingPlayer()
     {
+        Debug.Log("Chasing Player");
         if (lastTargetPos != target.position)
         {
             NavMeshHit hit;
 
             if (NavMesh.SamplePosition(target.position, out hit, Mathf.Infinity, NavMesh.AllAreas))
             {
-                nma.SetDestination(hit.position);
+                float distFromPlayer = Vector3.Distance(target.position, transform.position);
+                if(distFromPlayer > StoppingDist)
+                {
+                    nma.SetDestination(hit.position);
+                }
+                else
+                {
+                    nma.SetDestination(transform.position);
+                }
                 
             }
         }
@@ -220,35 +243,45 @@ public class AIEnemy : MonoBehaviour
         }
     }
 
+   public void EnableAi()
+    {
+        disableAI = false;   
+    }
+   public void DisableAi()
+    {
+        disableAI = true;
+    }
+
 	// Update is called once per frame
 	void Update ()
     {
         if (!enemyAlive) return;
 
-        if (isReloading)
+        if (!disableAI)
         {
-            Reloading();
-            //Debug.Log("Reloading");
-        }
-        else if (IsAwareOfTarget())
-        {
-            anim.SetBool("Aim", false);
-            ChasingPlayer();
-            
-            //Debug.Log("isChasingPlayer");
-            if (InRangeOfTarget())
+            if (isReloading)
             {
-                
-                ShootingPlayer();
-                //Debug.Log("ShootingPlayer");
+                Reloading();
+                //Debug.Log("Reloading");
+            }
+            else if (IsAwareOfTarget())
+            {
+                anim.SetBool("Aim", false);
+                ChasingPlayer();
+
+                //Debug.Log("isChasingPlayer");
+                if (InRangeOfTarget())
+                {
+                    ShootingPlayer();
+                    //Debug.Log("ShootingPlayer");
+                }
             }
         }
-        
-        
+
+
 
 
         UpdateAnims();
         lastTargetPos = target.position;
-        if (nma.stoppingDistance != StoppingDist) nma.stoppingDistance = StoppingDist;
 	}
 }

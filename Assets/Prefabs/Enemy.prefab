@@ -1917,6 +1917,7 @@ MonoBehaviour:
   hitbox: {fileID: 65958093738963908}
   mCollider: {fileID: 0}
   mRB: {fileID: 0}
+  disableAI: 0
   enemyHealth: 2
   enemyAlive: 1
   AggroDist: 10
@@ -1926,6 +1927,7 @@ MonoBehaviour:
   reloadTime: 4
   timeToShoot: 1
   clipSize: 6
+  speedScaler: 0.5
   PlayerSounds: {fileID: 82385269087147822}
   shotClip: {fileID: 8300000, guid: dca63bc0945b401489b8b4e1ff340070, type: 3}
   reloadClip: {fileID: 8300000, guid: d67dcfa60ec75e54b9e0d08571464418, type: 3}

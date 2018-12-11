@@ -28,6 +28,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		Vector3 m_CapsuleCenter;
 		CapsuleCollider m_Capsule;
 		bool m_Crouching;
+   
 
 
 		void Start()
@@ -42,8 +43,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			m_OrigGroundCheckDistance = m_GroundCheckDistance;
 		}
 
-
-		public void Move(Vector3 move, bool crouch, bool jump)
+        public void Move(Vector3 move, bool crouch, bool jump)
 		{
 
 			// convert the world relative moveInput vector into a local-relative
@@ -152,6 +152,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			}
 		}
 
+        public void FreezeCharacter()
+        {
+            m_Animator.SetFloat("Forward", 0, 0, Time.deltaTime);
+            m_Animator.SetFloat("Turn", 0, 0, Time.deltaTime);
+        }
 
 		void HandleAirborneMovement()
 		{
@@ -222,4 +227,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			}
 		}
 	}
+
+ 
 }

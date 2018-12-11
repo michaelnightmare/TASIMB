@@ -11,7 +11,7 @@ public class DialogScr : MonoBehaviour
   
     AudioSource NPCSounds;
     public AudioClip howdyClip;
-
+    public bool disableDialogOnceComplete;
 
     void Start()
     {
