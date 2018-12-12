@@ -420,7 +420,7 @@ GameObject:
   m_Layer: 0
   m_Name: Target 3
   m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2515,7 +2515,7 @@ GameObject:
   m_Layer: 0
   m_Name: Target2
   m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -4392,7 +4392,7 @@ GameObject:
   m_Layer: 0
   m_Name: Target2
   m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -6057,7 +6057,7 @@ GameObject:
   m_Layer: 0
   m_Name: CutsceneTarget
   m_TagString: Untagged
-  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -8091,7 +8091,7 @@ GameObject:
   m_Layer: 0
   m_Name: Target1
   m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -21712,7 +21712,7 @@ GameObject:
   m_Layer: 0
   m_Name: CutsceneTarget
   m_TagString: Untagged
-  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -36126,7 +36126,7 @@ GameObject:
   m_Layer: 0
   m_Name: Target1
   m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -44290,7 +44290,7 @@ GameObject:
   m_Layer: 0
   m_Name: CutsceneTarget (1)
   m_TagString: Untagged
-  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -47009,7 +47009,7 @@ GameObject:
   m_Layer: 0
   m_Name: Target1 (2)
   m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -49130,7 +49130,7 @@ GameObject:
   m_Layer: 0
   m_Name: CutsceneTarget
   m_TagString: Untagged
-  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -51986,7 +51986,7 @@ GameObject:
   m_Layer: 0
   m_Name: Target1 (1)
   m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -55288,7 +55288,7 @@ GameObject:
   m_Layer: 0
   m_Name: Target2
   m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -58754,7 +58754,7 @@ GameObject:
   m_Layer: 0
   m_Name: Target1
   m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -60449,7 +60449,7 @@ GameObject:
   m_Layer: 0
   m_Name: CutsceneTarget
   m_TagString: Untagged
-  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -63532,17 +63532,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1001 &1512281776
@@ -63784,7 +63773,7 @@ Prefab:
         type: 2}
       propertyPath: howdyClip
       value: 
-      objectReference: {fileID: 8300000, guid: 3e399479f602f17498ef41ce812ab407, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 4492498457894122, guid: 693495b3916b8324f906abf000960b5b, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: -62.099003
@@ -64984,7 +64973,7 @@ GameObject:
   m_Layer: 0
   m_Name: CutsceneTarget
   m_TagString: Untagged
-  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -65757,7 +65746,7 @@ GameObject:
   m_Layer: 0
   m_Name: Target1
   m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -66919,6 +66908,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 2070018495}
     m_Modifications:
+    - target: {fileID: 114647565232582736, guid: 693495b3916b8324f906abf000960b5b,
+        type: 2}
+      propertyPath: dialog.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4492498457894122, guid: 693495b3916b8324f906abf000960b5b, type: 2}
       propertyPath: m_LocalPosition.x
       value: 43.994114
@@ -68078,6 +68072,16 @@ Prefab:
     - target: {fileID: 4019295109232798, guid: 693495b3916b8324f906abf000960b5b, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0.0000000012696546
+      objectReference: {fileID: 0}
+    - target: {fileID: 114647565232582736, guid: 693495b3916b8324f906abf000960b5b,
+        type: 2}
+      propertyPath: dialog.Array.data[2]
+      value: The Williamson gang was heading that way
+      objectReference: {fileID: 0}
+    - target: {fileID: 114647565232582736, guid: 693495b3916b8324f906abf000960b5b,
+        type: 2}
+      propertyPath: dialog.Array.data[3]
+      value: They are never up to any good!
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 693495b3916b8324f906abf000960b5b, type: 2}
@@ -70401,7 +70405,7 @@ GameObject:
   m_Layer: 0
   m_Name: Target 3
   m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -73813,7 +73817,7 @@ GameObject:
   m_Layer: 0
   m_Name: Target 3
   m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -78400,31 +78404,31 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4832128345075442, guid: b616c6f034ae762429a46661ab562f6d, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.0029551038
+      value: -0.18965293
       objectReference: {fileID: 0}
     - target: {fileID: 4832128345075442, guid: b616c6f034ae762429a46661ab562f6d, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.92442065
+      value: -0.5033302
       objectReference: {fileID: 0}
     - target: {fileID: 4832128345075442, guid: b616c6f034ae762429a46661ab562f6d, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.3812949
+      value: -0.11528666
       objectReference: {fileID: 0}
     - target: {fileID: 4832128345075442, guid: b616c6f034ae762429a46661ab562f6d, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.0072058053
+      value: 0.8351045
       objectReference: {fileID: 0}
     - target: {fileID: 4832128345075442, guid: b616c6f034ae762429a46661ab562f6d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -278.71774
+      value: -135.62447
       objectReference: {fileID: 0}
     - target: {fileID: 4832128345075442, guid: b616c6f034ae762429a46661ab562f6d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -162.48865
+      value: -124.49815
       objectReference: {fileID: 0}
     - target: {fileID: 4832128345075442, guid: b616c6f034ae762429a46661ab562f6d, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -218.3645
+      value: -233.31638
       objectReference: {fileID: 0}
     - target: {fileID: 4561046402973048, guid: b616c6f034ae762429a46661ab562f6d, type: 2}
       propertyPath: m_LocalScale.x
@@ -84817,7 +84821,7 @@ Prefab:
     - target: {fileID: 114647565232582736, guid: 693495b3916b8324f906abf000960b5b,
         type: 2}
       propertyPath: dialog.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4492498457894122, guid: 693495b3916b8324f906abf000960b5b, type: 2}
       propertyPath: m_LocalPosition.x
@@ -84870,7 +84874,7 @@ Prefab:
     - target: {fileID: 114647565232582736, guid: 693495b3916b8324f906abf000960b5b,
         type: 2}
       propertyPath: dialog.Array.data[1]
-      value: they were heading to the canyons.
+      value: do you need anything before heading to the canyons?
       objectReference: {fileID: 0}
     - target: {fileID: 114647565232582736, guid: 693495b3916b8324f906abf000960b5b,
         type: 2}
@@ -84880,7 +84884,7 @@ Prefab:
     - target: {fileID: 114647565232582736, guid: 693495b3916b8324f906abf000960b5b,
         type: 2}
       propertyPath: dialog.Array.data[0]
-      value: Oh James, do you need anything before heading to the canyons?
+      value: 'Oh James, '
       objectReference: {fileID: 0}
     - target: {fileID: 114647565232582736, guid: 693495b3916b8324f906abf000960b5b,
         type: 2}
@@ -86347,7 +86351,7 @@ GameObject:
   m_Layer: 0
   m_Name: Target1 (1)
   m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -92932,7 +92936,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2080900645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93004,7 +93008,7 @@ GameObject:
   m_Layer: 0
   m_Name: Target1
   m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
