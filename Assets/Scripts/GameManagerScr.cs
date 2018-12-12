@@ -33,6 +33,7 @@ public class GameManagerScr : MonoBehaviour {
         {
             Destroy(this);
         }
+        LowPolyAnimalPack.WanderScript.AllAnimals.Clear();
     }
 
 
