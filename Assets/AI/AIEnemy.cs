@@ -44,6 +44,11 @@ public class AIEnemy : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        Initialize();
+    }
+
+    void Initialize()
+    {
         nma = GetComponent<NavMeshAgent>();
         if(target== null)
         {
@@ -57,6 +62,10 @@ public class AIEnemy : MonoBehaviour
         mCollider = GetComponent<Collider>();
     }
 
+    void OnEnable()
+    {
+        Initialize();
+    }
     void enemyDeath()
     {
 

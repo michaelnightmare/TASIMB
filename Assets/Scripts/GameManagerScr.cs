@@ -4,18 +4,22 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
+
 public class GameManagerScr : MonoBehaviour {
 
 
     //Player
     public GameObject PlayerRef;
-
+    public GameObject WinScene;
+    public GameObject LoseScene;
     //Enemies
     public GameObject WolfRef;
     public GameObject EnemyCowboyRef;
     public int updatedDeathCounter; 
     public Text displayedText;
     public static GameManagerScr _instance;
+   
+    public bool GameOverLose;
 
     bool test = false;
     
@@ -44,15 +48,26 @@ public class GameManagerScr : MonoBehaviour {
     {
         
 
-       
-       
         
     }
    public void enemyCounterIncrease()
     {
         updatedDeathCounter++;
         displayedText.text = updatedDeathCounter.ToString();
+
+        if(updatedDeathCounter >=45)
+        {
+            YouWon();
+        }
     }
 
+    public void YouWon()
+    {
+        WinScene.SetActive(true);
+    }
+    public void YouLose()
+    {
+        LoseScene.SetActive(true);
+    }
   
 }

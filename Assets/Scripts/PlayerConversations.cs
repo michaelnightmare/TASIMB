@@ -45,7 +45,9 @@ public class PlayerConversations : MonoBehaviour
             {
                 if (dialogLine > currentDialog.dialog.Count-1)
                 {
+                    currentDialog.dialogFinished.Invoke();
                     closeDialog();
+
                  
                 }
                 else 

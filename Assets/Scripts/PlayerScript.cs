@@ -93,6 +93,7 @@ public class PlayerScript : MonoBehaviour
         playerAlive = false;
         anims.SetBool("PlayerAlive", false);
 
+        GameManagerScr._instance.YouLose();
    
         if (bodyTimer >= 10f && playerAlive == false)
         {

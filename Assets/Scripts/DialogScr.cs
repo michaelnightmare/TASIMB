@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DialogScr : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class DialogScr : MonoBehaviour
     AudioSource NPCSounds;
     public AudioClip howdyClip;
     public bool disableDialogOnceComplete;
+    public UnityEvent dialogFinished = new UnityEvent();
 
     void Start()
     {
