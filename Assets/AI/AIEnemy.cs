@@ -14,7 +14,7 @@ public class AIEnemy : MonoBehaviour
     public Collider hitbox;
     public Collider mCollider;
     public Rigidbody mRB;
-    public bool disableAI;
+    public bool disableAI = false;
 
 
 
