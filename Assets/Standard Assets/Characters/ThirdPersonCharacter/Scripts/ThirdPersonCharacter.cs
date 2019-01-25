@@ -131,10 +131,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			m_Animator.SetFloat("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
 			m_Animator.SetBool("Crouch", m_Crouching);
 			m_Animator.SetBool("OnGround", m_IsGrounded);
-            if (m_Rolling)
-            {
-                m_Animator.SetTrigger("Roll");
-            }
+            m_Animator.SetBool("Roll 0",m_Rolling);
+           
 			if (!m_IsGrounded)
 			{
 				m_Animator.SetFloat("Jump", m_Rigidbody.velocity.y);
@@ -173,6 +171,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		void HandleAirborneMovement()
 		{
+            
 			// apply extra gravity from multiplier:
 			Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
 			m_Rigidbody.AddForce(extraGravityForce);
@@ -194,15 +193,17 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			}
             if (roll && !crouch && m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Grounded"))
             {
-                // jump!
                 m_Rigidbody.velocity =Vector3.zero;
-                m_Animator.applyRootMotion = true;
+                m_Animator.applyRootMotion = false;
                 m_Rolling = true;
             }
+           
+           
         }
 
 		void ApplyExtraTurnRotation()
 		{
+            
 			// help the character turn faster (this is in addition to root rotation in the animation)
 			float turnSpeed = Mathf.Lerp(m_StationaryTurnSpeed, m_MovingTurnSpeed, m_ForwardAmount);
 			transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime, 0);
@@ -211,9 +212,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		public void OnAnimatorMove()
 		{
+            
 			// we implement this function to override the default root motion.
 			// this allows us to modify the positional speed before it's applied.
-			if (m_IsGrounded && Time.deltaTime > 0)
+			if (m_IsGrounded && Time.deltaTime > 0 && !m_Rolling)
             { 
 				Vector3 v = (m_Animator.deltaPosition * m_MoveSpeedMultiplier) / Time.deltaTime;
 
