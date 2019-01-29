@@ -11,7 +11,7 @@ public class PistolBullet : MonoBehaviour {
     public LayerMask bloodHitEffectMask;
     public GameObject bloodHitEffectPrefab;
 
-    public int Damage=1;
+    public float Damage=1;
 
 	void Start ()
     {
@@ -35,11 +35,14 @@ public class PistolBullet : MonoBehaviour {
         }
         if (col.collider.gameObject.layer == 13)
         {
+            Debug.Log(col.gameObject);
+            col.gameObject.GetComponentInParent<AIWolf>().wolfTakeDamage(Damage);
             DoBloodHitFX(col.contacts[0]);
 
         }
         if (col.collider.gameObject.layer == 14)
         {
+            col.gameObject.GetComponentInParent<AIEnemy>().enemyTakeDamage(Damage);
             DoBloodHitFX(col.contacts[0]);
 
         }
@@ -49,10 +52,11 @@ public class PistolBullet : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
+        /*
    
         if (other.gameObject.layer == 13 && other.gameObject.tag == "Hitbox")
         {
-            other.transform.parent.GetComponent<AIWolf>().wolfTakeDamage();
+            other.transform.parent.GetComponent<AIWolf>().wolfTakeDamage(Damage);
         
         }
         if (other.gameObject.layer == 14 && other.gameObject.tag == "Hitbox")
@@ -61,6 +65,7 @@ public class PistolBullet : MonoBehaviour {
             
 
         }
+        */
     }
 
     void DoGenericHitFX(ContactPoint p)

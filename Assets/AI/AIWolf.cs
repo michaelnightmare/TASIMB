@@ -49,7 +49,7 @@ public class AIWolf : MonoBehaviour
         clearBodies = GetComponent<ObjectDestroyer>();
         wolfAlive = true;
         mRB = GetComponent<Rigidbody>();
-        mCollider = GetComponent<Collider>();
+        mCollider = GetComponentInChildren<Collider>();
        
     }
 
@@ -72,10 +72,10 @@ public class AIWolf : MonoBehaviour
 
     }
 
-    public void wolfTakeDamage()
+    public void wolfTakeDamage(float Damage)
     {
         anim.SetBool("walk", false);
-        wolfHealth--;
+        wolfHealth-= Damage;
         if (wolfHealth == 0)
         {
             Debug.Log("dead");

@@ -8,12 +8,11 @@ public class ShootingScript : MonoBehaviour {
     public Transform bulletSpawn;
     public GameObject enemyBullet;
 
-
-     public void Shoot()
+     public virtual void Shoot()
     {
         Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
     }
-    public void enemyShoot()
+    public virtual void enemyShoot()
     {
         Instantiate(enemyBullet, bulletSpawn.position, bulletSpawn.rotation);
     }

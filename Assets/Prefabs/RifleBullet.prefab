@@ -61,7 +61,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: f4a11c1cdbd19744cbec122ebc81ca5b, type: 2}
+  - {fileID: 2100000, guid: d8f40a32a3bd21c47b3f96908274e4d9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b53fe4cf1edf7549a974550b6acdd2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletSpeed: 20
+  BulletSpeed: 30
   genericHitEffectMask:
     serializedVersion: 2
     m_Bits: 2048
@@ -238,7 +238,7 @@ MonoBehaviour:
     m_Bits: 4096
   bloodHitEffectPrefab: {fileID: 1912997641494056, guid: 83aa5d38c609c2f438615d1a25d2ae06,
     type: 2}
-  Damage: 27
+  Damage: 5
 --- !u!114 &114950714190315530
 MonoBehaviour:
   m_ObjectHideFlags: 1

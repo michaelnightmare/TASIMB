@@ -6,25 +6,40 @@ using UnityEngine.UI;
 public class GunScript : MonoBehaviour
 {
 
-    int clipSize = 6;
-    int bulletCount = 6;
+    public int clipSize = 6;
+    public int bulletCount = 6;
     public bool canShoot = true;
     ShootingScript shootingScript;
     AudioSource PlayerSounds;
     public AudioClip shotClip;
     public AudioClip reloadClip;
     public int bulletIcons;
+    public Transform uiRoot;
     public Image[] bullets;
     public Sprite bullet;
-
+    public bool isUnlocked= false;
+    public bool canReload = false;
+    bool initialized = false;
 
     void Start()
     {
-        shootingScript = GetComponent<ShootingScript>();
-        PlayerSounds = GetComponent<AudioSource>();
+        if (!initialized) Initialize();
         Reload();
      
     }
+
+    void Initialize()
+    {
+        shootingScript = GetComponent<ShootingScript>();
+        PlayerSounds = GetComponent<AudioSource>();
+        initialized = true;
+    }
+
+    public void ToggleUI(bool enabled)
+    {
+        uiRoot.gameObject.SetActive(enabled);
+    }
+
     void Update()
     {
         if (bulletCount >= bulletIcons)
@@ -36,7 +51,7 @@ public class GunScript : MonoBehaviour
         {
             if (i < bulletCount)
             {
-                bullets[i].sprite = bullet;
+                bullets[i].enabled = true;
             }
             
             else
@@ -80,7 +95,7 @@ public class GunScript : MonoBehaviour
         {
             if (i > bulletCount)
             {
-                bullets[i].sprite = bullet;
+                bullets[i].enabled = true;
             }
 
             else
@@ -91,6 +106,12 @@ public class GunScript : MonoBehaviour
 
     }
 
+    public void Unlock()
+    {
+        if (!initialized) Initialize();
+        Reload();
+        isUnlocked = true;
 
+    }
 
 }

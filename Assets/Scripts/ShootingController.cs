@@ -8,13 +8,68 @@ public class ShootingController : MonoBehaviour
 
     bool aiming = false;
     Animator anims;
-    public GunScript gun;
+    public List<GunScript>  guns=new List<GunScript>();
     public bool aimWithMouse = false;
     public float aimSpeed = 10f;
     public float aimRotationOffset = 20f;
     public float fireRate = .5f;
     public float nextShot = 0.0f;
     public Transform shootT;
+    public int selectedWeaponIndex= 0;
+    
+    void switchToWeaponIndex(int index)
+    {
+        if(index >= 0 && index < guns.Count)
+        {
+            if (guns[index].isUnlocked)
+            {
+                guns[selectedWeaponIndex].gameObject.SetActive(false);
+                guns[selectedWeaponIndex].ToggleUI(false);
+                selectedWeaponIndex = index;
+                guns[selectedWeaponIndex].gameObject.SetActive(true);
+                guns[selectedWeaponIndex].ToggleUI(true);
+            }
+        }
+    }
+
+    void switchToNextGun()
+    {
+        int index = selectedWeaponIndex;
+
+        bool foundGun = false;
+        while (!foundGun)
+        {
+            index++;
+            if (index > guns.Count - 1)
+            {
+                index = 0;
+            }
+
+            foundGun = guns[index].isUnlocked;
+        }
+
+        switchToWeaponIndex(index);
+    }
+
+
+    void switchToPreviousGun()
+    {
+        int index = selectedWeaponIndex;
+
+        bool foundGun = false;
+        while (!foundGun)
+        {
+            index--;
+            if (index < 0)
+            {
+                index = guns.Count -1;
+            }
+
+            foundGun = guns[index].isUnlocked;
+        }
+
+        switchToWeaponIndex(index);
+    }
 
     public bool disabledShooting = false;
     //public Image reticle;
@@ -23,7 +78,8 @@ public class ShootingController : MonoBehaviour
     // Use this for initialization
     void Start () {
         anims = GetComponent<Animator>();
-        gun = GetComponentInChildren<GunScript>();
+        guns[0].isUnlocked = true;
+        guns[0].canReload = true;
         //reticleRec = reticle.GetComponent<RectTransform>();
         //parentRec = reticle.transform.parent.GetComponent<RectTransform>();
         //Cursor.lockState = CursorLockMode.None;
@@ -44,6 +100,8 @@ public class ShootingController : MonoBehaviour
     }
 
 
+
+
     // Update is called once per frame
     void Update ()
     {
@@ -53,17 +111,17 @@ public class ShootingController : MonoBehaviour
         {
             aiming = true;
             anims.SetBool("Aim", true);
-            gun.gameObject.SetActive(true);
+            guns[selectedWeaponIndex].gameObject.SetActive(true);
             
 
 
             if (Input.GetKeyDown(KeyCode.Mouse0)&& Time.time > nextShot)
             {
 
-                if (gun.canShoot)
+                if (guns[selectedWeaponIndex].canShoot)
                 {
                     anims.SetTrigger("Shoot");
-                    gun.Shoot();
+                    guns[selectedWeaponIndex].Shoot();
                     nextShot = Time.time + fireRate;
                 }
       
@@ -130,16 +188,38 @@ public class ShootingController : MonoBehaviour
         {
             aiming = false;
             anims.SetBool("Aim", false);
-            gun.gameObject.SetActive(false);
+            guns[selectedWeaponIndex].gameObject.SetActive(false);
             //reticle.enabled = false;
 
         }
 
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R)&& guns[selectedWeaponIndex].canReload)
         {
-            gun.Reload();
+            guns[selectedWeaponIndex].Reload();
             
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            switchToWeaponIndex(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            switchToWeaponIndex(1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            switchToWeaponIndex(2);
+        }
+
+        if(Input.GetAxis("Mouse ScrollWheel") > 0f)
+        {
+            switchToNextGun();
+        }
+        else if(Input.GetAxis("Mouse ScrollWheel") < 0f)
+        {
+            switchToPreviousGun();
         }
 
     }

@@ -79,10 +79,11 @@ public class AIEnemy : MonoBehaviour
 
     }
 
-    public void enemyTakeDamage(int Damage)
+    public void enemyTakeDamage(float Damage)
     {
 
         enemyHealth-= Damage;
+        Debug.Log("enemy took" + Damage + " damage");
         if (enemyHealth <= 0)
         {
             Debug.Log("Dead");
