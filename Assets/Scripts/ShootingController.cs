@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShootingController : MonoBehaviour
 {
@@ -16,13 +17,17 @@ public class ShootingController : MonoBehaviour
     public Transform shootT;
 
     public bool disabledShooting = false;
-
-
+    //public Image reticle;
+    //RectTransform reticleRec;
+    //RectTransform parentRec;
     // Use this for initialization
     void Start () {
         anims = GetComponent<Animator>();
         gun = GetComponentInChildren<GunScript>();
-       
+        //reticleRec = reticle.GetComponent<RectTransform>();
+        //parentRec = reticle.transform.parent.GetComponent<RectTransform>();
+        //Cursor.lockState = CursorLockMode.None;
+        //Cursor.visible = false;
     }
 
 
@@ -68,6 +73,8 @@ public class ShootingController : MonoBehaviour
 
             if (aimWithMouse)
             {
+                //reticle.enabled = true;
+                /*
                 bool hitEnemy = false;
                 RaycastHit hit;
                 Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -76,27 +83,44 @@ public class ShootingController : MonoBehaviour
                     hitEnemy = true;
                 }
 
-                Vector3 aimDir = Vector3.zero;
+               
                 if (false)
                 {
                     aimDir = hit.collider.transform.position - transform.position;
                     aimDir.Scale(new Vector3(1f, 0, 1f));
                 }
-                else
-                {
-                    Vector3 charScreenPos = Camera.main.WorldToScreenPoint(transform.position);
-                    Vector2 aimDir2D = charScreenPos - Input.mousePosition;
-                    aimDir = new Vector3(aimDir2D.x, 0, aimDir2D.y);
-                    aimDir = Vector3.Scale(aimDir, new Vector3(1, 0, 1));
-                    aimDir.Normalize();
-                }
+                */
 
 
+
+                /*
+                Vector3 aimDir = Vector3.zero;
+                Vector3 charScreenPos = Camera.main.WorldToScreenPoint(transform.position);
+                Vector2 aimDir2D = Input.mousePosition - charScreenPos;
+                aimDir = new Vector3(aimDir2D.x, 0, aimDir2D.y);
+                aimDir.Normalize();
+                */
+
+                Vector3 gunDir = shootT.transform.forward;
+                Vector2 gunDir2d = new Vector2(gunDir.x, gunDir.z);
+
+                Vector2 mousePos = Input.mousePosition;
+                Vector2 gunPos = Camera.main.WorldToScreenPoint(shootT.transform.position);
+                Vector2 aimDir2d = gunPos - mousePos;
+
+                float diff = Vector2.SignedAngle(aimDir2d, gunDir2d);
+                Quaternion targetRot = transform.rotation * Quaternion.Euler(0f, diff, 0);
+
+                //Vector3 reticlePos3d = shootT.transform.position + shootT.transform.forward * aimDir2d.magnitude /20f;
+               // Vector2 pos = Camera.main.WorldToScreenPoint(reticlePos3d);
+                //reticleRec.position = pos;
+
+                /*
                 Debug.DrawLine(transform.position, transform.position + aimDir * 2f);
 
-                Quaternion diff = Quaternion.Inverse(Quaternion.LookRotation(shootT.forward)) * Quaternion.LookRotation(aimDir);
+                Quaternion diff = Quaternion.Inverse(Quaternion.LookRotation(shootT.forward)) * Quaternion.LookRotation(-aimDir);
                 Quaternion targetRot = transform.rotation * diff;
-
+                */
                 //Quaternion targetRot = Quaternion.LookRotation(aimDir) * Quaternion.Euler(0,aimRotationOffset, 0);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * aimSpeed);
 
@@ -107,6 +131,7 @@ public class ShootingController : MonoBehaviour
             aiming = false;
             anims.SetBool("Aim", false);
             gun.gameObject.SetActive(false);
+            //reticle.enabled = false;
 
         }
 

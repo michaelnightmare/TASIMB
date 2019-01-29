@@ -5,6 +5,8 @@ using UnityEngine;
 public class RifleScr : MonoBehaviour
 {
     public float speed = 10f;
+    public WeaponSwitching weapons;
+    public bool rifleAvailable = false;
 
     // Use this for initialization
     void Start ()
@@ -22,9 +24,10 @@ public class RifleScr : MonoBehaviour
     {
         if (other.gameObject.layer == 9)
         {
+           
             Debug.Log("Picked Up Rifle");
             Destroy(gameObject);
-
+            rifleAvailable = true; 
         }
     }
 

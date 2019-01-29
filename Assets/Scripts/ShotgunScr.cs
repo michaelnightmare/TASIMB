@@ -5,6 +5,9 @@ using UnityEngine;
 public class ShotgunScr : MonoBehaviour
 {
     public float speed = 10f;
+    public WeaponSwitching weapons;
+    public bool shotgunAvailable = false;
+
     // Use this for initialization
     void Start ()
     {
@@ -22,9 +25,11 @@ public class ShotgunScr : MonoBehaviour
     {
         if (other.gameObject.layer == 9)
         {
+            
             Debug.Log("Picked Up Shotgun");
             Destroy(gameObject);
-
+            shotgunAvailable = true; 
+         
         }
     }
 }

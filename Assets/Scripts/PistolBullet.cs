@@ -10,8 +10,8 @@ public class PistolBullet : MonoBehaviour {
     public GameObject genericHitEffectPrefab;
     public LayerMask bloodHitEffectMask;
     public GameObject bloodHitEffectPrefab;
-    
 
+    public int Damage=1;
 
 	void Start ()
     {
@@ -57,7 +57,7 @@ public class PistolBullet : MonoBehaviour {
         }
         if (other.gameObject.layer == 14 && other.gameObject.tag == "Hitbox")
         {
-            other.transform.parent.GetComponent<AIEnemy>().enemyTakeDamage();
+            other.transform.parent.GetComponent<AIEnemy>().enemyTakeDamage(Damage);
             
 
         }

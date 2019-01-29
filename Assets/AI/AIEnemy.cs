@@ -79,11 +79,11 @@ public class AIEnemy : MonoBehaviour
 
     }
 
-    public void enemyTakeDamage()
+    public void enemyTakeDamage(int Damage)
     {
 
-        enemyHealth--;
-        if (enemyHealth == 0)
+        enemyHealth-= Damage;
+        if (enemyHealth <= 0)
         {
             Debug.Log("Dead");
             enemyDeath();
