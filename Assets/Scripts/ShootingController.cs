@@ -15,19 +15,36 @@ public class ShootingController : MonoBehaviour
     public float fireRate = .5f;
     public float nextShot = 0.0f;
     public Transform shootT;
+    public Transform singleHandShootT;
+    public Transform rifleShootT;
     public int selectedWeaponIndex= 0;
-    
+
+    public RuntimeAnimatorController defaultController;
+    public AnimatorOverrideController rifleOverrideAnims;
+
+
+
     void switchToWeaponIndex(int index)
     {
         if(index >= 0 && index < guns.Count)
         {
             if (guns[index].isUnlocked)
             {
-                guns[selectedWeaponIndex].gameObject.SetActive(false);
-                guns[selectedWeaponIndex].ToggleUI(false);
+                guns[selectedWeaponIndex].EquipGun(false);
                 selectedWeaponIndex = index;
-                guns[selectedWeaponIndex].gameObject.SetActive(true);
-                guns[selectedWeaponIndex].ToggleUI(true);
+                guns[selectedWeaponIndex].EquipGun(true);
+
+                if(selectedWeaponIndex == 2)
+                {
+                    anims.runtimeAnimatorController = rifleOverrideAnims;
+                    shootT = rifleShootT;
+                }
+                else
+                {
+                    anims.runtimeAnimatorController = defaultController;
+                    shootT = singleHandShootT;
+                }
+
             }
         }
     }
@@ -84,6 +101,8 @@ public class ShootingController : MonoBehaviour
         //parentRec = reticle.transform.parent.GetComponent<RectTransform>();
         //Cursor.lockState = CursorLockMode.None;
         //Cursor.visible = false;
+        defaultController = anims.runtimeAnimatorController;
+        singleHandShootT = shootT;
     }
 
 
@@ -122,6 +141,10 @@ public class ShootingController : MonoBehaviour
                 {
                     anims.SetTrigger("Shoot");
                     guns[selectedWeaponIndex].Shoot();
+                    if (!guns[selectedWeaponIndex].isUnlocked)
+                    {
+                        switchToPreviousGun();
+                    }
                     nextShot = Time.time + fireRate;
                 }
       

@@ -21,6 +21,9 @@ public class GunScript : MonoBehaviour
     public bool canReload = false;
     bool initialized = false;
 
+    public GameObject GunIcon;
+    public GameObject Highlight;
+
     void Start()
     {
         if (!initialized) Initialize();
@@ -80,10 +83,28 @@ public class GunScript : MonoBehaviour
             if (bulletCount <= 0)
             {
                 canShoot = false;
+                if (!canReload)
+                {
+                    Lock();
+                }
             }
         }
     }
-
+    public void EquipGun(bool equipped)
+    {
+        if (equipped)
+        {
+            gameObject.SetActive(true);
+            ToggleUI(true);
+            Highlight.SetActive(true);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+            ToggleUI(false);
+            Highlight.SetActive(false);
+        }
+    }
     public void Reload()
     {
         bulletCount = clipSize;
@@ -106,12 +127,19 @@ public class GunScript : MonoBehaviour
 
     }
 
+    public void Lock()
+    {
+        isUnlocked = false;
+        GunIcon.SetActive(false);
+    }
+
     public void Unlock()
     {
         if (!initialized) Initialize();
         Reload();
         isUnlocked = true;
 
+        GunIcon.SetActive(true);
     }
 
 }
