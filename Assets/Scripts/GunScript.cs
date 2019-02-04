@@ -20,9 +20,11 @@ public class GunScript : MonoBehaviour
     public bool isUnlocked= false;
     public bool canReload = false;
     bool initialized = false;
+    
 
     public GameObject GunIcon;
     public GameObject Highlight;
+    public GunDisplayScr gunDisplay;
 
     void Start()
     {
@@ -97,12 +99,15 @@ public class GunScript : MonoBehaviour
             gameObject.SetActive(true);
             ToggleUI(true);
             Highlight.SetActive(true);
+            
+            
         }
         else
         {
             gameObject.SetActive(false);
             ToggleUI(false);
             Highlight.SetActive(false);
+           
         }
     }
     public void Reload()
@@ -140,6 +145,7 @@ public class GunScript : MonoBehaviour
         isUnlocked = true;
 
         GunIcon.SetActive(true);
+        gunDisplay.displayOn();
     }
 
 }

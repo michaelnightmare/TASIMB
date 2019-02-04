@@ -21,6 +21,7 @@ public class ShootingController : MonoBehaviour
 
     public RuntimeAnimatorController defaultController;
     public AnimatorOverrideController rifleOverrideAnims;
+    public GunDisplayScr gunDisplay;
 
 
 
@@ -226,23 +227,29 @@ public class ShootingController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             switchToWeaponIndex(0);
+            gunDisplay.displayOn();
+           
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             switchToWeaponIndex(1);
+            gunDisplay.displayOn();
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             switchToWeaponIndex(2);
+            gunDisplay.displayOn();
         }
 
         if(Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
             switchToNextGun();
+            gunDisplay.displayOn();
         }
         else if(Input.GetAxis("Mouse ScrollWheel") < 0f)
         {
             switchToPreviousGun();
+            gunDisplay.displayOn();
         }
 
     }

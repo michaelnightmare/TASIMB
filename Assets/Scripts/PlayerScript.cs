@@ -17,7 +17,6 @@ public class PlayerScript : MonoBehaviour
     public float nextDelay = 0.0f;
     public bool rifleAvailable = false;
     public bool shotgunAvailable = false;
-    public AnimatorOverrideController rifleOverrideAnims;
 
     void Start()
     {

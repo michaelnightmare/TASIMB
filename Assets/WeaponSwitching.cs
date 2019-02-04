@@ -5,9 +5,11 @@ public class WeaponSwitching : MonoBehaviour
     public RifleScr rifle;
     public ShotgunScr shotgun;
     public int selectedWeapon = 0;
+    public CanvasGroup gunDisplay;
+  
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         SelectWeapon();
 	}
@@ -45,10 +47,14 @@ public class WeaponSwitching : MonoBehaviour
             if (i == selectedWeapon)
             {
                 weapon.gameObject.SetActive(true);
+                gunDisplay.GetComponent<CanvasGroup>().alpha = 1;
+
+             
             }
             else
             {
                 weapon.gameObject.SetActive(false);
+           
             }
             i++;
         }
