@@ -18,6 +18,7 @@ public class ShootingController : MonoBehaviour
     public Transform singleHandShootT;
     public Transform rifleShootT;
     public int selectedWeaponIndex= 0;
+    public RayCastScr raycastgun;
 
     public RuntimeAnimatorController defaultController;
     public AnimatorOverrideController rifleOverrideAnims;
@@ -90,18 +91,12 @@ public class ShootingController : MonoBehaviour
     }
 
     public bool disabledShooting = false;
-    //public Image reticle;
-    //RectTransform reticleRec;
-    //RectTransform parentRec;
-    // Use this for initialization
+
     void Start () {
         anims = GetComponent<Animator>();
         guns[0].isUnlocked = true;
         guns[0].canReload = true;
-        //reticleRec = reticle.GetComponent<RectTransform>();
-        //parentRec = reticle.transform.parent.GetComponent<RectTransform>();
-        //Cursor.lockState = CursorLockMode.None;
-        //Cursor.visible = false;
+     
         defaultController = anims.runtimeAnimatorController;
         singleHandShootT = shootT;
     }
@@ -132,7 +127,7 @@ public class ShootingController : MonoBehaviour
             aiming = true;
             anims.SetBool("Aim", true);
             guns[selectedWeaponIndex].gameObject.SetActive(true);
-            
+            raycastgun.rayCastShot();
 
 
             if (Input.GetKeyDown(KeyCode.Mouse0)&& Time.time > nextShot)
@@ -142,6 +137,7 @@ public class ShootingController : MonoBehaviour
                 {
                     anims.SetTrigger("Shoot");
                     guns[selectedWeaponIndex].Shoot();
+                
                     if (!guns[selectedWeaponIndex].isUnlocked)
                     {
                         switchToPreviousGun();
@@ -155,34 +151,37 @@ public class ShootingController : MonoBehaviour
 
             if (aimWithMouse)
             {
-                //reticle.enabled = true;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Plane p = new Plane(Vector3.up, shootT.position);
+                float dist;
+                p.Raycast(ray, out dist);
+                Vector3 intersectionPoint = ray.GetPoint(dist);
+                Vector3 aimDir = intersectionPoint - shootT.transform.position;
+                aimDir.y = 0;
+                float yDiff = Vector3.SignedAngle(transform.forward, shootT.forward, Vector3.up);
+                Quaternion targetRot = Quaternion.LookRotation(aimDir) * Quaternion.Euler(0f, -yDiff, 0f);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * aimSpeed);
+
+
+
+
                 /*
-                bool hitEnemy = false;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
-                Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if(Physics.Raycast(mouseRay, out hit, Mathf.Infinity, LayerMask.GetMask("enemyCowboy")))
+                float shotDistance = 20;
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
                 {
-                    hitEnemy = true;
+                    shotDistance = hit.distance;
                 }
 
-               
-                if (false)
-                {
-                    aimDir = hit.collider.transform.position - transform.position;
-                    aimDir.Scale(new Vector3(1f, 0, 1f));
-                }
+                Vector3 aimDir = hit.point - shootT.transform.position;
+                aimDir.y = 0;
+                float yDiff = Vector3.SignedAngle(transform.forward, shootT.forward, Vector3.up);
+                Quaternion targetRot = Quaternion.LookRotation(aimDir) * Quaternion.Euler(0f, -yDiff, 0f);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * aimSpeed);
                 */
-
-
 
                 /*
-                Vector3 aimDir = Vector3.zero;
-                Vector3 charScreenPos = Camera.main.WorldToScreenPoint(transform.position);
-                Vector2 aimDir2D = Input.mousePosition - charScreenPos;
-                aimDir = new Vector3(aimDir2D.x, 0, aimDir2D.y);
-                aimDir.Normalize();
-                */
-
                 Vector3 gunDir = shootT.transform.forward;
                 Vector2 gunDir2d = new Vector2(gunDir.x, gunDir.z);
 
@@ -193,18 +192,9 @@ public class ShootingController : MonoBehaviour
                 float diff = Vector2.SignedAngle(aimDir2d, gunDir2d);
                 Quaternion targetRot = transform.rotation * Quaternion.Euler(0f, diff, 0);
 
-                //Vector3 reticlePos3d = shootT.transform.position + shootT.transform.forward * aimDir2d.magnitude /20f;
-               // Vector2 pos = Camera.main.WorldToScreenPoint(reticlePos3d);
-                //reticleRec.position = pos;
-
-                /*
-                Debug.DrawLine(transform.position, transform.position + aimDir * 2f);
-
-                Quaternion diff = Quaternion.Inverse(Quaternion.LookRotation(shootT.forward)) * Quaternion.LookRotation(-aimDir);
-                Quaternion targetRot = transform.rotation * diff;
-                */
-                //Quaternion targetRot = Quaternion.LookRotation(aimDir) * Quaternion.Euler(0,aimRotationOffset, 0);
+             
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * aimSpeed);
+                */
 
             }
         }
@@ -213,7 +203,7 @@ public class ShootingController : MonoBehaviour
             aiming = false;
             anims.SetBool("Aim", false);
             guns[selectedWeaponIndex].gameObject.SetActive(false);
-            //reticle.enabled = false;
+        
 
         }
 
