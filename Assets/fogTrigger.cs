@@ -10,7 +10,12 @@ public class fogTrigger : MonoBehaviour
 
     bool unlocked = false;
     
+    public Material mat;
 
+    void Start()
+    {
+        mat = gameObject.GetComponent<MeshRenderer>().material;
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -21,11 +26,21 @@ public class fogTrigger : MonoBehaviour
             onEnterTriggerZone.Invoke();
            
             unlocked = true;
-            
+
+             while (mat.color.a > 0)
+        {
+            Color newColor = mat.color;
+            newColor.a -= Time.deltaTime;
+            mat.color = newColor;
+            gameObject.GetComponent<MeshRenderer>().material = mat;
+        }
+
         }
 
     }
-   
+    
+
+
 
 
 
