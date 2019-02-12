@@ -10,10 +10,12 @@ public class AIWolf : MonoBehaviour
     Vector3 lastTargetPos;
     Animator anim;
     public ObjectDestroyer clearBodies;
-    public GameObject steakRef;
+    public GameObject spawnedItemRef;
+    
     public Collider hitbox;
     Rigidbody mRB;
     Collider mCollider;
+    public bool disableAI = false;
 
     bool canAttack = true;
     bool isCoolingDown = true;
@@ -42,7 +44,20 @@ public class AIWolf : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        Initialize();
+       
+    }
+
+
+
+    void Initialize()
+    {
         nma = GetComponent<NavMeshAgent>();
+        
+        if(target== null)
+        {
+            target = GameObject.Find("JamesPlayer").transform;
+        }
         lastTargetPos = target.position;
         anim = GetComponent<Animator>();
         nma.stoppingDistance = StoppingDist;
@@ -50,8 +65,13 @@ public class AIWolf : MonoBehaviour
         wolfAlive = true;
         mRB = GetComponent<Rigidbody>();
         mCollider = GetComponentInChildren<Collider>();
-       
     }
+
+    void onEnable()
+    {
+        Initialize();
+    }
+
 
     void wolfDeath()
     {
@@ -201,33 +221,57 @@ public class AIWolf : MonoBehaviour
        
     }
 
-    public void spawnSteak()
+    public void spawnPickup()
     {
-        GameObject steakTemp = Instantiate(steakRef, transform.position, Quaternion.identity) as GameObject;
+        GameObject itemTemp = Instantiate(spawnedItemRef, transform.position, Quaternion.identity) as GameObject;
         //steakTemp.GetComponent<SteakScr>().target = target.GetComponent<PlayerScript>();
-        steakTemp.GetComponent<SteakScr>().playerInteraction = target.GetComponent<PlayerScript>();
+        itemTemp.GetComponent<SteakScr>().playerInteraction = target.GetComponent<PlayerScript>();
     }
 
 
+
+
+
+
+    public void EnableAi()
+    {
+        disableAI = false;
+    }
+    public void DisableAi()
+    {
+        disableAI = true;
+    }
+
+    public void enemyMoveToPoint(Vector3 eventTargetLocation)
+    {
+        NavMeshHit hit;
+
+        if (NavMesh.SamplePosition(eventTargetLocation, out hit, Mathf.Infinity, NavMesh.AllAreas))
+        {
+            nma.SetDestination(hit.position);
+        }
+
+    }
+
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
         if (!wolfAlive) return;
 
-        
+
         if (IsAwareOfTarget())
         {
             anim.SetBool("walk", true);
-          
+
             ChasingPlayer();
-            
-           
+
+
             if (InRangeOfTarget())
             {
-                
+
                 anim.SetBool("walk", false);
                 attackingPlayer();
-                
+
             }
         }
 
@@ -235,5 +279,5 @@ public class AIWolf : MonoBehaviour
         //UpdateAnims();
         lastTargetPos = target.position;
         if (nma.stoppingDistance != StoppingDist) nma.stoppingDistance = StoppingDist;
-	}
+    }
 }

@@ -6,7 +6,9 @@ using UnityEngine.Events;
 public class CutsceneScr : MonoBehaviour
 { 
     public AIEnemy[] enemyAis;
+    public AIWolf[] alienAis;
     public Transform[] enemyPosition;
+    public Transform[] alienPosition; 
     bool cutscenePlayed = false;
     private GameObject player;
 
@@ -47,12 +49,24 @@ public class CutsceneScr : MonoBehaviour
 
         camScript.SetFollowTarget(camCutsceneTarget);
 
-        for(int i=0; i < enemyAis.Length; i++)
+        for(int i=0; i < enemyAis.Length; i++ )
         {
             enemyAis[i].gameObject.SetActive(true);
             enemyAis[i].DisableAi();
             enemyAis[i].enemyMoveToPoint(enemyPosition[i].position);
+
         }
+
+        for (int i = 0; i < alienAis.Length; i++)
+        {
+  
+
+            alienAis[i].gameObject.SetActive(true);
+            alienAis[i].DisableAi();
+            alienAis[i].enemyMoveToPoint(alienPosition[i].position);
+        }
+
+
 
         playerConvo.InitiateDialog(cutsceneDialog);
 
@@ -64,7 +78,16 @@ public class CutsceneScr : MonoBehaviour
         for (int i = 0; i < enemyAis.Length; i++)
         {
             enemyAis[i].EnableAi();
+          
         }
+
+        for (int i = 0; i < alienAis.Length; i++)
+        {
+            alienAis[i].EnableAi();
+
+        }
+
+      
 
         camScript.Reset();
 

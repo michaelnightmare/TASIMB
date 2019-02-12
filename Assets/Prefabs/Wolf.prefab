@@ -1374,8 +1374,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   clearBodies: {fileID: 0}
-  steakRef: {fileID: 1916922070368244, guid: 64b0e0dd819a11f40942be69abcc9f30, type: 2}
+  spawnedItemRef: {fileID: 1916922070368244, guid: 64b0e0dd819a11f40942be69abcc9f30,
+    type: 2}
   hitbox: {fileID: 65511193123279948}
+  disableAI: 0
   playerInteraction: {fileID: 0}
   wolfHealth: 1
   wolfAlive: 1
