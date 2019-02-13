@@ -225,7 +225,9 @@ public class AIEnemy : MonoBehaviour
     bool FullyAiming()
     {
         float dot = Vector3.Dot(gun.transform.forward, Vector3.up);
+        Debug.Log(dot);
         return Mathf.Abs(dot) < 0.1f;
+        
     }
 
     void ShootingPlayer()
@@ -242,6 +244,8 @@ public class AIEnemy : MonoBehaviour
 
 
         //if within shooting angle threshold, try and shoot
+
+
         if (WithingShootAngleThreshold())
         {
             anim.SetBool("Aim", true);

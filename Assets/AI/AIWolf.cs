@@ -78,7 +78,7 @@ public class AIWolf : MonoBehaviour
 
         wolfAlive = false;
         anim.SetBool("dead", true);
-        Invoke("spawnSteak", 2);
+        Invoke("spawnDrop", 2);
         clearBodies.enabled = true;
 
         hitbox.enabled = false;
@@ -221,7 +221,7 @@ public class AIWolf : MonoBehaviour
        
     }
 
-    public void spawnPickup()
+    public void spawnDrop()
     {
         GameObject itemTemp = Instantiate(spawnedItemRef, transform.position, Quaternion.identity) as GameObject;
         //steakTemp.GetComponent<SteakScr>().target = target.GetComponent<PlayerScript>();

@@ -20,7 +20,9 @@ public class GunScript : MonoBehaviour
     public bool isUnlocked= false;
     public bool canReload = false;
     bool initialized = false;
-    
+    public GameObject muzzleFlash;
+    public float holdTime;
+
 
     public GameObject GunIcon;
     public GameObject Highlight;
@@ -30,7 +32,8 @@ public class GunScript : MonoBehaviour
     {
         if (!initialized) Initialize();
         Reload();
-     
+        holdTime = .10f;
+
     }
 
     void Initialize()
@@ -74,10 +77,13 @@ public class GunScript : MonoBehaviour
         if (bulletCount == 0)
         {
             //play click sound
+           
         }
         else
         {
+            muzzleFlare();
             shootingScript.Shoot();
+            
             PlayerSounds.clip = shotClip;
             PlayerSounds.Play();
             bulletCount--;
@@ -85,10 +91,13 @@ public class GunScript : MonoBehaviour
             if (bulletCount <= 0)
             {
                 canShoot = false;
+              
                 if (!canReload)
                 {
                     Lock();
+                   
                 }
+                
             }
         }
     }
@@ -136,6 +145,7 @@ public class GunScript : MonoBehaviour
     {
         isUnlocked = false;
         GunIcon.SetActive(false);
+       
     }
 
     public void Unlock()
@@ -146,6 +156,27 @@ public class GunScript : MonoBehaviour
 
         GunIcon.SetActive(true);
         gunDisplay.displayOn();
+    }
+    IEnumerator flashFlare()
+    {
+        //don't do anything for hold time seconds
+        yield return new WaitForSeconds(holdTime);
+
+
+
+        muzzleFlash.SetActive(false);
+        yield break;
+    }
+
+    public void muzzleFlare()
+    {
+        muzzleFlash.SetActive(true);
+        muzzleFlash.transform.position = shootingScript.bulletSpawn.position;
+        muzzleFlash.transform.rotation = Quaternion.LookRotation(shootingScript.bulletSpawn.forward, Vector3.up);
+        muzzleFlash.transform.localScale = new Vector3(Random.Range(0.6f, 1.5f), 0, Random.Range(0.8f, 1.3f));
+      
+
+        StartCoroutine(flashFlare());
     }
 
 }

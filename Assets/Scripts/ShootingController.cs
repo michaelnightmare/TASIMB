@@ -23,6 +23,9 @@ public class ShootingController : MonoBehaviour
     public RuntimeAnimatorController defaultController;
     public AnimatorOverrideController rifleOverrideAnims;
     public GunDisplayScr gunDisplay;
+ 
+   
+
 
 
 
@@ -94,11 +97,15 @@ public class ShootingController : MonoBehaviour
 
     void Start () {
         anims = GetComponent<Animator>();
+     
         guns[0].isUnlocked = true;
         guns[0].canReload = true;
      
         defaultController = anims.runtimeAnimatorController;
         singleHandShootT = shootT;
+
+      
+
     }
 
 
@@ -137,7 +144,10 @@ public class ShootingController : MonoBehaviour
                 {
                     anims.SetTrigger("Shoot");
                     guns[selectedWeaponIndex].Shoot();
-                
+                   
+                   
+
+
                     if (!guns[selectedWeaponIndex].isUnlocked)
                     {
                         switchToPreviousGun();
@@ -163,38 +173,6 @@ public class ShootingController : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * aimSpeed);
 
 
-
-
-                /*
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                float shotDistance = 20;
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-                {
-                    shotDistance = hit.distance;
-                }
-
-                Vector3 aimDir = hit.point - shootT.transform.position;
-                aimDir.y = 0;
-                float yDiff = Vector3.SignedAngle(transform.forward, shootT.forward, Vector3.up);
-                Quaternion targetRot = Quaternion.LookRotation(aimDir) * Quaternion.Euler(0f, -yDiff, 0f);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * aimSpeed);
-                */
-
-                /*
-                Vector3 gunDir = shootT.transform.forward;
-                Vector2 gunDir2d = new Vector2(gunDir.x, gunDir.z);
-
-                Vector2 mousePos = Input.mousePosition;
-                Vector2 gunPos = Camera.main.WorldToScreenPoint(shootT.transform.position);
-                Vector2 aimDir2d = gunPos - mousePos;
-
-                float diff = Vector2.SignedAngle(aimDir2d, gunDir2d);
-                Quaternion targetRot = transform.rotation * Quaternion.Euler(0f, diff, 0);
-
-             
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * aimSpeed);
-                */
 
             }
         }
@@ -243,4 +221,6 @@ public class ShootingController : MonoBehaviour
         }
 
     }
+
+
 }
