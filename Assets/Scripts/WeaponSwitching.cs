@@ -6,6 +6,7 @@ public class WeaponSwitching : MonoBehaviour
     public ShotgunScr shotgun;
     public int selectedWeapon = 0;
     public CanvasGroup gunDisplay;
+    public GameObject muzzleFlash;
   
 
     // Use this for initialization
@@ -53,8 +54,10 @@ public class WeaponSwitching : MonoBehaviour
             }
             else
             {
+          
                 weapon.gameObject.SetActive(false);
-           
+               
+
             }
             i++;
         }

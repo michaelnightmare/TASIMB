@@ -23,6 +23,7 @@ public class ShootingController : MonoBehaviour
     public RuntimeAnimatorController defaultController;
     public AnimatorOverrideController rifleOverrideAnims;
     public GunDisplayScr gunDisplay;
+
  
    
 
@@ -85,6 +86,7 @@ public class ShootingController : MonoBehaviour
             if (index < 0)
             {
                 index = guns.Count -1;
+               
             }
 
             foundGun = guns[index].isUnlocked;
@@ -150,7 +152,9 @@ public class ShootingController : MonoBehaviour
 
                     if (!guns[selectedWeaponIndex].isUnlocked)
                     {
+                        
                         switchToPreviousGun();
+                       
                     }
                     nextShot = Time.time + fireRate;
                 }

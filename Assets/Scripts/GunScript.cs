@@ -81,21 +81,25 @@ public class GunScript : MonoBehaviour
         }
         else
         {
-            muzzleFlare();
+          
             shootingScript.Shoot();
-            
+         
+           
+             
+          
             PlayerSounds.clip = shotClip;
             PlayerSounds.Play();
             bulletCount--;
-
+            muzzleFlare();
             if (bulletCount <= 0)
             {
+               
                 canShoot = false;
-              
+               
                 if (!canReload)
                 {
-                    Lock();
-                   
+
+                    StartCoroutine(gunHold());
                 }
                 
             }
@@ -116,6 +120,8 @@ public class GunScript : MonoBehaviour
             gameObject.SetActive(false);
             ToggleUI(false);
             Highlight.SetActive(false);
+           
+            
            
         }
     }
@@ -143,8 +149,12 @@ public class GunScript : MonoBehaviour
 
     public void Lock()
     {
+        
         isUnlocked = false;
+       
         GunIcon.SetActive(false);
+
+       
        
     }
 
@@ -162,9 +172,14 @@ public class GunScript : MonoBehaviour
         //don't do anything for hold time seconds
         yield return new WaitForSeconds(holdTime);
 
-
-
         muzzleFlash.SetActive(false);
+        yield break;
+    }
+
+    IEnumerator gunHold()
+    {
+        yield return new WaitForSeconds(holdTime);
+        Lock();
         yield break;
     }
 
