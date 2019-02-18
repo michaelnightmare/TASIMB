@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class fogTrigger : MonoBehaviour
+public class bannerTrigger : MonoBehaviour
 {
     public UnityEvent onEnterTriggerZone = new UnityEvent();
 
