@@ -15,7 +15,7 @@ public class AIWolf : MonoBehaviour
     public Collider hitbox;
     Rigidbody mRB;
     Collider mCollider;
-    public bool disableAI = false;
+    public bool disableAI= false;
 
     bool canAttack = true;
     bool isCoolingDown = true;
@@ -40,11 +40,12 @@ public class AIWolf : MonoBehaviour
     public AudioSource PlayerSounds;
     public AudioClip shotClip;
 
+    bool initialized = false;
 
     // Use this for initialization
     void Start ()
     {
-        Initialize();
+       if(!initialized) Initialize();
        
     }
 
@@ -60,11 +61,12 @@ public class AIWolf : MonoBehaviour
         }
         lastTargetPos = target.position;
         anim = GetComponent<Animator>();
-        nma.stoppingDistance = StoppingDist;
+   
         clearBodies = GetComponent<ObjectDestroyer>();
         wolfAlive = true;
         mRB = GetComponent<Rigidbody>();
         mCollider = GetComponentInChildren<Collider>();
+        initialized = true;
     }
 
     void onEnable()
@@ -155,6 +157,8 @@ public class AIWolf : MonoBehaviour
 
     void ChasingPlayer()
     {
+        if (!initialized) Initialize();
+
         if (lastTargetPos != target.position)
         {
             NavMeshHit hit;
@@ -244,6 +248,7 @@ public class AIWolf : MonoBehaviour
 
     public void enemyMoveToPoint(Vector3 eventTargetLocation)
     {
+        if (!initialized) Initialize();
         NavMeshHit hit;
 
         if (NavMesh.SamplePosition(eventTargetLocation, out hit, Mathf.Infinity, NavMesh.AllAreas))
