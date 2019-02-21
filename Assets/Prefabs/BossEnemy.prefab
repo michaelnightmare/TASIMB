@@ -1942,14 +1942,15 @@ MonoBehaviour:
   disableAI: 0
   enemyHealth: 3
   enemyAlive: 1
-  AggroDist: 10
-  StoppingDist: 5
+  AggroDist: 15
+  StoppingDist: 10
   ShootAngleThreshold: 5
   turningSpeed: 8
   reloadTime: 4
   timeToShoot: 1
   clipSize: 6
   speedScaler: 0.77
+  rollThreshold: 0.4
   PlayerSounds: {fileID: 82231276653169170}
   shotClip: {fileID: 8300000, guid: dca63bc0945b401489b8b4e1ff340070, type: 3}
   reloadClip: {fileID: 8300000, guid: d67dcfa60ec75e54b9e0d08571464418, type: 3}

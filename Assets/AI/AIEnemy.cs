@@ -16,18 +16,23 @@ public class AIEnemy : MonoBehaviour
     public Rigidbody mRB;
     public bool disableAI = false;
 
-
-
     bool isReloading;
     bool canShoot = true;
     int numBullets = 6;
     float reloadTimer = 0f;
     float distFromTarget;
 
+    //Dodge variables
+    private bool isWounded;
+    private bool isRolling;
+    private bool isEvading;
+    private float offset = .5f;
+    private Vector3 evasionVector;
+
     [Header("Enemy Settings")]
     public float enemyHealth = 2;
     public bool enemyAlive = true;
-    public float AggroDist = 10f;
+    public float AggroDist = 15f;
     public float StoppingDist = 5f;
     public float ShootAngleThreshold = 5f;
     public float turningSpeed = 2f;
@@ -35,6 +40,7 @@ public class AIEnemy : MonoBehaviour
     public float timeToShoot = 1f;
     public int clipSize = 6;
     public float speedScaler = 0.5f;
+    public float rollThreshold = 0.7f;
 
     [Header("Audio Settings")]
     public AudioSource PlayerSounds;
@@ -76,7 +82,8 @@ public class AIEnemy : MonoBehaviour
         hitbox.enabled = false;
         mRB.isKinematic = true;
         mCollider.enabled = false;
-
+        isWounded = false;
+        nma.SetDestination(transform.position);
     }
 
     public void enemyTakeDamage(float Damage)
@@ -94,7 +101,7 @@ public class AIEnemy : MonoBehaviour
             anim.SetTrigger("enemyHurt");
         }
 
-
+        isWounded = true;
     }
 
     public void enemyMoveToPoint(Vector3 eventTargetLocation)
@@ -133,10 +140,7 @@ public class AIEnemy : MonoBehaviour
 
     bool InRangeOfTarget()
     {
-
         distFromTarget = Vector3.Distance(transform.position, target.position);
-
-
 
         if (distFromTarget <= StoppingDist)
         {
@@ -151,8 +155,6 @@ public class AIEnemy : MonoBehaviour
     bool IsAwareOfTarget()
     {
         distFromTarget = Vector3.Distance(transform.position, target.position);
-        
-
 
         if (distFromTarget < AggroDist)
         {
@@ -166,7 +168,7 @@ public class AIEnemy : MonoBehaviour
 
     void ChasingPlayer()
     {
-        Debug.Log("Chasing Player");
+        //Debug.Log("Chasing Player");
         if (lastTargetPos != target.position)
         {
             NavMeshHit hit;
@@ -225,7 +227,7 @@ public class AIEnemy : MonoBehaviour
     bool FullyAiming()
     {
         float dot = Vector3.Dot(gun.transform.forward, Vector3.up);
-        Debug.Log(dot);
+        //Debug.Log(dot);
         return Mathf.Abs(dot) < 0.1f;
         
     }
@@ -278,24 +280,65 @@ public class AIEnemy : MonoBehaviour
                 Reloading();
                 //Debug.Log("Reloading");
             }
+            else if(isEvading)
+            {
+                if (pathComplete()) //Arrived.
+                {
+                    isEvading = false;
+                    mCollider.enabled = true;
+                }
+            }
             else if (IsAwareOfTarget())
             {
-                anim.SetBool("Aim", false);
-                ChasingPlayer();
-
                 //Debug.Log("isChasingPlayer");
                 if (InRangeOfTarget())
                 {
                     ShootingPlayer();
                     //Debug.Log("ShootingPlayer");
                 }
+                else
+                {
+                    anim.SetBool("Aim", false);
+                    ChasingPlayer();
+                }
             }
         }
-
-
-
 
         UpdateAnims();
         lastTargetPos = target.position;
 	}
+
+    public void ShotAtByPlayer()
+    {
+        if (isWounded)
+        {
+            float rollOutcome = Random.Range(0.0f, 1.0f);
+
+            if (rollOutcome <= rollThreshold)
+            {
+                float dodgeDirX = Random.Range(-2f, 2f);
+                float dodgeDirZ = Random.Range(-2f, 2f);
+               
+                evasionVector = new Vector3(transform.position.x + dodgeDirX, transform.position.y, transform.position.z + dodgeDirZ);
+
+                nma.destination = evasionVector;
+
+                isEvading = true;
+                mCollider.enabled = false;
+            }
+        }
+    }
+
+    protected bool pathComplete()
+    {
+        if (Vector3.Distance(nma.destination, nma.transform.position) <= nma.stoppingDistance)
+        {
+            if (!nma.hasPath || nma.velocity.sqrMagnitude == 0f)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
