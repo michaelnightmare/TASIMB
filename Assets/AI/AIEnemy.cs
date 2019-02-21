@@ -286,20 +286,20 @@ public class AIEnemy : MonoBehaviour
                 {
                     isEvading = false;
                     mCollider.enabled = true;
+                    anim.SetBool("Roll", false);
+                    ResetCanShoot();
                 }
             }
             else if (IsAwareOfTarget())
             {
                 //Debug.Log("isChasingPlayer");
+                anim.SetBool("Aim", false);
+                ChasingPlayer();
+
                 if (InRangeOfTarget())
                 {
                     ShootingPlayer();
                     //Debug.Log("ShootingPlayer");
-                }
-                else
-                {
-                    anim.SetBool("Aim", false);
-                    ChasingPlayer();
                 }
             }
         }
@@ -325,6 +325,9 @@ public class AIEnemy : MonoBehaviour
 
                 isEvading = true;
                 mCollider.enabled = false;
+
+                anim.SetBool("Roll", true);
+                canShoot = false;
             }
         }
     }

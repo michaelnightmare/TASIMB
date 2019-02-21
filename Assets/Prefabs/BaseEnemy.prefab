@@ -1945,9 +1945,9 @@ MonoBehaviour:
   enemyHealth: 2
   enemyAlive: 1
   AggroDist: 15
-  StoppingDist: 10
-  ShootAngleThreshold: 5
-  turningSpeed: 8
+  StoppingDist: 9
+  ShootAngleThreshold: 6
+  turningSpeed: 10
   reloadTime: 4
   timeToShoot: 1
   clipSize: 6
