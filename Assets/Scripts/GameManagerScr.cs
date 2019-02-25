@@ -56,6 +56,9 @@ public class GameManagerScr : MonoBehaviour {
         updatedDeathCounter++;
         displayedText.text = updatedDeathCounter.ToString();
 
+        //SUPER TEMP
+        PlayerRef.GetComponent<QuestManager>().IncrementKillQuest();
+
         if(updatedDeathCounter >=45)
         {
             YouWon();

@@ -17,12 +17,13 @@ public class PlayerScript : MonoBehaviour
     public float nextDelay = 0.0f;
     public bool rifleAvailable = false;
     public bool shotgunAvailable = false;
+    public int gold;
 
     void Start()
     {
         playerAlive = true;
         anims = GetComponent<Animator>();
-
+        gold = 5;
     }
     // Update is called once per frame
     void Update()

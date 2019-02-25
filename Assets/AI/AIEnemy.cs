@@ -58,7 +58,7 @@ public class AIEnemy : MonoBehaviour
         nma = GetComponent<NavMeshAgent>();
         if(target== null)
         {
-            target = GameObject.Find("JamesPlayer").transform;
+            target = GameObject.FindGameObjectWithTag("Player").transform;
         }
         lastTargetPos = target.position;
         anim = GetComponent<Animator>();

@@ -57,7 +57,7 @@ public class AIWolf : MonoBehaviour
         
         if(target== null)
         {
-            target = GameObject.Find("JamesPlayer").transform;
+            target = GameObject.FindGameObjectWithTag("Player").transform;
         }
         lastTargetPos = target.position;
         anim = GetComponent<Animator>();
@@ -87,11 +87,6 @@ public class AIWolf : MonoBehaviour
         mCollider.enabled = false;
         mRB.isKinematic = true;
         Debug.Log("boxcolliderdisabled");
-        
-   
-        
-        
-
     }
 
     public void wolfTakeDamage(float Damage)
