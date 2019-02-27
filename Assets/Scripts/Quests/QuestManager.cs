@@ -7,23 +7,26 @@ public class QuestManager : MonoBehaviour
     public Quest activeQuest;
     public GameObject player;
     private List<Quest> currentQuests = new List<Quest>();
+    public GameObject HudQuests;
 
     private void Start()
     {
         player = gameObject; //get a ref to our player, so we can set his active quest.
         activeQuest = null;
+        HudQuests.SetActive(false);
     }
 
     public void SetActiveQuest(Quest questToSet)
     {
         activeQuest = questToSet;
+        HudQuests.SetActive(true);
     }
 
     public void AddQuest(Quest questToAdd)
     {
         currentQuests.Add(questToAdd);
 
-        if(activeQuest.questName == null) //Set active quest if there isn't another active
+        if(activeQuest == null || activeQuest.questName == null) //Set active quest if there isn't another active
         {
             SetActiveQuest(questToAdd);
         }
@@ -42,6 +45,7 @@ public class QuestManager : MonoBehaviour
         else
         {
             activeQuest = null; //otherwise null the active quest.
+            HudQuests.SetActive(false);
         }
     }
 
@@ -51,7 +55,7 @@ public class QuestManager : MonoBehaviour
         if (activeQuest == null)
             return;
 
-        if (activeQuest.killGoals.Length > 0)
+        if (activeQuest.killGoals != null || activeQuest.killGoals.Length > 0)
         {
             for (int i = 0; i < activeQuest.killGoals.Length; i++)
             {
@@ -66,9 +70,7 @@ public class QuestManager : MonoBehaviour
     public void ClearQuestIfNecessary()
     {
         //If we've satisfied all quest goals, give the rewards and clear the quest
-
-        //This will require more work if we want the player to have to go talk to the NPC again to complete.
-        if(activeQuest.IsQuestComplete())
+        if(activeQuest.IsQuestComplete() && activeQuest.questCompleteCondition == CompleteCondition.AUTO_COMPLETE)
         {
             GiveRewards();
             QuestCompleted(activeQuest);
@@ -79,5 +81,15 @@ public class QuestManager : MonoBehaviour
     {
         player.GetComponent<PlayerScript>().gold += activeQuest.goldReward;
         Debug.Log("Player receives " + activeQuest.goldReward + " gold!");
+    }
+
+    //Making this as an assumption that we will eventually allow the player to set their active quest
+    public void CompleteTurnInQuest(Quest quest)
+    {
+        if (!quest.isComplete)
+            return;
+
+        GiveRewards();
+        QuestCompleted(quest);
     }
 }
