@@ -33,7 +33,7 @@ public class AIEnemy : MonoBehaviour
     private Vector3 evasionVector;
 
     [Header("Gun Settings")]
-    public EnemyType type = EnemyType.Pistol;
+    public EnemyType type;
     public GameObject pistolObject;
     public GameObject pistolDropPrefab;
     public GameObject shotgunObject;
@@ -80,8 +80,9 @@ public class AIEnemy : MonoBehaviour
         enemyAlive = true;
         mRB = GetComponent<Rigidbody>();
         mCollider = GetComponent<Collider>();
-        defaultController = anim.runtimeAnimatorController;
         SetUpGuns();
+        defaultController = anim.runtimeAnimatorController;
+           
     }
 
     void SetUpGuns()
@@ -95,6 +96,8 @@ public class AIEnemy : MonoBehaviour
             rifleObject.SetActive(false);
 
             gun = pistolObject.GetComponent<ShootingScript>();
+            anim.runtimeAnimatorController = defaultController;
+
         }
         else if(type == EnemyType.Shotgun)
         {

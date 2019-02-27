@@ -8,14 +8,17 @@ public class ShootingScript : MonoBehaviour {
     public Transform bulletSpawn;
     public GameObject enemyBullet;
 
-     public virtual void Shoot()
+
+    public virtual void Shoot()
     {
         CastForEnemy(); // Cast ray first so we don't collide with the bullet.
         Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
     }
     public virtual void enemyShoot()
     {
-        Instantiate(enemyBullet, bulletSpawn.position, bulletSpawn.rotation);
+    
+            Instantiate(enemyBullet, bulletSpawn.position, bulletSpawn.rotation);
+      
     }
 
     private void CastForEnemy()
