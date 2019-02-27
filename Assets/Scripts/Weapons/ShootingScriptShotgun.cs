@@ -25,6 +25,16 @@ public class ShootingScriptShotgun : ShootingScript {
     }
     public override void enemyShoot()
     {
-        base.enemyShoot();
+        Quaternion spawnRotation = bulletSpawn.rotation;
+
+        for (int i = 0; i < numBullets; i++)
+        {
+            float angle = Random.Range(0f, spreadAngle);
+            angle *= Random.Range(0, 2) * 2 - 1;
+
+
+            Quaternion rot = spawnRotation * Quaternion.Euler(0f, angle, 0f);
+            Instantiate(bullet, bulletSpawn.position, rot);
+        }
     }
 }

@@ -12,12 +12,12 @@ public class QuestGiver : MonoBehaviour
     public Text goldText;
 
     //Edited out until we make a UI screen for the quest
-    /*public void Start()
+    public void Start()
     {
         titleText.text = quest.questName;
         descriptionText.text = quest.questDescription;
         goldText.text = quest.goldReward.ToString();
-    }*/
+    }
 
     // This whole script will need adjusting etc if we decide to have quests that unlock after certain conditions are met.
     // For now the QuestGiver may only have one quest.

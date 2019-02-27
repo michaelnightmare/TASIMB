@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class AIEnemy : MonoBehaviour
 {
+    public enum EnemyType {Pistol, Shotgun, Rifle}
+
+
     NavMeshAgent nma;
     public Transform target;
     Vector3 lastTargetPos;
@@ -28,6 +31,17 @@ public class AIEnemy : MonoBehaviour
     private bool isEvading;
     private float offset = .5f;
     private Vector3 evasionVector;
+
+    [Header("Gun Settings")]
+    public EnemyType type = EnemyType.Pistol;
+    public GameObject pistolObject;
+    public GameObject pistolDropPrefab;
+    public GameObject shotgunObject;
+    public GameObject shotgunDropPrefab;
+    public GameObject rifleObject;
+    public GameObject rifleDropPrefab;
+    public RuntimeAnimatorController defaultController;
+    public AnimatorOverrideController rifleOverrideAnims;
 
     [Header("Enemy Settings")]
     public float enemyHealth = 2;
@@ -66,6 +80,46 @@ public class AIEnemy : MonoBehaviour
         enemyAlive = true;
         mRB = GetComponent<Rigidbody>();
         mCollider = GetComponent<Collider>();
+        defaultController = anim.runtimeAnimatorController;
+        SetUpGuns();
+    }
+
+    void SetUpGuns()
+    {
+        if (type == EnemyType.Pistol)
+        {
+            //set pistol active, disable others
+            //set gunscript reference to pistol gunscript
+            pistolObject.SetActive(true);
+            shotgunObject.SetActive(false);
+            rifleObject.SetActive(false);
+
+            gun = pistolObject.GetComponent<ShootingScript>();
+        }
+        else if(type == EnemyType.Shotgun)
+        {
+            //set shotgun active, disable others
+            //set gunscript reference to shotgun gunscript
+            pistolObject.SetActive(false);
+            shotgunObject.SetActive(true);
+            rifleObject.SetActive(false);
+
+            gun = shotgunObject.GetComponent<ShootingScript>();
+            anim.runtimeAnimatorController = defaultController;
+
+        }
+        else if(type == EnemyType.Rifle)
+        {
+            //set rifle active, disable others
+            //set gunscript reference to rifle gunscript
+            //set animation controller to rifle override controller
+            pistolObject.SetActive(false);
+            shotgunObject.SetActive(false);
+            rifleObject.SetActive(true);
+
+            gun = rifleObject.GetComponent<ShootingScript>();
+            anim.runtimeAnimatorController = rifleOverrideAnims;
+        }
     }
 
     void OnEnable()
@@ -84,6 +138,26 @@ public class AIEnemy : MonoBehaviour
         mCollider.enabled = false;
         isWounded = false;
         nma.SetDestination(transform.position);
+
+    }
+
+    void ItemDrop()
+    {
+        GameObject objToSpawn = null;
+        if (type == EnemyType.Pistol)
+        {
+            objToSpawn = pistolDropPrefab;
+        }
+        else if (type == EnemyType.Shotgun)
+        {
+            objToSpawn = shotgunDropPrefab;
+        }
+        else if (type == EnemyType.Rifle)
+        {
+            objToSpawn = rifleDropPrefab;
+        }
+
+        if(objToSpawn) Instantiate(objToSpawn, transform.position, Quaternion.identity);
     }
 
     public void enemyTakeDamage(float Damage)
@@ -228,7 +302,7 @@ public class AIEnemy : MonoBehaviour
     {
         float dot = Vector3.Dot(gun.transform.forward, Vector3.up);
         //Debug.Log(dot);
-        return Mathf.Abs(dot) < 0.1f;
+        return dot > -0.1f;
         
     }
 
