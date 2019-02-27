@@ -14,6 +14,7 @@ public class DialogScr : MonoBehaviour
     public AudioClip howdyClip;
     public bool disableDialogOnceComplete;
     public UnityEvent dialogFinished = new UnityEvent();
+    public UnityEvent dialogStarted = new UnityEvent();
 
     void Start()
     {

@@ -14,9 +14,7 @@ public class QuestGiver : MonoBehaviour
     //Edited out until we make a UI screen for the quest
     public void Start()
     {
-        titleText.text = quest.questName;
-        descriptionText.text = quest.questDescription;
-        goldText.text = quest.goldReward.ToString();
+        //goldText.text = quest.goldReward.ToString(); uncomment later
     }
 
     // This whole script will need adjusting etc if we decide to have quests that unlock after certain conditions are met.
@@ -26,8 +24,22 @@ public class QuestGiver : MonoBehaviour
         if (quest.isActive || quest.isComplete)
             return; //Dont give quest if its already active or completed
 
+        titleText.text = quest.questName;
+        descriptionText.text = quest.questDescription;
+
         quest.isActive = true;
         player.GetComponent<QuestManager>().AddQuest(quest);
         Debug.Log("Quest Recieved");
+    }
+
+    public void CompleteQuestForPlayer() //This would be for turnin quests only
+    {
+        if (!quest.isComplete || !quest.isActive)
+            return;
+
+        if(quest.isComplete && quest.questCompleteCondition == CompleteCondition.TURN_IN)
+        {
+            player.GetComponent<QuestManager>().CompleteTurnInQuest(quest);
+        }
     }
 }

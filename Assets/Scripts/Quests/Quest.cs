@@ -11,6 +11,7 @@ public class Quest
     public KillGoal[] killGoals;
     public int goldReward;
     public bool isComplete;
+    public CompleteCondition questCompleteCondition;
 
     public void CheckGoals()
     {
@@ -34,4 +35,10 @@ public class Quest
     {
         return isComplete;
     }
+}
+
+public enum CompleteCondition
+{
+    TURN_IN,
+    AUTO_COMPLETE
 }

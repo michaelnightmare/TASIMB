@@ -59,6 +59,7 @@ public class PlayerConversations : MonoBehaviour
                     {
                         NPCSounds.clip = currentSoundClip;
                         NPCSounds.Play();
+                        currentDialog.dialogStarted.Invoke();
                         dialogLine++;
                     }
                     else
