@@ -87,6 +87,7 @@ public class AIWolf : MonoBehaviour
         mCollider.enabled = false;
         mRB.isKinematic = true;
         Debug.Log("boxcolliderdisabled");
+        nma.SetDestination(transform.position);
     }
 
     public void wolfTakeDamage(float Damage)

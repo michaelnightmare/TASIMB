@@ -1381,7 +1381,7 @@ MonoBehaviour:
   playerInteraction: {fileID: 0}
   wolfHealth: 1
   wolfAlive: 1
-  AggroDist: 10
+  AggroDist: 15
   StoppingDist: 2
   ShootAngleThreshold: 5
   turningSpeed: 2

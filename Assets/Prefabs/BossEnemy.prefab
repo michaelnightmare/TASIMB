@@ -1940,6 +1940,15 @@ MonoBehaviour:
   mCollider: {fileID: 0}
   mRB: {fileID: 0}
   disableAI: 0
+  pistolObject: {fileID: 0}
+  pistolDropPrefab: {fileID: 0}
+  shotgunObject: {fileID: 0}
+  shotgunDropPrefab: {fileID: 0}
+  rifleObject: {fileID: 0}
+  rifleDropPrefab: {fileID: 0}
+  defaultController: {fileID: 0}
+  rifleOverrideAnims: {fileID: 0}
+  isBoss: 1
   enemyHealth: 3
   enemyAlive: 1
   AggroDist: 15

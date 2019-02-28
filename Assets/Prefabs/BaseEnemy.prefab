@@ -2908,8 +2908,7 @@ MonoBehaviour:
   hitbox: {fileID: 65683034024978768}
   mCollider: {fileID: 0}
   mRB: {fileID: 0}
-  disableAI: 0
-  type: 0
+  disableAI: 1
   pistolObject: {fileID: 1425539961010084}
   pistolDropPrefab: {fileID: 0}
   shotgunObject: {fileID: 1076845213213316}
@@ -2918,6 +2917,7 @@ MonoBehaviour:
   rifleDropPrefab: {fileID: 0}
   defaultController: {fileID: 9100000, guid: 3a1a1e4595137764894e8108c350b756, type: 2}
   rifleOverrideAnims: {fileID: 22100000, guid: c6cf1094a22cd3646b900ed0fd0fe77f, type: 2}
+  isBoss: 0
   enemyHealth: 2
   enemyAlive: 1
   AggroDist: 15

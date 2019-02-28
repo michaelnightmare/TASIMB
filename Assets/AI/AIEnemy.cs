@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class AIEnemy : MonoBehaviour
 {
-    public enum EnemyType {Pistol, Shotgun, Rifle}
+    private enum EnemyType {Pistol, Shotgun, Rifle}
 
 
     NavMeshAgent nma;
@@ -29,11 +29,10 @@ public class AIEnemy : MonoBehaviour
     private bool isWounded;
     private bool isRolling;
     private bool isEvading;
-    private float offset = .5f;
     private Vector3 evasionVector;
 
     [Header("Gun Settings")]
-    public EnemyType type;
+    private EnemyType type;
     public GameObject pistolObject;
     public GameObject pistolDropPrefab;
     public GameObject shotgunObject;
@@ -44,6 +43,7 @@ public class AIEnemy : MonoBehaviour
     public AnimatorOverrideController rifleOverrideAnims;
 
     [Header("Enemy Settings")]
+    public bool isBoss;
     public float enemyHealth = 2;
     public bool enemyAlive = true;
     public float AggroDist = 15f;
@@ -67,6 +67,26 @@ public class AIEnemy : MonoBehaviour
         Initialize();
     }
 
+    private EnemyType RollForGun()
+    {
+        int roll = Random.Range(0, 100);
+
+        if (isBoss)
+        {
+            if (roll >= 50)
+                return EnemyType.Shotgun;
+            else
+                return EnemyType.Rifle;
+        }
+
+        if (roll <= 50)
+            return EnemyType.Pistol;
+        else if (roll <= 75)
+            return EnemyType.Shotgun;
+        else
+            return EnemyType.Rifle;
+    }
+
     void Initialize()
     {
         nma = GetComponent<NavMeshAgent>();
@@ -80,6 +100,7 @@ public class AIEnemy : MonoBehaviour
         enemyAlive = true;
         mRB = GetComponent<Rigidbody>();
         mCollider = GetComponent<Collider>();
+        type = RollForGun();
         SetUpGuns();
         defaultController = anim.runtimeAnimatorController;
            
