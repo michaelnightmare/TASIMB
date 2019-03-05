@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerScript : MonoBehaviour
 {
 
-    public int playerHealth = 3;
+    public float playerHealth = 3;
     public int healthIcons;
     public bool playerAlive;
     public Image[] stars;
@@ -59,11 +59,11 @@ public class PlayerScript : MonoBehaviour
 
 
 
-    public void playerTakeDamage()
+    public void playerTakeDamage(float damage)
     {
         if (Time.time > nextDelay)
         {
-            playerHealth--;
+            playerHealth -= damage;
             anims.SetTrigger("PlayerHurt");
             nextDelay = Time.time + healthLossDelay;
         }

@@ -10,6 +10,7 @@ public class EnemyPistolBullet : MonoBehaviour {
     public GameObject genericHitEffectPrefab;
     public LayerMask bloodHitEffectMask;
     public GameObject bloodHitEffectPrefab;
+    public float damage = 1;
     
 
 
@@ -53,7 +54,7 @@ public class EnemyPistolBullet : MonoBehaviour {
         if (other.gameObject.layer == 9)
         {
             Debug.Log(other.gameObject.name);
-            other.transform.GetComponent<PlayerScript>().playerTakeDamage();
+            other.transform.GetComponent<PlayerScript>().playerTakeDamage(damage);
         
         }
     

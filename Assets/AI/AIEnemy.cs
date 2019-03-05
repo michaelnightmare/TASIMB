@@ -13,6 +13,7 @@ public class AIEnemy : MonoBehaviour
     Vector3 lastTargetPos;
     Animator anim;
     public ShootingScript gun;
+    public ShootingScriptShotgun shotGun;
     public ObjectDestroyer clearBodies;
     public Collider hitbox;
     public Collider mCollider;
@@ -55,16 +56,24 @@ public class AIEnemy : MonoBehaviour
     public int clipSize = 6;
     public float speedScaler = 0.5f;
     public float rollThreshold = 0.7f;
+    public GameObject muzzleFlash;
+    public float holdTime;
+    ShootingScript shootingScript;
 
     [Header("Audio Settings")]
     public AudioSource PlayerSounds;
     public AudioClip shotClip;
     public AudioClip reloadClip;
 
+    bool initialized = false;
+
+   
+
     // Use this for initialization
     void Start ()
     {
-        Initialize();
+        if(!initialized) Initialize();
+        holdTime = .10f;
     }
 
     private EnemyType RollForGun()
@@ -81,6 +90,7 @@ public class AIEnemy : MonoBehaviour
 
         if (roll <= 50)
             return EnemyType.Pistol;
+           
         else if (roll <= 75)
             return EnemyType.Shotgun;
         else
@@ -89,6 +99,7 @@ public class AIEnemy : MonoBehaviour
 
     void Initialize()
     {
+       
         nma = GetComponent<NavMeshAgent>();
         if(target== null)
         {
@@ -96,14 +107,16 @@ public class AIEnemy : MonoBehaviour
         }
         lastTargetPos = target.position;
         anim = GetComponent<Animator>();
+        defaultController = anim.runtimeAnimatorController;
         clearBodies = GetComponent<ObjectDestroyer>();
         enemyAlive = true;
         mRB = GetComponent<Rigidbody>();
         mCollider = GetComponent<Collider>();
+      
         type = RollForGun();
         SetUpGuns();
-        defaultController = anim.runtimeAnimatorController;
-           
+
+        initialized = true;
     }
 
     void SetUpGuns()
@@ -130,6 +143,7 @@ public class AIEnemy : MonoBehaviour
 
             gun = shotgunObject.GetComponent<ShootingScript>();
             anim.runtimeAnimatorController = defaultController;
+            
 
         }
         else if(type == EnemyType.Rifle)
@@ -148,7 +162,7 @@ public class AIEnemy : MonoBehaviour
 
     void OnEnable()
     {
-        Initialize();
+        if(!initialized) Initialize();
     }
     void enemyDeath()
     {
@@ -305,10 +319,11 @@ public class AIEnemy : MonoBehaviour
     void Shoot()
     {
         gun.enemyShoot();
+      
         numBullets--;
         PlayerSounds.PlayOneShot(shotClip);
         anim.SetTrigger("Shoot");
-
+        
         if(numBullets == 0)
         {
             isReloading = true;
@@ -319,7 +334,8 @@ public class AIEnemy : MonoBehaviour
             canShoot = false;
             Invoke("ResetCanShoot", timeToShoot);
         }
-
+        muzzleFlare();
+       
     }
 
     bool FullyAiming()
@@ -397,6 +413,7 @@ public class AIEnemy : MonoBehaviour
                 if (InRangeOfTarget())
                 {
                     ShootingPlayer();
+                   
                     //Debug.Log("ShootingPlayer");
                 }
             }
@@ -442,4 +459,27 @@ public class AIEnemy : MonoBehaviour
 
         return false;
     }
+
+
+    IEnumerator flashFlare()
+    {
+        //don't do anything for hold time seconds
+        yield return new WaitForSeconds(holdTime);
+
+        muzzleFlash.SetActive(false);
+        yield break;
+    }
+
+
+    public void muzzleFlare()
+    {
+        muzzleFlash.SetActive(true);
+        muzzleFlash.transform.position = shootingScript.bulletSpawn.position;
+        muzzleFlash.transform.rotation = Quaternion.LookRotation(shootingScript.bulletSpawn.forward, Vector3.up);
+        muzzleFlash.transform.localScale = new Vector3(Random.Range(0.6f, 1.5f), 0, Random.Range(0.8f, 1.3f));
+
+
+        StartCoroutine(flashFlare());
+    }
+
 }

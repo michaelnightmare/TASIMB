@@ -181,7 +181,7 @@ public class AIWolf : MonoBehaviour
         {
             PlayerSounds.PlayOneShot(shotClip);
             anim.SetBool("attack",true);
-            playerInteraction.playerTakeDamage();
+            playerInteraction.playerTakeDamage(-1);
             isCoolingDown = false;
            
         }
