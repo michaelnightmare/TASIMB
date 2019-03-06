@@ -56,9 +56,13 @@ public class AIEnemy : MonoBehaviour
     public int clipSize = 6;
     public float speedScaler = 0.5f;
     public float rollThreshold = 0.7f;
-    public GameObject muzzleFlash;
+    private GameObject muzzleFlash;
     public float holdTime;
-    ShootingScript shootingScript;
+    public GameObject pistolFlare;
+    public GameObject shotgunFlare;
+    public GameObject rifleFlare;
+
+    
 
     [Header("Audio Settings")]
     public AudioSource PlayerSounds;
@@ -128,7 +132,7 @@ public class AIEnemy : MonoBehaviour
             pistolObject.SetActive(true);
             shotgunObject.SetActive(false);
             rifleObject.SetActive(false);
-
+            muzzleFlash = pistolFlare;
             gun = pistolObject.GetComponent<ShootingScript>();
             anim.runtimeAnimatorController = defaultController;
 
@@ -140,7 +144,7 @@ public class AIEnemy : MonoBehaviour
             pistolObject.SetActive(false);
             shotgunObject.SetActive(true);
             rifleObject.SetActive(false);
-
+            muzzleFlash = shotgunFlare;
             gun = shotgunObject.GetComponent<ShootingScript>();
             anim.runtimeAnimatorController = defaultController;
             
@@ -154,7 +158,7 @@ public class AIEnemy : MonoBehaviour
             pistolObject.SetActive(false);
             shotgunObject.SetActive(false);
             rifleObject.SetActive(true);
-
+            muzzleFlash = rifleFlare;
             gun = rifleObject.GetComponent<ShootingScript>();
             anim.runtimeAnimatorController = rifleOverrideAnims;
         }
@@ -474,8 +478,9 @@ public class AIEnemy : MonoBehaviour
     public void muzzleFlare()
     {
         muzzleFlash.SetActive(true);
-        muzzleFlash.transform.position = shootingScript.bulletSpawn.position;
-        muzzleFlash.transform.rotation = Quaternion.LookRotation(shootingScript.bulletSpawn.forward, Vector3.up);
+        Debug.Log("flare");
+        muzzleFlash.transform.position = gun.bulletSpawn.position;
+        muzzleFlash.transform.rotation = Quaternion.LookRotation(gun.bulletSpawn.forward, Vector3.up);
         muzzleFlash.transform.localScale = new Vector3(Random.Range(0.6f, 1.5f), 0, Random.Range(0.8f, 1.3f));
 
 

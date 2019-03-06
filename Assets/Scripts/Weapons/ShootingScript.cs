@@ -7,6 +7,7 @@ public class ShootingScript : MonoBehaviour {
     public GameObject bullet;
     public Transform bulletSpawn;
     public GameObject enemyBullet;
+    
 
 
     public virtual void Shoot()
