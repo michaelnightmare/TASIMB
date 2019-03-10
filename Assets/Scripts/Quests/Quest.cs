@@ -12,6 +12,7 @@ public class Quest
     public int goldReward;
     public bool isComplete;
     public CompleteCondition questCompleteCondition;
+    public GameObject turnInPoint;
 
     public void CheckGoals()
     {

@@ -6,7 +6,7 @@ public class QuestManager : MonoBehaviour
 {
     public Quest activeQuest;
     public GameObject player;
-    private List<Quest> currentQuests = new List<Quest>();
+    public List<Quest> currentQuests = new List<Quest>();
     public GameObject HudQuests;
 
     private void Start()

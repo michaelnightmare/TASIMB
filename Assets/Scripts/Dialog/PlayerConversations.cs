@@ -14,14 +14,10 @@ public class PlayerConversations : MonoBehaviour
     public AudioClip currentSoundClip;
     public AudioSource NPCSounds;
 
-  
-
-
     // Use this for initialization
     void Start ()
     {
         NPCSounds = GetComponent<AudioSource>();
-
     }
 
     public void InitiateDialog(DialogScr D)
@@ -47,8 +43,6 @@ public class PlayerConversations : MonoBehaviour
                 {
                     currentDialog.dialogFinished.Invoke();
                     closeDialog();
-
-                 
                 }
                 else 
                 {
@@ -66,14 +60,11 @@ public class PlayerConversations : MonoBehaviour
                     {
                         dialogLine++;
                     }
-
                 }
-
             }
             if (Input.GetButtonDown("StopConversation"))
             {
                 closeDialog();
-                
             }
         }
 	}
@@ -99,28 +90,21 @@ public class PlayerConversations : MonoBehaviour
                 currentSoundClip = currentDialog.howdyClip;
               
                 currentDialog.showOverhead();
-
             }
-
         }
-
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.layer == 17)
         {
-
             if (other.GetComponent<DialogScr>())
             {
-
                 currentDialog.hideOverhead();
                 dialogBoxDisplay.SetActive(false);
                 dialogLine = 0;
                 currentDialog = null;
             }
-
         }
-
     }
 }

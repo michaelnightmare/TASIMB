@@ -34,12 +34,13 @@ public class QuestGiver : MonoBehaviour
 
     public void CompleteQuestForPlayer() //This would be for turnin quests only
     {
-        if (!quest.isComplete || !quest.isActive)
-            return;
-
-        if(quest.isComplete && quest.questCompleteCondition == CompleteCondition.TURN_IN)
+        for (int i = 0; i < player.GetComponent<QuestManager>().currentQuests.Count; i++)
         {
-            player.GetComponent<QuestManager>().CompleteTurnInQuest(quest);
+            Quest currentQuest = player.GetComponent<QuestManager>().currentQuests[i];
+            if (currentQuest.isComplete && currentQuest.questCompleteCondition == CompleteCondition.TURN_IN && this.gameObject == currentQuest.turnInPoint)
+            {
+                player.GetComponent<QuestManager>().CompleteTurnInQuest(currentQuest);
+            }
         }
     }
 }
