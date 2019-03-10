@@ -10,8 +10,7 @@ public class ShootingController : MonoBehaviour
     Animator anims;
     public List<GunScript>  guns=new List<GunScript>();
     public bool aimWithMouse = false;
-    public float aimSpeed = 10f;
-    public float aimRotationOffset = 20f;
+    public float aimSpeed = 30f;
     public float fireRate = .5f;
     public float nextShot = 0.0f;
     public Transform shootT;

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PistolBullet : MonoBehaviour {
-
+public class PistolBullet : MonoBehaviour
+{ 
     Rigidbody rb;
     public float BulletSpeed;
     public LayerMask genericHitEffectMask;
@@ -17,8 +17,6 @@ public class PistolBullet : MonoBehaviour {
     {
         rb = GetComponent<Rigidbody>();
         rb.AddRelativeForce(0,0,BulletSpeed,ForceMode.Impulse);
-    
-		
 	}
 	
     void OnCollisionEnter(Collision col)
@@ -53,17 +51,13 @@ public class PistolBullet : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
         /*
-   
         if (other.gameObject.layer == 13 && other.gameObject.tag == "Hitbox")
         {
             other.transform.parent.GetComponent<AIWolf>().wolfTakeDamage(Damage);
-        
         }
         if (other.gameObject.layer == 14 && other.gameObject.tag == "Hitbox")
         {
             other.transform.parent.GetComponent<AIEnemy>().enemyTakeDamage(Damage);
-            
-
         }
         */
     }
@@ -89,9 +83,6 @@ public class PistolBullet : MonoBehaviour {
 
     void DestroyBullet()
     {
-
         Destroy(gameObject);
-    }
-    
-    
+    }  
 }

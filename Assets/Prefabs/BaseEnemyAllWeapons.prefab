@@ -3116,9 +3116,9 @@ MonoBehaviour:
   AggroDist: 15
   StoppingDist: 9
   ShootAngleThreshold: 6
-  turningSpeed: 10
-  reloadTime: 4
-  timeToShoot: 1
+  turningSpeed: 8
+  reloadTime: 5
+  timeToShoot: 1.2
   clipSize: 6
   speedScaler: 0.77
   rollThreshold: 0.4

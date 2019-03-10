@@ -477,7 +477,11 @@ public class AIEnemy : MonoBehaviour
 
     public void muzzleFlare()
     {
-        muzzleFlash.SetActive(true);
+        if (muzzleFlash)
+        {
+            muzzleFlash.SetActive(true);
+        }
+
         Debug.Log("flare");
         muzzleFlash.transform.position = gun.bulletSpawn.position;
         muzzleFlash.transform.rotation = Quaternion.LookRotation(gun.bulletSpawn.forward, Vector3.up);
