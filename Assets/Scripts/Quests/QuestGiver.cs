@@ -41,6 +41,16 @@ public class QuestGiver : MonoBehaviour
             {
                 player.GetComponent<QuestManager>().CompleteTurnInQuest(currentQuest);
             }
+            else if(currentQuest.isComplete && currentQuest.questCompleteCondition == CompleteCondition.KILL_BOSS)
+            {
+                player.GetComponent<QuestManager>().CompleteTargetKillQuest(currentQuest);
+            }
         }
+    }
+
+    public void MarkKillAsComplete()
+    {
+        quest.KillComplete();
+        CompleteQuestForPlayer();
     }
 }

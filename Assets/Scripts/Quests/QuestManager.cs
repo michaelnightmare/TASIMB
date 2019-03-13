@@ -70,7 +70,7 @@ public class QuestManager : MonoBehaviour
     public void ClearQuestIfNecessary()
     {
         //If we've satisfied all quest goals, give the rewards and clear the quest
-        if(activeQuest.IsQuestComplete() && activeQuest.questCompleteCondition == CompleteCondition.AUTO_COMPLETE)
+        if(activeQuest.IsQuestComplete() && activeQuest.questCompleteCondition != CompleteCondition.TURN_IN)
         {
             GiveRewards();
             QuestCompleted(activeQuest);
@@ -83,8 +83,18 @@ public class QuestManager : MonoBehaviour
         Debug.Log("Player receives " + activeQuest.goldReward + " gold!");
     }
 
-    //Making this as an assumption that we will eventually allow the player to set their active quest
+    //Handle turn in
     public void CompleteTurnInQuest(Quest quest)
+    {
+        if (!quest.isComplete)
+            return;
+
+        GiveRewards();
+        QuestCompleted(quest);
+    }
+
+    //Handle Kill target
+    public void CompleteTargetKillQuest(Quest quest)
     {
         if (!quest.isComplete)
             return;

@@ -13,15 +13,21 @@ public class Quest
     public bool isComplete;
     public CompleteCondition questCompleteCondition;
     public GameObject turnInPoint;
+    public GameObject killTarget;
+
+    private bool isTargetDead;
 
     public void CheckGoals()
     {
         //If we have item collection quests or whatever, will need a new array for each and loop through them.
-        foreach(KillGoal quest in killGoals)
+        foreach(KillGoal goal in killGoals)
         {
-            if (!quest.IsGoalComplete())
+            if (!goal.IsGoalComplete())
                 return; //Bail out if any of the goals aren't complete
         }
+
+        if (questCompleteCondition == CompleteCondition.KILL_BOSS && !isTargetDead)
+            return; //Don't allow a complete if there is a kill target
 
         Complete();
     }
@@ -36,10 +42,17 @@ public class Quest
     {
         return isComplete;
     }
+
+    public void KillComplete()
+    {
+        isTargetDead = true;
+        CheckGoals();
+    }
 }
 
 public enum CompleteCondition
 {
     TURN_IN,
-    AUTO_COMPLETE
+    AUTO_COMPLETE,
+    KILL_BOSS
 }

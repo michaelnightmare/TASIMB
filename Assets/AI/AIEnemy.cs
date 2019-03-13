@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class AIEnemy : MonoBehaviour
 {
@@ -71,7 +72,7 @@ public class AIEnemy : MonoBehaviour
 
     bool initialized = false;
 
-   
+    public UnityEvent OnEnemyDeath = new UnityEvent();
 
     // Use this for initialization
     void Start ()
@@ -181,6 +182,7 @@ public class AIEnemy : MonoBehaviour
         isWounded = false;
         nma.SetDestination(transform.position);
 
+        OnEnemyDeath.Invoke();
     }
 
     void ItemDrop()
@@ -477,6 +479,9 @@ public class AIEnemy : MonoBehaviour
 
     public void muzzleFlare()
     {
+        if (!muzzleFlash)
+            return;
+
         if (muzzleFlash)
         {
             muzzleFlash.SetActive(true);

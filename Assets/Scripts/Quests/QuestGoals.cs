@@ -9,7 +9,7 @@ public class QuestGoals
     public int currentAmount;
     public bool isComplete;
 
-    public void Evaluate()
+    public void Evaluate() 
     {
         if (currentAmount >= requiredAmount)
         {
