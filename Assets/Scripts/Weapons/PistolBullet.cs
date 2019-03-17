@@ -48,19 +48,7 @@ public class PistolBullet : MonoBehaviour
         DestroyBullet();
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        /*
-        if (other.gameObject.layer == 13 && other.gameObject.tag == "Hitbox")
-        {
-            other.transform.parent.GetComponent<AIWolf>().wolfTakeDamage(Damage);
-        }
-        if (other.gameObject.layer == 14 && other.gameObject.tag == "Hitbox")
-        {
-            other.transform.parent.GetComponent<AIEnemy>().enemyTakeDamage(Damage);
-        }
-        */
-    }
+
 
     void DoGenericHitFX(ContactPoint p)
     {

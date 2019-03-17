@@ -10,6 +10,7 @@ public class SlashScript : MonoBehaviour
     public GameObject bloodHitEffectPrefab;
     public LayerMask genericHitEffectMask;
     public GameObject genericHitEffectPrefab;
+    public float Damage = -2;
 
 
     void Start ()
@@ -30,7 +31,23 @@ public class SlashScript : MonoBehaviour
         {
             DoBloodHitFX(col.contacts[0]);
         }
-     
+
+        if (col.collider.gameObject.layer == 13)
+        {
+            Debug.Log(col.gameObject);
+            col.gameObject.GetComponentInParent<AIWolf>().wolfTakeDamage(Damage);
+            DoBloodHitFX(col.contacts[0]);
+
+        }
+
+        if (col.collider.gameObject.layer == 14)
+        {
+            Debug.Log("hit with knife");
+            col.gameObject.GetComponentInParent<AIEnemy>().enemyTakeDamage(Damage);
+            DoBloodHitFX(col.contacts[0]);
+
+        }
+
     }
 
     void DoBloodHitFX(ContactPoint p)

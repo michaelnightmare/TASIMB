@@ -13,6 +13,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private Vector3 m_Move;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
         public bool disableMovement;
+        public GameObject minimap;
+        bool mapOnOff;
+       
 
         private void Start()
         {
@@ -27,15 +30,24 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                     "Warning: no main camera found. Third person character needs a Camera tagged \"MainCamera\", for camera-relative controls.", gameObject);
                 // we use self-relative controls in this case, which probably isn't what the user wants, but hey, we warned them!
             }
+            
 
             // get the third person character ( this should never be null due to require component )
             m_Character = GetComponent<ThirdPersonCharacter>();
         }
 
 
-        private void Update()
+        void Update()
         {
-            
+            if (mapOnOff == true)
+            {
+                minimap.SetActive(false);
+            }
+            else
+            {
+                minimap.SetActive(true);
+            }
+
         }
 
         [ContextMenu("Enable Movement")]
@@ -70,6 +82,17 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             bool crouch = Input.GetKey(KeyCode.C);
             bool roll = Input.GetKeyDown(KeyCode.Z);
 
+            if(Input.GetKeyDown(KeyCode.M))
+            {
+                mapOnOff = !mapOnOff;
+            }
+
+         
+
+
+           
+         
+
             // calculate move direction to pass to character
             if (m_Cam != null)
             {
@@ -94,4 +117,5 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             m_Jump = false;
         }
     }
+
 }

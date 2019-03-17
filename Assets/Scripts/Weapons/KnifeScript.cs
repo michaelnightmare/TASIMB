@@ -23,15 +23,12 @@ public class KnifeScript : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                
-            
                 anims.SetTrigger("Slash");
             }
         }
 
         else
         {
-
             knife.gameObject.SetActive(false);
 
         }
