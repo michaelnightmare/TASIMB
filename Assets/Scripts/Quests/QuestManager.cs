@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class QuestManager : MonoBehaviour
 {
@@ -8,18 +10,33 @@ public class QuestManager : MonoBehaviour
     public GameObject player;
     public List<Quest> currentQuests = new List<Quest>();
     public GameObject HudQuests;
+    public GameObject signQuestAccepted;
+    public GameObject signQuestCompleted;
+    public UnityEvent onQuestComplete = new UnityEvent();
+    public UnityEvent onQuestAccepted = new UnityEvent();
+    bool signAcceptedActive = false;
+    bool signCompleteActive = false; 
 
     private void Start()
     {
         player = gameObject; //get a ref to our player, so we can set his active quest.
         activeQuest = null;
         HudQuests.SetActive(false);
+        signQuestAccepted.SetActive(false);
+        signQuestCompleted.SetActive(false);
     }
 
     public void SetActiveQuest(Quest questToSet)
     {
         activeQuest = questToSet;
         HudQuests.SetActive(true);
+
+        //set quest acceptedsign to active and then fade
+        signQuestAccepted.SetActive(true);
+        signAcceptedActive = true;
+        onQuestAccepted.Invoke();
+  
+        
     }
 
     public void AddQuest(Quest questToAdd)
@@ -34,7 +51,10 @@ public class QuestManager : MonoBehaviour
 
     public void QuestCompleted(Quest completedQuest)
     {
+     
+        
         currentQuests.Remove(completedQuest);
+       
 
         Debug.Log("Quest Completed and to be cleared");
 
@@ -44,6 +64,9 @@ public class QuestManager : MonoBehaviour
         }
         else
         {
+            //signQuestCompleted.SetActive(true);
+           // onQuestComplete.Invoke();
+            Debug.Log("quest complete");
             activeQuest = null; //otherwise null the active quest.
             HudQuests.SetActive(false);
         }
@@ -90,16 +113,20 @@ public class QuestManager : MonoBehaviour
             return;
 
         GiveRewards();
+   
         QuestCompleted(quest);
     }
 
     //Handle Kill target
     public void CompleteTargetKillQuest(Quest quest)
     {
+
+   
         if (!quest.isComplete)
             return;
 
         GiveRewards();
+      
         QuestCompleted(quest);
     }
 }
