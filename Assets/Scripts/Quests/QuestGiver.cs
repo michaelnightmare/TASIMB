@@ -11,6 +11,7 @@ public class QuestGiver : MonoBehaviour
     public Text descriptionText;
     public Text goldText;
 
+
     //Edited out until we make a UI screen for the quest
     public void Start()
     {
@@ -29,6 +30,7 @@ public class QuestGiver : MonoBehaviour
 
         quest.isActive = true;
         player.GetComponent<QuestManager>().AddQuest(quest);
+
         Debug.Log("Quest Recieved");
     }
 
@@ -40,10 +42,12 @@ public class QuestGiver : MonoBehaviour
             if (currentQuest.isComplete && currentQuest.questCompleteCondition == CompleteCondition.TURN_IN && this.gameObject == currentQuest.turnInPoint)
             {
                 player.GetComponent<QuestManager>().CompleteTurnInQuest(currentQuest);
+
             }
             else if(currentQuest.isComplete && currentQuest.questCompleteCondition == CompleteCondition.KILL_BOSS)
             {
                 player.GetComponent<QuestManager>().CompleteTargetKillQuest(currentQuest);
+      
             }
         }
     }
@@ -51,6 +55,7 @@ public class QuestGiver : MonoBehaviour
     public void MarkKillAsComplete()
     {
         quest.KillComplete();
+     
         CompleteQuestForPlayer();
     }
 }
