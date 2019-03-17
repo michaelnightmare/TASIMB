@@ -3103,11 +3103,12 @@ MonoBehaviour:
   mRB: {fileID: 54112287294828386}
   disableAI: 0
   pistolObject: {fileID: 1611363464578996}
-  pistolDropPrefab: {fileID: 0}
   shotgunObject: {fileID: 1714087380437596}
-  shotgunDropPrefab: {fileID: 0}
+  shotgunDropPrefab: {fileID: 1448397740871734, guid: f1777b2778c8849499e323bf509870c3,
+    type: 2}
   rifleObject: {fileID: 1652164349485352}
-  rifleDropPrefab: {fileID: 0}
+  rifleDropPrefab: {fileID: 1927832620867500, guid: 32118646c2d454b42ad2a8d80ac02365,
+    type: 2}
   defaultController: {fileID: 9100000, guid: 3a1a1e4595137764894e8108c350b756, type: 2}
   rifleOverrideAnims: {fileID: 22100000, guid: c6cf1094a22cd3646b900ed0fd0fe77f, type: 2}
   isBoss: 0
@@ -3129,6 +3130,11 @@ MonoBehaviour:
   PlayerSounds: {fileID: 82655232160281828}
   shotClip: {fileID: 8300000, guid: dca63bc0945b401489b8b4e1ff340070, type: 3}
   reloadClip: {fileID: 8300000, guid: d67dcfa60ec75e54b9e0d08571464418, type: 3}
+  OnEnemyDeath:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114809399484348850
 MonoBehaviour:
   m_ObjectHideFlags: 1

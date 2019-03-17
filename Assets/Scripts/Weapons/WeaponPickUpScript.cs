@@ -5,11 +5,18 @@ using UnityEngine;
 public class WeaponPickUpScript : MonoBehaviour {
 
     public GunScript gun;
-    public float speed; 
+    public float speed;
+    public GameObject shotgun;
+    public GameObject rifle; 
 	// Use this for initialization
-	void Start () {
-		
-	}
+	void Start ()
+    {
+        if (gun == null)
+        {
+           
+                
+        }
+    }
 
     void Update()
     {
