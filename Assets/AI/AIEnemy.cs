@@ -175,8 +175,8 @@ public class AIEnemy : MonoBehaviour
         enemyAlive = false;
         anim.SetBool("enemyAlive", false);
         GameManagerScr._instance.enemyCounterIncrease();
-        Invoke("ItemDrop", 2);
         clearBodies.enabled = true;
+        Invoke("ItemDrop", 2);
         hitbox.enabled = false;
         mRB.isKinematic = true;
         mCollider.enabled = false;
