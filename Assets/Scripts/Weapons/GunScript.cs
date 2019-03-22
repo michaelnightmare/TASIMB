@@ -163,7 +163,6 @@ public class GunScript : MonoBehaviour
         if (!initialized) Initialize();
         Reload();
         isUnlocked = true;
-
         GunIcon.SetActive(true);
         gunDisplay.displayOn();
     }

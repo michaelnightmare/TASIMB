@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 33362919548342828}
   - component: {fileID: 23474667449673528}
   - component: {fileID: 64586320595708062}
+  - component: {fileID: 114619149950594122}
   - component: {fileID: 114009934189487308}
   m_Layer: 0
   m_Name: ShotGunPickup
@@ -331,5 +332,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gun: {fileID: 0}
   speed: 100
-  shotgun: {fileID: 1448397740871734}
-  rifle: {fileID: 1927832620867500, guid: 32118646c2d454b42ad2a8d80ac02365, type: 2}
+  shotgun: {fileID: 0}
+  rifle: {fileID: 0}
+  rifleObject: {fileID: 1927832620867500, guid: 32118646c2d454b42ad2a8d80ac02365,
+    type: 2}
+  shotgunObject: {fileID: 1448397740871734}
+  player: {fileID: 0}
+--- !u!114 &114619149950594122
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1448397740871734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dcda325c5ccfeb4abd2268d56a40290, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  weapons: {fileID: 0}
+  shotgunAvailable: 0

@@ -20,6 +20,7 @@ public class AIEnemy : MonoBehaviour
     public Collider mCollider;
     public Rigidbody mRB;
     public bool disableAI = false;
+   
 
     bool isReloading;
     bool canShoot = true;
@@ -36,7 +37,6 @@ public class AIEnemy : MonoBehaviour
     [Header("Gun Settings")]
     private EnemyType type;
     public GameObject pistolObject;
-    public GameObject pistolDropPrefab;
     public GameObject shotgunObject;
     public GameObject shotgunDropPrefab;
     public GameObject rifleObject;
@@ -175,6 +175,7 @@ public class AIEnemy : MonoBehaviour
         enemyAlive = false;
         anim.SetBool("enemyAlive", false);
         GameManagerScr._instance.enemyCounterIncrease();
+        Invoke("ItemDrop", 2);
         clearBodies.enabled = true;
         hitbox.enabled = false;
         mRB.isKinematic = true;
@@ -190,7 +191,7 @@ public class AIEnemy : MonoBehaviour
         GameObject objToSpawn = null;
         if (type == EnemyType.Pistol)
         {
-            objToSpawn = pistolDropPrefab;
+            objToSpawn = null;
         }
         else if (type == EnemyType.Shotgun)
         {
@@ -495,5 +496,7 @@ public class AIEnemy : MonoBehaviour
 
         StartCoroutine(flashFlare());
     }
+
+ 
 
 }

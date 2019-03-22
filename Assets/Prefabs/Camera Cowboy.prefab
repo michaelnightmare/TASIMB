@@ -448,7 +448,7 @@ GameObject:
   - component: {fileID: 4432941576988232}
   - component: {fileID: 33062445110959056}
   - component: {fileID: 23343353680925340}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: SM_Wep_Rifle_01_Hammer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -607,7 +607,7 @@ GameObject:
   - component: {fileID: 4169595043234328}
   - component: {fileID: 33735984619922966}
   - component: {fileID: 23801845671936666}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: SM_Wep_Rifle_01_Lever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -643,7 +643,7 @@ GameObject:
   - component: {fileID: 114697107713461080}
   - component: {fileID: 114872882541210162}
   - component: {fileID: 82594150456862292}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -774,7 +774,7 @@ GameObject:
   - component: {fileID: 4166266357473484}
   - component: {fileID: 33201722934201464}
   - component: {fileID: 23096354932238764}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: SM_Wep_Rifle_01_Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -805,7 +805,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4893338665230594}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: RifleENd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1065,7 +1065,7 @@ GameObject:
   - component: {fileID: 4040721342879976}
   - component: {fileID: 33561453554312308}
   - component: {fileID: 23792200688814844}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: SM_Wep_Rifle_01_Slide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3083,7 +3083,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1688526397711420}
   m_Material: {fileID: 13400000, guid: 01571ba68fb2dad46aa03094ab219579, type: 2}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.37, y: 0.47, z: 0.92}

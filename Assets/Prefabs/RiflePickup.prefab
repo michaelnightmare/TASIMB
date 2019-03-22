@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 33213432864188882}
   - component: {fileID: 23104265719412514}
   - component: {fileID: 64579134463410314}
+  - component: {fileID: 114201254257388896}
   - component: {fileID: 114313553839267824}
   m_Layer: 0
   m_Name: RiflePickup
@@ -391,6 +392,20 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: fe5bb1c2b68917b4095d09992c5d5223, type: 3}
+--- !u!114 &114201254257388896
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1927832620867500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 997af5a159ddd4c4f8b67bcabe4608a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  weapons: {fileID: 0}
+  rifleAvailable: 0
 --- !u!114 &114313553839267824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -404,5 +419,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gun: {fileID: 0}
   speed: 100
-  shotgun: {fileID: 1448397740871734, guid: f1777b2778c8849499e323bf509870c3, type: 2}
-  rifle: {fileID: 1927832620867500}
+  shotgun: {fileID: 0}
+  rifle: {fileID: 0}
+  rifleObject: {fileID: 1927832620867500}
+  shotgunObject: {fileID: 1448397740871734, guid: f1777b2778c8849499e323bf509870c3,
+    type: 2}
+  player: {fileID: 0}

@@ -6,15 +6,32 @@ public class WeaponPickUpScript : MonoBehaviour {
 
     public GunScript gun;
     public float speed;
-    public GameObject shotgun;
-    public GameObject rifle; 
+    public ShotgunScr shotgun;
+    public RifleScr rifle;
+    public GameObject rifleObject;
+    public GameObject shotgunObject;
+    public GameObject player;
 	// Use this for initialization
 	void Start ()
     {
         if (gun == null)
         {
            
+            if (shotgunObject)
+            {
+                shotgun.shotgunAvailable = true;
+                Debug.Log("you got the shotgun");
                 
+
+           }
+            if (rifleObject)
+            {
+                rifle.rifleAvailable = true;
+                Debug.Log("you got the rifle");
+                
+            
+            }
+
         }
     }
 
@@ -31,8 +48,6 @@ public class WeaponPickUpScript : MonoBehaviour {
 
             gun.Unlock();
             Destroy(gameObject);
-
-
         }
     }
 }
