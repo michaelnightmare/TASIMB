@@ -10,7 +10,7 @@ public class SlashScript : MonoBehaviour
     public GameObject bloodHitEffectPrefab;
     public LayerMask genericHitEffectMask;
     public GameObject genericHitEffectPrefab;
-    public float Damage = -2;
+    public float Damage = 5;
 
 
     void Start ()
@@ -25,6 +25,7 @@ public class SlashScript : MonoBehaviour
         if (col.collider.gameObject.layer == 11)
         {
             DoGenericHitFX(col.contacts[0]);
+            Debug.Log("slashed stuff");
         }
 
         if (col.collider.gameObject.layer == 12)

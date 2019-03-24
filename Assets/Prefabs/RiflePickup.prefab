@@ -417,11 +417,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1765660fcba162642b05c8cef24ad5c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gun: {fileID: 0}
   speed: 100
-  shotgun: {fileID: 0}
-  rifle: {fileID: 0}
-  rifleObject: {fileID: 1927832620867500}
-  shotgunObject: {fileID: 1448397740871734, guid: f1777b2778c8849499e323bf509870c3,
-    type: 2}
-  player: {fileID: 0}
+  weaponIndex: 2

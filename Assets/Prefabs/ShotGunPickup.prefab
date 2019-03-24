@@ -330,14 +330,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1765660fcba162642b05c8cef24ad5c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gun: {fileID: 0}
   speed: 100
-  shotgun: {fileID: 0}
-  rifle: {fileID: 0}
-  rifleObject: {fileID: 1927832620867500, guid: 32118646c2d454b42ad2a8d80ac02365,
-    type: 2}
-  shotgunObject: {fileID: 1448397740871734}
-  player: {fileID: 0}
+  weaponIndex: 1
 --- !u!114 &114619149950594122
 MonoBehaviour:
   m_ObjectHideFlags: 1

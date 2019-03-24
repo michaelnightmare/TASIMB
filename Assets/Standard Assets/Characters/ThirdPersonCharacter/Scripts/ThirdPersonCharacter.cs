@@ -93,7 +93,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 float crouchRayLength = m_CapsuleHeight - m_Capsule.radius * k_Half;
                 if (Physics.SphereCast(crouchRay, m_Capsule.radius * k_Half, crouchRayLength, Physics.AllLayers, QueryTriggerInteraction.Ignore))
                 {
-                    m_Crouching = true;
+                    //m_Crouching = true;
                     return;
                 }
                 m_Capsule.height = m_CapsuleHeight;
@@ -104,6 +104,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         void PreventStandingInLowHeadroom()
         {
+            return;
             // prevent standing up in crouch-only zones
             if (!m_Crouching)
             {
@@ -129,6 +130,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			// update the animator parameters
 			m_Animator.SetFloat("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
 			m_Animator.SetFloat("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
+	
 			m_Animator.SetBool("Crouch", m_Crouching);
 			m_Animator.SetBool("OnGround", m_IsGrounded);
             m_Animator.SetBool("Roll 0",m_Rolling);

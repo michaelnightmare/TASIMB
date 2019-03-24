@@ -64,8 +64,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             m_Character.FreezeCharacter();
         }
 
-
-
         // Fixed update is called in syn9c with physics
         private void FixedUpdate()
         {
@@ -86,12 +84,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             {
                 mapOnOff = !mapOnOff;
             }
-
-         
-
-
-           
-         
 
             // calculate move direction to pass to character
             if (m_Cam != null)

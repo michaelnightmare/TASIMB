@@ -15,8 +15,6 @@ public class PlayerScript : MonoBehaviour
     Animator anims;
     public float healthLossDelay = 1.0f;
     public float nextDelay = 0.0f;
-    public bool rifleAvailable = false;
-    public bool shotgunAvailable = false;
     public int gold;
 
     void Start()

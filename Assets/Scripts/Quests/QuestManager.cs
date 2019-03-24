@@ -65,7 +65,7 @@ public class QuestManager : MonoBehaviour
         else
         {
             //signQuestCompleted.SetActive(true);
-           // onQuestComplete.Invoke();
+            //onQuestComplete.Invoke();
             Debug.Log("quest complete");
             activeQuest = null; //otherwise null the active quest.
             HudQuests.SetActive(false);

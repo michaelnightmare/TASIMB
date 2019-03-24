@@ -23,11 +23,18 @@ public class ShootingController : MonoBehaviour
     public AnimatorOverrideController rifleOverrideAnims;
     public GunDisplayScr gunDisplay;
 
- 
-   
 
 
-
+    public void PickupWeapon(int weaponIndex)
+    {
+        for(int i=0; i<guns.Count;i++)
+        {
+            if(i == weaponIndex)
+            {
+                guns[weaponIndex].Unlock();
+            }
+        }
+    }
 
     void switchToWeaponIndex(int index)
     {

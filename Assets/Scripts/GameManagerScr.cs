@@ -15,10 +15,12 @@ public class GameManagerScr : MonoBehaviour {
     //Enemies
     public GameObject WolfRef;
     public GameObject EnemyCowboyRef;
+    public GameObject BossEnemy;
+    public GameObject RegEnemy;
     public int updatedDeathCounter; 
     public Text displayedText;
     public static GameManagerScr _instance;
-   
+    public GameObject[] enemies;
     public bool GameOverLose;
 
     bool test = false;
@@ -40,14 +42,14 @@ public class GameManagerScr : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-       
+         
 
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        
+        enemies = GameObject.FindGameObjectsWithTag("enemyCowboy");
 
         
     }
@@ -68,6 +70,11 @@ public class GameManagerScr : MonoBehaviour {
     public void YouWon()
     {
         WinScene.SetActive(true);
+        for(int i= 0; i > enemies.Length; i++)
+        {
+            BossEnemy.SetActive(false);
+            RegEnemy.SetActive(false);
+        }
     }
     public void YouLose()
     {

@@ -3118,8 +3118,8 @@ MonoBehaviour:
   StoppingDist: 9
   ShootAngleThreshold: 6
   turningSpeed: 8
-  reloadTime: 5
-  timeToShoot: 1.2
+  reloadTime: 8
+  timeToShoot: 2.5
   clipSize: 6
   speedScaler: 0.77
   rollThreshold: 0.4

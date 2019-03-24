@@ -1,10 +1,12 @@
 ﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class KnifeScript : MonoBehaviour
 {
     public GameObject knife;
+    public Collider hitCollider;
 
     Animator anims;
     // Use this for initialization
@@ -33,4 +35,14 @@ public class KnifeScript : MonoBehaviour
 
         }
     }
+
+    public void EnableHitCollider()
+    {
+        hitCollider.enabled = true;
+    }
+    public void DisableHitCollider()
+    {
+        hitCollider.enabled = false;
+    }
+
 }
