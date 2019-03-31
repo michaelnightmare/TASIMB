@@ -94,7 +94,7 @@ public class AIWolf : MonoBehaviour
     {
         anim.SetBool("walk", false);
         wolfHealth-= Damage;
-        if (wolfHealth == 0)
+        if (wolfHealth <= 0)
         {
             Debug.Log("dead");
             wolfDeath();
