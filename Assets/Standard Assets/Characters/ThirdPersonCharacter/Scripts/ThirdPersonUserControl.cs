@@ -15,7 +15,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         public bool disableMovement;
         public GameObject minimap;
         bool mapOnOff;
-       
+     
+
 
         private void Start()
         {
@@ -79,8 +80,13 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             float v = CrossPlatformInputManager.GetAxis("Vertical");
             bool crouch = Input.GetKey(KeyCode.C);
             bool roll = Input.GetKeyDown(KeyCode.Z);
+            bool KnifeActive = Input.GetKeyDown(KeyCode.LeftShift);
+            roll = CrossPlatformInputManager.GetButtonDown("Roll");
 
-            if(Input.GetKeyDown(KeyCode.M))
+
+      
+
+            if (Input.GetKeyDown(KeyCode.M))
             {
                 mapOnOff = !mapOnOff;
             }

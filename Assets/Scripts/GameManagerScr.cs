@@ -49,7 +49,7 @@ public class GameManagerScr : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        enemies = GameObject.FindGameObjectsWithTag("enemyCowboy");
+        //enemies = GameObject.FindGameObjectsWithTag("enemyCowboy");
 
         
     }

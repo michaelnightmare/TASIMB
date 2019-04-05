@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class ShootingController : MonoBehaviour
 {
@@ -137,15 +138,14 @@ public class ShootingController : MonoBehaviour
     {
         if (disabledShooting) return;
 
-        if (Input.GetKey(KeyCode.Mouse1))
+        if (Input.GetKey(KeyCode.Mouse1)||CrossPlatformInputManager.GetButton("Aim"))
         {
             aiming = true;
             anims.SetBool("Aim", true);
             guns[selectedWeaponIndex].gameObject.SetActive(true);
             raycastgun.rayCastShot();
 
-
-            if (Input.GetKeyDown(KeyCode.Mouse0)&& Time.time > nextShot)
+            if (Input.GetKeyDown(KeyCode.Mouse0) || CrossPlatformInputManager.GetButton("Shoot")  && Time.time > nextShot)
             {
 
                 if (guns[selectedWeaponIndex].canShoot)
@@ -196,11 +196,12 @@ public class ShootingController : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.R)&& guns[selectedWeaponIndex].canReload)
+        if (Input.GetKeyDown(KeyCode.R) && guns[selectedWeaponIndex].canReload)
         {
             guns[selectedWeaponIndex].Reload();
             
         }
+
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -230,6 +231,8 @@ public class ShootingController : MonoBehaviour
             gunDisplay.displayOn();
         }
 
+      
+      
     }
 
 

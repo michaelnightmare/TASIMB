@@ -2,11 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class KnifeScript : MonoBehaviour
 {
     public GameObject knife;
     public Collider hitCollider;
+    public bool KnifeActive = false; 
+  
 
     Animator anims;
     // Use this for initialization
@@ -18,12 +21,15 @@ public class KnifeScript : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        //KnifeActive = CrossPlatformInputManager.GetButtonDown("KnifeActive");
+
+        if (Input.GetKey(KeyCode.LeftShift) || CrossPlatformInputManager.GetButton("KnifeActive"))
+          
         {
            
             knife.gameObject.SetActive(true);
 
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKeyDown(KeyCode.Mouse0)||CrossPlatformInputManager.GetButton("Slash"))
             {
                 anims.SetTrigger("Slash");
             }
@@ -34,6 +40,8 @@ public class KnifeScript : MonoBehaviour
             knife.gameObject.SetActive(false);
 
         }
+
+    
     }
 
     public void EnableHitCollider()
