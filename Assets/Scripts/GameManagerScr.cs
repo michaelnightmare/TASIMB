@@ -22,7 +22,8 @@ public class GameManagerScr : MonoBehaviour {
     public static GameManagerScr _instance;
     public GameObject[] enemies;
     public bool GameOverLose;
-
+  
+    
     bool test = false;
     
     void Awake()
@@ -49,9 +50,8 @@ public class GameManagerScr : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        //enemies = GameObject.FindGameObjectsWithTag("enemyCowboy");
+       
 
-        
     }
    public void enemyCounterIncrease()
     {

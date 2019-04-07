@@ -13,6 +13,7 @@ public class GunScript : MonoBehaviour
     AudioSource PlayerSounds;
     public AudioClip shotClip;
     public AudioClip reloadClip;
+    public AudioClip outOfAmmo;
     public int bulletIcons;
     public Transform uiRoot;
     public Image[] bullets;
@@ -22,6 +23,7 @@ public class GunScript : MonoBehaviour
     bool initialized = false;
     public GameObject muzzleFlash;
     public float holdTime;
+    public float gunHoldTime;
 
 
     public GameObject GunIcon;
@@ -33,7 +35,7 @@ public class GunScript : MonoBehaviour
         if (!initialized) Initialize();
         Reload();
         holdTime = .10f;
-
+        gunHoldTime = .5f;
     }
 
     void Initialize()
@@ -74,28 +76,23 @@ public class GunScript : MonoBehaviour
     public void Shoot()
     {
 
-        if (bulletCount == 0)
-        {
-            //play click sound
-           
-        }
-        else
+      
+        if (bulletCount >= 0)
         {
           
             shootingScript.Shoot();
-         
-           
-             
-          
             PlayerSounds.clip = shotClip;
             PlayerSounds.Play();
             bulletCount--;
             muzzleFlare();
-            if (bulletCount <= 0)
+            if (bulletCount < 0)
             {
                
                 canShoot = false;
-               
+                Debug.Log("click");
+                PlayerSounds.clip = outOfAmmo;
+                PlayerSounds.Play();
+
                 if (!canReload)
                 {
 
@@ -104,6 +101,7 @@ public class GunScript : MonoBehaviour
                 
             }
         }
+     
     }
     public void EquipGun(bool equipped)
     {
@@ -177,7 +175,7 @@ public class GunScript : MonoBehaviour
 
     IEnumerator gunHold()
     {
-        yield return new WaitForSeconds(holdTime);
+        yield return new WaitForSeconds(gunHoldTime);
         Lock();
         yield break;
     }

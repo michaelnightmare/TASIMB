@@ -23,13 +23,13 @@ public class KnifeScript : MonoBehaviour
     {
         //KnifeActive = CrossPlatformInputManager.GetButtonDown("KnifeActive");
 
-        if (Input.GetKey(KeyCode.LeftShift) || CrossPlatformInputManager.GetButton("KnifeActive"))
+        if (Input.GetKey(KeyCode.LeftAlt) || CrossPlatformInputManager.GetButton("KnifeActive"))
           
         {
            
             knife.gameObject.SetActive(true);
 
-            if (Input.GetKeyDown(KeyCode.Mouse0)||CrossPlatformInputManager.GetButton("Slash"))
+            if (Input.GetKeyDown(KeyCode.Mouse0)||CrossPlatformInputManager.GetButton("Slash")|| Input.GetAxis("Shoot") > 0f)
             {
                 anims.SetTrigger("Slash");
             }

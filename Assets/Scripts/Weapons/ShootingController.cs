@@ -9,7 +9,7 @@ public class ShootingController : MonoBehaviour
 
     bool aiming = false;
     Animator anims;
-    public List<GunScript>  guns=new List<GunScript>();
+    public List<GunScript> guns = new List<GunScript>();
     public bool aimWithMouse = false;
     public float aimSpeed = 30f;
     public float fireRate = .5f;
@@ -17,7 +17,7 @@ public class ShootingController : MonoBehaviour
     public Transform shootT;
     public Transform singleHandShootT;
     public Transform rifleShootT;
-    public int selectedWeaponIndex= 0;
+    public int selectedWeaponIndex = 0;
     public RayCastScr raycastgun;
 
     public RuntimeAnimatorController defaultController;
@@ -28,9 +28,9 @@ public class ShootingController : MonoBehaviour
 
     public void PickupWeapon(int weaponIndex)
     {
-        for(int i=0; i<guns.Count;i++)
+        for (int i = 0; i < guns.Count; i++)
         {
-            if(i == weaponIndex)
+            if (i == weaponIndex)
             {
                 guns[weaponIndex].Unlock();
             }
@@ -39,7 +39,7 @@ public class ShootingController : MonoBehaviour
 
     void switchToWeaponIndex(int index)
     {
-        if(index >= 0 && index < guns.Count)
+        if (index >= 0 && index < guns.Count)
         {
             if (guns[index].isUnlocked)
             {
@@ -47,7 +47,7 @@ public class ShootingController : MonoBehaviour
                 selectedWeaponIndex = index;
                 guns[selectedWeaponIndex].EquipGun(true);
 
-                if(selectedWeaponIndex == 2)
+                if (selectedWeaponIndex == 2)
                 {
                     anims.runtimeAnimatorController = rifleOverrideAnims;
                     shootT = rifleShootT;
@@ -92,8 +92,8 @@ public class ShootingController : MonoBehaviour
             index--;
             if (index < 0)
             {
-                index = guns.Count -1;
-               
+                index = guns.Count - 1;
+
             }
 
             foundGun = guns[index].isUnlocked;
@@ -104,17 +104,15 @@ public class ShootingController : MonoBehaviour
 
     public bool disabledShooting = false;
 
-    void Start () {
+    void Start()
+    {
         anims = GetComponent<Animator>();
-     
+
         guns[0].isUnlocked = true;
         guns[0].canReload = true;
-     
+
         defaultController = anims.runtimeAnimatorController;
         singleHandShootT = shootT;
-
-      
-
     }
 
 
@@ -134,72 +132,50 @@ public class ShootingController : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
         if (disabledShooting) return;
 
-        if (Input.GetKey(KeyCode.Mouse1)||CrossPlatformInputManager.GetButton("Aim"))
+        if (InputAim())
         {
             aiming = true;
             anims.SetBool("Aim", true);
             guns[selectedWeaponIndex].gameObject.SetActive(true);
             raycastgun.rayCastShot();
 
-            if (Input.GetKeyDown(KeyCode.Mouse0) || CrossPlatformInputManager.GetButton("Shoot")  && Time.time > nextShot)
+            if (InputShoot() && Time.time > nextShot)
             {
-
                 if (guns[selectedWeaponIndex].canShoot)
                 {
                     anims.SetTrigger("Shoot");
                     guns[selectedWeaponIndex].Shoot();
-                   
-                   
-
-
                     if (!guns[selectedWeaponIndex].isUnlocked)
                     {
-                        
                         switchToPreviousGun();
-                       
                     }
                     nextShot = Time.time + fireRate;
                 }
-      
-                
             }
 
 
-            if (aimWithMouse)
+            Quaternion dir = InputGetPlayerAimRotation();
+            if (dir != Quaternion.identity)
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                Plane p = new Plane(Vector3.up, shootT.position);
-                float dist;
-                p.Raycast(ray, out dist);
-                Vector3 intersectionPoint = ray.GetPoint(dist);
-                Vector3 aimDir = intersectionPoint - shootT.transform.position;
-                aimDir.y = 0;
-                float yDiff = Vector3.SignedAngle(transform.forward, shootT.forward, Vector3.up);
-                Quaternion targetRot = Quaternion.LookRotation(aimDir) * Quaternion.Euler(0f, -yDiff, 0f);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * aimSpeed);
-
-
-
+                transform.rotation = dir;
             }
+
         }
         else
         {
             aiming = false;
             anims.SetBool("Aim", false);
             guns[selectedWeaponIndex].gameObject.SetActive(false);
-        
-
         }
 
 
-        if (Input.GetKeyDown(KeyCode.R) && guns[selectedWeaponIndex].canReload)
+        if (Input.GetKeyDown(KeyCode.R) || Input.GetButton("Reload") && guns[selectedWeaponIndex].canReload)
         {
             guns[selectedWeaponIndex].Reload();
-            
         }
 
 
@@ -207,7 +183,7 @@ public class ShootingController : MonoBehaviour
         {
             switchToWeaponIndex(0);
             gunDisplay.displayOn();
-           
+
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
@@ -220,20 +196,73 @@ public class ShootingController : MonoBehaviour
             gunDisplay.displayOn();
         }
 
-        if(Input.GetAxis("Mouse ScrollWheel") > 0f)
+        if (InputCycleGunForward() || Input.GetButtonDown("GunScroll"))
         {
             switchToNextGun();
             gunDisplay.displayOn();
         }
-        else if(Input.GetAxis("Mouse ScrollWheel") < 0f)
+        else if (InputCycleGunBackward())
         {
             switchToPreviousGun();
             gunDisplay.displayOn();
         }
-
-      
-      
     }
 
+
+
+    #region Input
+
+    bool InputAim()
+    {
+        return (Input.GetKey(KeyCode.Mouse1) || CrossPlatformInputManager.GetButton("Aim")) || Input.GetAxis("Aim") > 0f || false;
+    }
+
+    bool InputShoot()
+    {
+        return Input.GetKeyDown(KeyCode.Mouse0) || CrossPlatformInputManager.GetButton("Shoot") || Input.GetAxis("Shoot") > 0f || false; 
+    }
+
+    bool InputCycleGunForward()
+    {
+      
+
+        return Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetAxis("GunScroll") > 75f && Input.GetAxis("GunScroll") > .64f || false; //put xbox controls here
+    }
+
+    bool InputCycleGunBackward()
+    {
+        return Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetAxis("GunScroll") < -.75f && Input.GetAxis("GunScroll") > .64f || false; //put xbox controls here
+    }
+
+    Quaternion InputGetPlayerAimRotation()
+    {
+        if (Input.GetMouseButton(1))
+        {
+            Debug.Log("Aiming with mouse");
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Plane p = new Plane(Vector3.up, shootT.position);
+            float dist;
+            p.Raycast(ray, out dist);
+            Vector3 intersectionPoint = ray.GetPoint(dist);
+            Vector3 aimDir = intersectionPoint - shootT.transform.position;
+            aimDir.y = 0;
+            float yDiff = Vector3.SignedAngle(transform.forward, shootT.forward, Vector3.up);
+            Quaternion targetRot = Quaternion.LookRotation(aimDir) * Quaternion.Euler(0f, -yDiff, 0f);
+            return Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * aimSpeed);
+        }
+        else
+        {
+            Vector3 inputAimDir = new Vector3(-Input.GetAxis("xboxAimHorizontal"), 0, Input.GetAxis("xboxAimVertical"));
+            if (inputAimDir.magnitude < 0.1) return Quaternion.identity;
+            inputAimDir.Normalize();
+            return Quaternion.LookRotation(inputAimDir);
+        }
+    }
+
+
+
+
+
+    #endregion
 
 }

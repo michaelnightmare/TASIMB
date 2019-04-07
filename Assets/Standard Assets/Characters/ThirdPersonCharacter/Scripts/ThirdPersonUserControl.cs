@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
+using UnityEngine.UI;
 
 namespace UnityStandardAssets.Characters.ThirdPerson
 {
@@ -15,6 +16,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         public bool disableMovement;
         public GameObject minimap;
         bool mapOnOff;
+        
      
 
 
@@ -49,6 +51,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 minimap.SetActive(true);
             }
 
+
         }
 
         [ContextMenu("Enable Movement")]
@@ -79,8 +82,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
             float v = CrossPlatformInputManager.GetAxis("Vertical");
             bool crouch = Input.GetKey(KeyCode.C);
-            bool roll = Input.GetKeyDown(KeyCode.Z);
-            bool KnifeActive = Input.GetKeyDown(KeyCode.LeftShift);
+            bool roll = Input.GetKeyDown(KeyCode.LeftShift);
+            bool KnifeActive = Input.GetKeyDown(KeyCode.LeftAlt);
             roll = CrossPlatformInputManager.GetButtonDown("Roll");
 
 
@@ -116,4 +119,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         }
     }
 
-}
+  
+
+    }

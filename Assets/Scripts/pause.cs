@@ -1,38 +1,67 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class pause : MonoBehaviour {
+public class Pause : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    public static bool GameIsPaused = false;
+    public GameObject pauseMenuUI;
+    public Button MainMenuButton;
+    public Button QuitGameButton;
+   
 	
-	// Update is called once per frame
-	void Update () {
-        buttonpausegame();
-
-
-    }
-
-    public void pausegame()
+	
+	void Update ()
     {
-        if (Time.timeScale == 1.0f)
-            Time.timeScale = 0.0f;
-        else
-            Time.timeScale = 1.0f;
-    }
-
-
-    public void buttonpausegame()
-    {
-        if (Input.GetKeyDown("escape"))
+		if(Input.GetKeyDown(KeyCode.P)||Input.GetButtonDown("StartButton"))
         {
-            if (Time.timeScale == 1.0f)
-                Time.timeScale = 0.0f;
+            if (GameIsPaused)
+            {
+                Resume();
+            }
             else
-                Time.timeScale = 1.0f;
+            {
+                PauseGame();
+                    
+            }
+
+            
         }
+        if(Input.GetButtonDown("A"))
+        {
+           MainMenuButton.onClick.Invoke();
+        }
+        if(Input.GetButtonDown("B"))
+        {
+            QuitGameButton.onClick.Invoke();
+        }
+	}
+
+
+   public void Resume()
+    {
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        GameIsPaused = false;
     }
+    void PauseGame()
+    {
+        pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        GameIsPaused = true;
+    }
+ 
+    public void LoadMainMenu()
+    {
+     
+        SceneManager.LoadScene("NewMainMenu");
+    }
+    public void QuitGame()
+    {
+        Debug.Log("Quitting Game");
+        Application.Quit();
+    }
+
 }
