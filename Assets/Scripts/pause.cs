@@ -10,6 +10,7 @@ public class Pause : MonoBehaviour {
     public GameObject pauseMenuUI;
     public Button MainMenuButton;
     public Button QuitGameButton;
+    
    
 	
 	
@@ -29,11 +30,11 @@ public class Pause : MonoBehaviour {
 
             
         }
-        if(Input.GetButtonDown("A"))
+        if(Input.GetButtonDown("A")&& GameIsPaused==true)
         {
            MainMenuButton.onClick.Invoke();
         }
-        if(Input.GetButtonDown("B"))
+        if(Input.GetButtonDown("B")&& GameIsPaused==true)
         {
             QuitGameButton.onClick.Invoke();
         }
