@@ -128,7 +128,25 @@ public class ShootingController : MonoBehaviour
         disabledShooting = true;
     }
 
+    public bool TooClose()
+    {
 
+        if (Input.mousePosition.x > 155)
+        {
+            if (Input.mousePosition.x < 265)
+            {
+                if (Input.mousePosition.y > 120)
+                {
+                    if (Input.mousePosition.y < 205)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+        }
+        return false;
+    }
 
 
     // Update is called once per frame
@@ -157,11 +175,17 @@ public class ShootingController : MonoBehaviour
                 }
             }
 
-
-            Quaternion dir = InputGetPlayerAimRotation();
-            if (dir != Quaternion.identity)
+            if (TooClose())
             {
-                transform.rotation = dir;
+
+            }
+            else
+            {
+                Quaternion dir = InputGetPlayerAimRotation();
+                if (dir != Quaternion.identity)
+                {
+                    transform.rotation = dir;
+                }
             }
 
         }
