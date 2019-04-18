@@ -16,7 +16,7 @@ public class Pause : MonoBehaviour {
 	
 	void Update ()
     {
-		if(Input.GetKeyDown(KeyCode.P)||Input.GetButtonDown("StartButton"))
+		if(Input.GetButtonDown("StartButton"))
         {
             if (GameIsPaused)
             {
