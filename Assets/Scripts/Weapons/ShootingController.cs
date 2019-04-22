@@ -19,12 +19,13 @@ public class ShootingController : MonoBehaviour
     public Transform rifleShootT;
     public int selectedWeaponIndex = 0;
     public RayCastScr raycastgun;
+    public GameObject playerPosition;
 
     public RuntimeAnimatorController defaultController;
     public AnimatorOverrideController rifleOverrideAnims;
     public GunDisplayScr gunDisplay;
 
-
+    private float aimDistance = 21.2f; //Store this off so we aren't using magical unicorn numbahs
 
     public void PickupWeapon(int weaponIndex)
     {
@@ -128,27 +129,6 @@ public class ShootingController : MonoBehaviour
         disabledShooting = true;
     }
 
-    public bool TooClose()
-    {
-
-        if (Input.mousePosition.x > 210)
-        {
-            if (Input.mousePosition.x < 318.5)
-            {
-                if (Input.mousePosition.y > 120)
-                {
-                    if (Input.mousePosition.y < 205)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-        }
-        return false;
-    }
-
-
     // Update is called once per frame
     void Update()
     {
@@ -176,9 +156,18 @@ public class ShootingController : MonoBehaviour
                 }
             }
 
-            if (TooClose())
-            {
+            //Store mouse pos
+            Vector3 mousePos = Input.mousePosition;
 
+            //Now, grab the point by converting from screen px to world coords
+            Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane));
+
+            //Calculate the distance between player and mouse point
+            float mouseToPlayerDist = Vector3.Distance(playerPosition.transform.position, point);
+
+            if (mouseToPlayerDist < aimDistance)
+            {
+                //Do nothing
             }
             else
             {
