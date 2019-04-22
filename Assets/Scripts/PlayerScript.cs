@@ -14,8 +14,11 @@ public class PlayerScript : MonoBehaviour
     public float bodyTimer;
     Animator anims;
     public float healthLossDelay = 1.0f;
-    public float nextDelay = 0.0f;
+    public float nextDelay = 0.0f; 
+    public float hitTimerAmount = 2.0f; //this stores the amount of time we accrue after being hit
     public int gold;
+
+    private float hitTimer = 0.0f; //this stores the last time we're hit
 
     void Start()
     {
@@ -51,7 +54,10 @@ public class PlayerScript : MonoBehaviour
             playerDead();
         }
 
-      
+        if (hitTimer >= 0.0f)
+        {
+            hitTimer -= Time.deltaTime;
+        }
 
     }
 
@@ -59,10 +65,17 @@ public class PlayerScript : MonoBehaviour
 
     public void playerTakeDamage(float damage)
     {
-        if (Time.time > nextDelay)
+        if (Time.time > nextDelay && hitTimer <= 0)
         {
             playerHealth -= damage;
             anims.SetTrigger("PlayerHurt");
+            nextDelay = Time.time + healthLossDelay;
+            hitTimer = hitTimerAmount;
+        }
+
+        else //if we've been hit recently, skip playing the PlayerHurt animation to make it less jarring for the player
+        {
+            playerHealth -= damage;
             nextDelay = Time.time + healthLossDelay;
         }
 
