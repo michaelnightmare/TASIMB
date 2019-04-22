@@ -131,9 +131,9 @@ public class ShootingController : MonoBehaviour
     public bool TooClose()
     {
 
-        if (Input.mousePosition.x > 155)
+        if (Input.mousePosition.x > 210)
         {
-            if (Input.mousePosition.x < 265)
+            if (Input.mousePosition.x < 318.5)
             {
                 if (Input.mousePosition.y > 120)
                 {
@@ -160,6 +160,7 @@ public class ShootingController : MonoBehaviour
             anims.SetBool("Aim", true);
             guns[selectedWeaponIndex].gameObject.SetActive(true);
             raycastgun.rayCastShot();
+            Debug.Log(Input.mousePosition);
 
             if (InputShoot() && Time.time > nextShot)
             {
