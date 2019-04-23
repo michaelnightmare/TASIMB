@@ -75,7 +75,7 @@ public class QuestManager : MonoBehaviour
     //This will only increment the active quest for right now.
     public void IncrementKillQuest()
     {
-        if (activeQuest.isActive == false)
+        if (activeQuest == null || activeQuest.isActive == false)
             return;
 
         if (activeQuest.killGoals != null || activeQuest.killGoals.Length > 0)

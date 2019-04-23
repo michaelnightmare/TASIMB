@@ -3095,13 +3095,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  gun: {fileID: 114162132636527152}
-  shotGun: {fileID: 0}
   clearBodies: {fileID: 114034204981439196}
   hitbox: {fileID: 65464225255165090}
-  mCollider: {fileID: 65110631513807780}
-  mRB: {fileID: 54112287294828386}
   disableAI: 0
+  health: 2
+  isAlive: 1
+  aggroDist: 15
+  stoppingDist: 8
+  shootAngleThreshold: 5
+  turningSpeed: 8
+  reloadTime: 8
+  timeToAttack: 0
+  initialized: 0
+  canAttack: 1
+  distFromTarget: 0
+  PlayerSounds: {fileID: 82655232160281828}
+  shotClip: {fileID: 8300000, guid: dca63bc0945b401489b8b4e1ff340070, type: 3}
+  gun: {fileID: 114162132636527152}
+  shotGun: {fileID: 0}
   pistolObject: {fileID: 1611363464578996}
   shotgunObject: {fileID: 1714087380437596}
   shotgunDropPrefab: {fileID: 1448397740871734, guid: f1777b2778c8849499e323bf509870c3,
@@ -3112,13 +3123,6 @@ MonoBehaviour:
   defaultController: {fileID: 9100000, guid: 3a1a1e4595137764894e8108c350b756, type: 2}
   rifleOverrideAnims: {fileID: 22100000, guid: c6cf1094a22cd3646b900ed0fd0fe77f, type: 2}
   isBoss: 0
-  enemyHealth: 2
-  enemyAlive: 1
-  AggroDist: 15
-  StoppingDist: 9
-  ShootAngleThreshold: 6
-  turningSpeed: 8
-  reloadTime: 8
   timeToShoot: 2.5
   clipSize: 6
   speedScaler: 0.77
@@ -3127,8 +3131,6 @@ MonoBehaviour:
   pistolFlare: {fileID: 1774423643851844}
   shotgunFlare: {fileID: 1341236439376750}
   rifleFlare: {fileID: 1155059687047916}
-  PlayerSounds: {fileID: 82655232160281828}
-  shotClip: {fileID: 8300000, guid: dca63bc0945b401489b8b4e1ff340070, type: 3}
   reloadClip: {fileID: 8300000, guid: d67dcfa60ec75e54b9e0d08571464418, type: 3}
   OnEnemyDeath:
     m_PersistentCalls:

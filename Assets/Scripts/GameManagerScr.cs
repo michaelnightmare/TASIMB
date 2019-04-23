@@ -58,13 +58,8 @@ public class GameManagerScr : MonoBehaviour {
         updatedDeathCounter++;
         displayedText.text = updatedDeathCounter.ToString();
 
-        //SUPER TEMP
+        //SUPER TEMP, should increment this differently
         PlayerRef.GetComponent<QuestManager>().IncrementKillQuest();
-
-        if(updatedDeathCounter >=45)
-        {
-            YouWon();
-        }
     }
 
     public void YouWon()

@@ -34,13 +34,13 @@ public class PistolBullet : MonoBehaviour
         if (col.collider.gameObject.layer == 13)
         {
             Debug.Log(col.gameObject);
-            col.gameObject.GetComponentInParent<AIWolf>().wolfTakeDamage(Damage);
+            col.gameObject.GetComponentInParent<AIWolf>().TakeDamage(Damage);
             DoBloodHitFX(col.contacts[0]);
 
         }
         if (col.collider.gameObject.layer == 14)
         {
-            col.gameObject.GetComponentInParent<AIEnemy>().enemyTakeDamage(Damage);
+            col.gameObject.GetComponentInParent<AIEnemy>().TakeDamage(Damage);
             DoBloodHitFX(col.contacts[0]);
 
         }

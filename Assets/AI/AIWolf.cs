@@ -3,155 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AIWolf : MonoBehaviour
+public class AIWolf : AIBase
 {
-    NavMeshAgent nma;
-    public Transform target;
-    Vector3 lastTargetPos;
-    Animator anim;
-    public ObjectDestroyer clearBodies;
     public GameObject spawnedItemRef;
-    
-    public Collider hitbox;
-    Rigidbody mRB;
-    Collider mCollider;
-    public bool disableAI= false;
 
-    bool canAttack = true;
     bool isCoolingDown = true;
     float CoolDownTimer = 0f;
-    float distFromTarget;
-
-
     
     [Header("Wolf Settings")]
     public PlayerScript playerInteraction;
-    public float wolfHealth = 2;
-    public bool wolfAlive = true;
-    public float AggroDist = 10f;
-    public float StoppingDist = 5f;
-    public float ShootAngleThreshold = 5f;
-    public float turningSpeed = 2f;
-    public float reloadTime = 4f;
-    public float timeToAttack;
-   
 
-    [Header("Audio Settings")]
-    public AudioSource PlayerSounds;
-    public AudioClip shotClip;
-
-    bool initialized = false;
-
-    // Use this for initialization
-    void Start ()
+    public override void Death()
     {
-       if(!initialized) Initialize();
-       
-    }
-
-
-
-    void Initialize()
-    {
-        nma = GetComponent<NavMeshAgent>();
-        
-        if(target== null)
-        {
-            target = GameObject.FindGameObjectWithTag("Player").transform;
-        }
-        lastTargetPos = target.position;
-        anim = GetComponent<Animator>();
-   
-        clearBodies = GetComponent<ObjectDestroyer>();
-        wolfAlive = true;
-        mRB = GetComponent<Rigidbody>();
-        mCollider = GetComponentInChildren<Collider>();
-        initialized = true;
-    }
-
-    void onEnable()
-    {
-        Initialize();
-    }
-
-
-    void wolfDeath()
-    {
-
-        wolfAlive = false;
-        anim.SetBool("dead", true);
+        base.Death();
         Invoke("spawnDrop", 2);
-        clearBodies.enabled = true;
-
-        hitbox.enabled = false;
-        mCollider.enabled = false;
-        mRB.isKinematic = true;
-        Debug.Log("boxcolliderdisabled");
-        nma.SetDestination(transform.position);
     }
 
-    public void wolfTakeDamage(float Damage)
+    public override void TakeDamage(float damage)
     {
         anim.SetBool("walk", false);
-        wolfHealth-= Damage;
-        if (wolfHealth <= 0)
+
+        base.TakeDamage(damage);
+
+        if (isAlive)
         {
-            Debug.Log("dead");
-            wolfDeath();
-        }
-        else
-        {
-            
             anim.SetTrigger("wolfHurt");
         }
 
     }
 
-
-    float AngleDiffFromPlayer()
-    {
-        return Vector3.Angle(transform.forward, target.position - transform.position);
-    }
-
-    bool WithingShootAngleThreshold()
-    {
-        return AngleDiffFromPlayer() < ShootAngleThreshold;
-    }
-
-    bool InRangeOfTarget()
-    {
-
-        distFromTarget = Vector3.Distance(transform.position, target.position);
-
-
-
-        if (distFromTarget < StoppingDist)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    bool IsAwareOfTarget()
-    {
-        distFromTarget = Vector3.Distance(transform.position, target.position);
-        
-
-
-        if (distFromTarget < AggroDist)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    void ChasingPlayer()
+    /*void ChasingPlayer()
     {
         if (!initialized) Initialize();
 
@@ -165,7 +46,7 @@ public class AIWolf : MonoBehaviour
                 
             }
         }
-    }
+    }*/
 
 
     void ResetCanAttack()
@@ -190,15 +71,9 @@ public class AIWolf : MonoBehaviour
             canAttack = false;
             Debug.Log("working");
             anim.SetBool("attack", false);
-            Invoke("ResetCanAttack", 3f);
+            Invoke("ResetCanAttack", timeToAttack);
         }
 
-    }
-
-    bool FullyAiming()
-    {
-        float dot = Vector3.Dot(transform.forward, Vector3.up);
-        return Mathf.Abs(dot) < 0.1f;
     }
 
     void attackingPlayer()
@@ -213,7 +88,7 @@ public class AIWolf : MonoBehaviour
         //Vector3 aimDir = target.position - transform.position;
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * turningSpeed);
 
-        if (WithingShootAngleThreshold())
+        if (WithinShootAngleThreshold())
         {
            
             if (canAttack && FullyAiming()) Attack();
@@ -228,37 +103,11 @@ public class AIWolf : MonoBehaviour
         itemTemp.GetComponent<SteakScr>().playerInteraction = target.GetComponent<PlayerScript>();
     }
 
-
-
-
-
-
-    public void EnableAi()
-    {
-        disableAI = false;
-    }
-    public void DisableAi()
-    {
-        disableAI = true;
-    }
-
-    public void enemyMoveToPoint(Vector3 eventTargetLocation)
-    {
-        if (!initialized) Initialize();
-        NavMeshHit hit;
-
-        if (NavMesh.SamplePosition(eventTargetLocation, out hit, Mathf.Infinity, NavMesh.AllAreas))
-        {
-            nma.SetDestination(hit.position);
-        }
-
-    }
-
     // Update is called once per frame
     void Update()
     {
-        if (!wolfAlive) return;
-
+        if (!isAlive)
+            return;
 
         if (IsAwareOfTarget())
         {
@@ -276,9 +125,8 @@ public class AIWolf : MonoBehaviour
             }
         }
 
-
-        //UpdateAnims();
         lastTargetPos = target.position;
-        if (nma.stoppingDistance != StoppingDist) nma.stoppingDistance = StoppingDist;
+        if (nma.stoppingDistance != stoppingDist)
+            nma.stoppingDistance = stoppingDist;
     }
 }

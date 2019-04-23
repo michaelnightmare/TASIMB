@@ -4,29 +4,16 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-public class AIEnemy : MonoBehaviour
+public class AIEnemy : AIBase
 {
     private enum EnemyType {Pistol, Shotgun, Rifle}
 
-
-    NavMeshAgent nma;
-    public Transform target;
-    Vector3 lastTargetPos;
-    Animator anim;
     public ShootingScript gun;
     public ShootingScriptShotgun shotGun;
-    public ObjectDestroyer clearBodies;
-    public Collider hitbox;
-    public Collider mCollider;
-    public Rigidbody mRB;
-    public bool disableAI = false;
-   
 
     bool isReloading;
-    bool canShoot = true;
     int numBullets = 6;
     float reloadTimer = 0f;
-    float distFromTarget;
 
     //Dodge variables
     private bool isWounded;
@@ -46,13 +33,6 @@ public class AIEnemy : MonoBehaviour
 
     [Header("Enemy Settings")]
     public bool isBoss;
-    public float enemyHealth = 2;
-    public bool enemyAlive = true;
-    public float AggroDist = 15f;
-    public float StoppingDist = 5f;
-    public float ShootAngleThreshold = 5f;
-    public float turningSpeed = 2f;
-    public float reloadTime = 4f;
     public float timeToShoot = 1f;
     public int clipSize = 6;
     public float speedScaler = 0.5f;
@@ -63,21 +43,14 @@ public class AIEnemy : MonoBehaviour
     public GameObject shotgunFlare;
     public GameObject rifleFlare;
 
-    
-
     [Header("Audio Settings")]
-    public AudioSource PlayerSounds;
-    public AudioClip shotClip;
     public AudioClip reloadClip;
-
-    bool initialized = false;
 
     public UnityEvent OnEnemyDeath = new UnityEvent();
 
     // Use this for initialization
     void Start ()
     {
-        if(!initialized) Initialize();
         holdTime = .10f;
     }
 
@@ -102,26 +75,12 @@ public class AIEnemy : MonoBehaviour
             return EnemyType.Rifle;
     }
 
-    void Initialize()
+    protected override void Initialize()
     {
-       
-        nma = GetComponent<NavMeshAgent>();
-        if(target== null)
-        {
-            target = GameObject.FindGameObjectWithTag("Player").transform;
-        }
-        lastTargetPos = target.position;
-        anim = GetComponent<Animator>();
+        base.Initialize();
         defaultController = anim.runtimeAnimatorController;
-        clearBodies = GetComponent<ObjectDestroyer>();
-        enemyAlive = true;
-        mRB = GetComponent<Rigidbody>();
-        mCollider = GetComponent<Collider>();
-      
         type = RollForGun();
         SetUpGuns();
-
-        initialized = true;
     }
 
     void SetUpGuns()
@@ -169,20 +128,13 @@ public class AIEnemy : MonoBehaviour
     {
         if(!initialized) Initialize();
     }
-    void enemyDeath()
+    public override void Death()
     {
-
-        enemyAlive = false;
+        base.Death();
         anim.SetBool("enemyAlive", false);
         GameManagerScr._instance.enemyCounterIncrease();
-        clearBodies.enabled = true;
         Invoke("ItemDrop", 2);
-        hitbox.enabled = false;
-        mRB.isKinematic = true;
-        mCollider.enabled = false;
         isWounded = false;
-        nma.SetDestination(transform.position);
-
         OnEnemyDeath.Invoke();
     }
 
@@ -205,36 +157,17 @@ public class AIEnemy : MonoBehaviour
         if(objToSpawn) Instantiate(objToSpawn, transform.position, Quaternion.identity);
     }
 
-    public void enemyTakeDamage(float Damage)
+    public override void TakeDamage(float damage)
     {
+        base.TakeDamage(damage);
 
-        enemyHealth-= Damage;
-        Debug.Log("enemy took" + Damage + " damage");
-        if (enemyHealth <= 0)
-        {
-            Debug.Log("Dead");
-            enemyDeath();
-        }
-        else
+        if(isAlive)
         {
             anim.SetTrigger("enemyHurt");
         }
 
         isWounded = true;
     }
-
-    public void enemyMoveToPoint(Vector3 eventTargetLocation)
-    {
-        NavMeshHit hit;
-
-        if (NavMesh.SamplePosition(eventTargetLocation, out hit, Mathf.Infinity, NavMesh.AllAreas))
-        {
-            nma.SetDestination(hit.position);
-        }
-        
-    }
-
-
 
     void UpdateAnims()
     {
@@ -247,66 +180,10 @@ public class AIEnemy : MonoBehaviour
         anim.SetFloat("Turn", turn);
     }
 
-    float AngleDiffFromPlayer()
-    {
-        return Vector3.Angle(gun.bulletSpawn.forward, target.position - transform.position);
-    }
-
-    bool WithingShootAngleThreshold()
-    {
-        return AngleDiffFromPlayer() < ShootAngleThreshold;
-    }
-
-    bool InRangeOfTarget()
-    {
-        distFromTarget = Vector3.Distance(transform.position, target.position);
-
-        if (distFromTarget <= StoppingDist)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    bool IsAwareOfTarget()
-    {
-        distFromTarget = Vector3.Distance(transform.position, target.position);
-
-        if (distFromTarget < AggroDist)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    void ChasingPlayer()
-    {
-        //Debug.Log("Chasing Player");
-        if (lastTargetPos != target.position)
-        {
-            NavMeshHit hit;
-
-            if (NavMesh.SamplePosition(target.position, out hit, Mathf.Infinity, NavMesh.AllAreas))
-            {
-                float distFromPlayer = Vector3.Distance(target.position, transform.position);
-                if(distFromPlayer > StoppingDist)
-                {
-                    nma.SetDestination(hit.position);
-                }
-                else
-                {
-                    nma.SetDestination(transform.position);
-                }
-                
-            }
-        }
-    }
+    //float AngleDiffFromPlayer()
+    //{
+    //    return Vector3.Angle(gun.bulletSpawn.forward, target.position - transform.position);
+    //}
 
     void Reloading()
     {
@@ -320,7 +197,7 @@ public class AIEnemy : MonoBehaviour
 
     void ResetCanShoot()
     {
-        canShoot = true;
+        canAttack = true;
     }
 
     void Shoot()
@@ -338,20 +215,18 @@ public class AIEnemy : MonoBehaviour
         }
         else
         {
-            canShoot = false;
+            canAttack = false;
             Invoke("ResetCanShoot", timeToShoot);
         }
         muzzleFlare();
        
     }
 
-    bool FullyAiming()
-    {
-        float dot = Vector3.Dot(gun.transform.forward, Vector3.up);
-        //Debug.Log(dot);
-        return dot > -0.1f;
-        
-    }
+    //bool FullyAiming()
+    //{
+    //    float dot = Vector3.Dot(gun.transform.forward, Vector3.up);
+    //    return dot > -0.1f;
+    //}
 
     void ShootingPlayer()
     {
@@ -369,10 +244,10 @@ public class AIEnemy : MonoBehaviour
         //if within shooting angle threshold, try and shoot
 
 
-        if (WithingShootAngleThreshold())
+        if (WithinShootAngleThreshold())
         {
             anim.SetBool("Aim", true);
-            if (canShoot && FullyAiming()) Shoot();
+            if (canAttack && FullyAiming()) Shoot();
         }
         else
         {
@@ -380,19 +255,11 @@ public class AIEnemy : MonoBehaviour
         }
     }
 
-   public void EnableAi()
-    {
-        disableAI = false;   
-    }
-   public void DisableAi()
-    {
-        disableAI = true;
-    }
-
 	// Update is called once per frame
 	void Update ()
     {
-        if (!enemyAlive) return;
+        if (!isAlive)
+            return;
 
         if (!disableAI)
         {
@@ -449,7 +316,7 @@ public class AIEnemy : MonoBehaviour
                 mCollider.enabled = false;
 
                 anim.SetBool("Roll", true);
-                canShoot = false;
+                canAttack = false;
             }
         }
     }
