@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 
 
-public class GameManagerScr : MonoBehaviour {
-
+public class GameManagerScr : MonoBehaviour
+{
+    public Texture2D cursorTex;
+    private CursorMode cursorMode = CursorMode.Auto;
+    public Vector2 hotSpot = Vector2.zero;
 
     //Player
     public GameObject PlayerRef;
@@ -47,6 +50,7 @@ public class GameManagerScr : MonoBehaviour {
     void Start ()
     {
         isMapOn = true;
+        Cursor.SetCursor(cursorTex, hotSpot, cursorMode);
     }
 	
 	// Update is called once per frame
