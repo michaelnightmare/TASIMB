@@ -39,6 +39,11 @@ public class QuestManager : MonoBehaviour
         
     }
 
+    public void CloseHUDQuest()
+    {
+        HudQuests.SetActive(false);
+    }
+
     public void AddQuest(Quest questToAdd)
     {
         currentQuests.Add(questToAdd);

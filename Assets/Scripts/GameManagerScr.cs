@@ -86,6 +86,8 @@ public class GameManagerScr : MonoBehaviour {
             isMapOn = false;
         }
 
+        PlayerRef.GetComponent<QuestManager>().CloseHUDQuest();
+
         for(int i= 0; i > enemies.Length; i++)
         {
             BossEnemy.SetActive(false);
@@ -95,6 +97,13 @@ public class GameManagerScr : MonoBehaviour {
     public void YouLose()
     {
         LoseScene.SetActive(true);
+
+        if (isMapOn)
+        {
+            isMapOn = false;
+        }
+
+        PlayerRef.GetComponent<QuestManager>().CloseHUDQuest();
     }
   
 }
