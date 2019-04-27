@@ -234,7 +234,7 @@ public class ShootingController : MonoBehaviour
         {
             Debug.Log("Aiming with mouse");
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Plane p = new Plane(Vector3.up, transform.position);
+            Plane p = new Plane(Vector3.up, shootT.transform.position);
             float dist;
 
             p.Raycast(ray, out dist);
