@@ -14,11 +14,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private Vector3 m_Move;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
         public bool disableMovement;
-        public GameObject minimap;
-        bool mapOnOff;
-        
-     
-
 
         private void Start()
         {
@@ -42,16 +37,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         void Update()
         {
-            if (mapOnOff == true)
-            {
-                minimap.SetActive(false);
-            }
-            else
-            {
-                minimap.SetActive(true);
-            }
-
-
+      
         }
 
         [ContextMenu("Enable Movement")]
@@ -86,14 +72,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             bool KnifeActive = Input.GetKeyDown(KeyCode.LeftAlt);
             roll = CrossPlatformInputManager.GetButtonDown("Roll");
 
-
-      
-
-            if (Input.GetKeyDown(KeyCode.M))
-            {
-                mapOnOff = !mapOnOff;
-            }
-
             // calculate move direction to pass to character
             if (m_Cam != null)
             {
@@ -118,7 +96,4 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             m_Jump = false;
         }
     }
-
-  
-
-    }
+}

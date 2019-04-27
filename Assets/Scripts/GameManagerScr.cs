@@ -22,8 +22,11 @@ public class GameManagerScr : MonoBehaviour {
     public static GameManagerScr _instance;
     public GameObject[] enemies;
     public bool GameOverLose;
-  
-    
+
+    public GameObject minimap;
+    bool isMapOn;
+
+
     bool test = false;
     
     void Awake()
@@ -43,17 +46,29 @@ public class GameManagerScr : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-         
-
+        isMapOn = true;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-       
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            isMapOn = !isMapOn;
+        }
+
+        if (isMapOn)
+        {
+            minimap.SetActive(true);
+        }
+        else
+        {
+            minimap.SetActive(false);
+        }
 
     }
-   public void enemyCounterIncrease()
+
+    public void enemyCounterIncrease()
     {
         updatedDeathCounter++;
         displayedText.text = updatedDeathCounter.ToString();
@@ -65,6 +80,12 @@ public class GameManagerScr : MonoBehaviour {
     public void YouWon()
     {
         WinScene.SetActive(true);
+
+        if (isMapOn)
+        {
+            isMapOn = false;
+        }
+
         for(int i= 0; i > enemies.Length; i++)
         {
             BossEnemy.SetActive(false);

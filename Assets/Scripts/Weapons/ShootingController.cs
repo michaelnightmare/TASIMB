@@ -242,7 +242,9 @@ public class ShootingController : MonoBehaviour
             Vector3 aimDir = intersectionPoint - transform.position;
             aimDir.y = 0;
 
-            Quaternion targetRot = Quaternion.LookRotation(aimDir);
+            float yDiff = Vector3.SignedAngle(transform.forward, shootT.forward, Vector3.up);
+
+            Quaternion targetRot = Quaternion.LookRotation(aimDir) * Quaternion.Euler(0f, -yDiff, 0f);
             return Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * aimSpeed);
         }
         else
