@@ -19,13 +19,10 @@ public class ShootingController : MonoBehaviour
     public Transform rifleShootT;
     public int selectedWeaponIndex = 0;
     public RayCastScr raycastgun;
-    public GameObject playerPosition;
 
     public RuntimeAnimatorController defaultController;
     public AnimatorOverrideController rifleOverrideAnims;
     public GunDisplayScr gunDisplay;
-
-    private float aimDistance = 21.2f; //Store this off so we aren't using magical unicorn numbahs
 
     public void PickupWeapon(int weaponIndex)
     {
