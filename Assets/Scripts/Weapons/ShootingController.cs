@@ -156,28 +156,11 @@ public class ShootingController : MonoBehaviour
                 }
             }
 
-            //Store mouse pos
-            Vector3 mousePos = Input.mousePosition;
-
-            //Now, grab the point by converting from screen px to world coords
-            Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane));
-
-            //Calculate the distance between player and mouse point
-            float mouseToPlayerDist = Vector3.Distance(playerPosition.transform.position, point);
-
-            if (mouseToPlayerDist < aimDistance)
+            Quaternion dir = InputGetPlayerAimRotation();
+            if (dir != Quaternion.identity)
             {
-                //Do nothing
+                transform.rotation = dir;
             }
-            else
-            {
-                Quaternion dir = InputGetPlayerAimRotation();
-                if (dir != Quaternion.identity)
-                {
-                    transform.rotation = dir;
-                }
-            }
-
         }
         else
         {
@@ -254,14 +237,15 @@ public class ShootingController : MonoBehaviour
         {
             Debug.Log("Aiming with mouse");
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Plane p = new Plane(Vector3.up, shootT.position);
+            Plane p = new Plane(Vector3.up, transform.position);
             float dist;
+
             p.Raycast(ray, out dist);
             Vector3 intersectionPoint = ray.GetPoint(dist);
-            Vector3 aimDir = intersectionPoint - shootT.transform.position;
+            Vector3 aimDir = intersectionPoint - transform.position;
             aimDir.y = 0;
-            float yDiff = Vector3.SignedAngle(transform.forward, shootT.forward, Vector3.up);
-            Quaternion targetRot = Quaternion.LookRotation(aimDir) * Quaternion.Euler(0f, -yDiff, 0f);
+
+            Quaternion targetRot = Quaternion.LookRotation(aimDir);
             return Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * aimSpeed);
         }
         else
