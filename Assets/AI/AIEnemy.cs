@@ -180,10 +180,10 @@ public class AIEnemy : AIBase
         anim.SetFloat("Turn", turn);
     }
 
-    //float AngleDiffFromPlayer()
-    //{
-    //    return Vector3.Angle(gun.bulletSpawn.forward, target.position - transform.position);
-    //}
+    public override float AngleDiffFromPlayer()
+    {
+        return Vector3.Angle(gun.bulletSpawn.forward, target.position - transform.position);
+    }
 
     void Reloading()
     {

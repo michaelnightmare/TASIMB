@@ -107,7 +107,7 @@ public class AIBase : MonoBehaviour
         }
     }
 
-    public float AngleDiffFromPlayer()
+    public virtual float AngleDiffFromPlayer()
     {
         return Vector3.Angle(transform.forward, target.position - transform.position);
     }

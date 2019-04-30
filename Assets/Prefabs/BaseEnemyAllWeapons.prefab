@@ -3102,7 +3102,7 @@ MonoBehaviour:
   isAlive: 1
   aggroDist: 15
   stoppingDist: 8
-  shootAngleThreshold: 5
+  shootAngleThreshold: 7
   turningSpeed: 8
   reloadTime: 8
   timeToAttack: 0
