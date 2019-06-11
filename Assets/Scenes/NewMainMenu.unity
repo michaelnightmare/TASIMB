@@ -3091,6 +3091,11 @@ Prefab:
       propertyPath: NoButton
       value: 
       objectReference: {fileID: 1003597894}
+    - target: {fileID: 114904507000479166, guid: 1322cf6e88460954e8b7fb9a61f1780d,
+        type: 2}
+      propertyPath: minimap
+      value: 
+      objectReference: {fileID: 1331919826}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1322cf6e88460954e8b7fb9a61f1780d, type: 2}
   m_IsPrefabAsset: 0
@@ -26581,6 +26586,11 @@ Prefab:
       propertyPath: m_Name
       value: StartGameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 114904507000479166, guid: 1322cf6e88460954e8b7fb9a61f1780d,
+        type: 2}
+      propertyPath: minimap
+      value: 
+      objectReference: {fileID: 1331919826}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1322cf6e88460954e8b7fb9a61f1780d, type: 2}
   m_IsPrefabAsset: 0
@@ -46303,6 +46313,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1331799406}
   m_Mesh: {fileID: 4300000, guid: 5f39546ba7da8ab428a927bbc8c5bb03, type: 3}
+--- !u!1 &1331919826
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1331919827}
+  m_Layer: 0
+  m_Name: minimp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1331919827
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1331919826}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -216.55142, y: 36.538303, z: 100}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1333512092
 Prefab:
   m_ObjectHideFlags: 0
@@ -49800,12 +49838,12 @@ Prefab:
     - target: {fileID: 20793944191272512, guid: 886bde3e4a79e7c46a366dc01c4c83e2,
         type: 2}
       propertyPath: m_NormalizedViewPortRect.y
-      value: -0.063524604
+      value: -1.9553571
       objectReference: {fileID: 0}
     - target: {fileID: 20793944191272512, guid: 886bde3e4a79e7c46a366dc01c4c83e2,
         type: 2}
       propertyPath: m_NormalizedViewPortRect.height
-      value: 1.1270492
+      value: 4.910714
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 886bde3e4a79e7c46a366dc01c4c83e2, type: 2}
@@ -66550,31 +66588,31 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4832128345075442, guid: b616c6f034ae762429a46661ab562f6d, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0.10119747
       objectReference: {fileID: 0}
     - target: {fileID: 4832128345075442, guid: b616c6f034ae762429a46661ab562f6d, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.023599813
       objectReference: {fileID: 0}
     - target: {fileID: 4832128345075442, guid: b616c6f034ae762429a46661ab562f6d, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.0024025172
       objectReference: {fileID: 0}
     - target: {fileID: 4832128345075442, guid: b616c6f034ae762429a46661ab562f6d, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.99458355
       objectReference: {fileID: 0}
     - target: {fileID: 4832128345075442, guid: b616c6f034ae762429a46661ab562f6d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 500.44495
+      value: -1446.2144
       objectReference: {fileID: 0}
     - target: {fileID: 4832128345075442, guid: b616c6f034ae762429a46661ab562f6d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -261.87988
+      value: -605.7399
       objectReference: {fileID: 0}
     - target: {fileID: 4832128345075442, guid: b616c6f034ae762429a46661ab562f6d, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -2353.2146
+      value: -2318.0806
       objectReference: {fileID: 0}
     - target: {fileID: 4561046402973048, guid: b616c6f034ae762429a46661ab562f6d, type: 2}
       propertyPath: m_LocalScale.x
@@ -68696,7 +68734,7 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: TitleMusic
-    clip: {fileID: 8300000, guid: c98c9f3419cc11b489c6b0aa0abc07cb, type: 3}
+    clip: {fileID: 8300000, guid: bf9f549f6f6c4424e977d244bf435893, type: 3}
     volume: 1
     pitch: 1
     loop: 0
