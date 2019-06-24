@@ -46,6 +46,8 @@ public class AIEnemy : AIBase
     [Header("Audio Settings")]
     public AudioClip reloadClip;
 
+
+
     public UnityEvent OnEnemyDeath = new UnityEvent();
 
     // Use this for initialization
@@ -207,6 +209,7 @@ public class AIEnemy : AIBase
         numBullets--;
         PlayerSounds.PlayOneShot(shotClip);
         anim.SetTrigger("Shoot");
+        Debug.Log("Shot");
         
         if(numBullets == 0)
         {

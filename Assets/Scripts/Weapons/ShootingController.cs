@@ -23,6 +23,7 @@ public class ShootingController : MonoBehaviour
     public RuntimeAnimatorController defaultController;
     public AnimatorOverrideController rifleOverrideAnims;
     public GunDisplayScr gunDisplay;
+    public Pause menu;
 
     public void PickupWeapon(int weaponIndex)
     {
@@ -167,7 +168,7 @@ public class ShootingController : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.R) || Input.GetButton("Reload") && guns[selectedWeaponIndex].canReload)
+        if (Input.GetKeyDown(KeyCode.R) || Input.GetButton("Reload") && guns[selectedWeaponIndex].canReload && menu.GameIsPaused==false)
         {
             guns[selectedWeaponIndex].Reload();
         }
