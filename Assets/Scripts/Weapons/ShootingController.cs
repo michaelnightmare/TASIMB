@@ -23,7 +23,7 @@ public class ShootingController : MonoBehaviour
     public RuntimeAnimatorController defaultController;
     public AnimatorOverrideController rifleOverrideAnims;
     public GunDisplayScr gunDisplay;
-    public Pause menu;
+    public PauseScript menu;
 
     public void PickupWeapon(int weaponIndex)
     {

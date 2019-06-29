@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Pause : MonoBehaviour {
+public class PauseScript : MonoBehaviour {
+
+    public string mainMenuSceneName = "NewMainMenu";
 
     public bool GameIsPaused = false;
     public GameObject pauseMenuUI;
@@ -93,6 +95,11 @@ public class Pause : MonoBehaviour {
     {
         Debug.Log("Quitting Game");
         Application.Quit();
+    }
+
+    public void OnDisable()
+    {
+        Time.timeScale = 1f;
     }
 
 }

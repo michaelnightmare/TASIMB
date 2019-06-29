@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Playables;
 
 public class MainMenuScript : MonoBehaviour {
 
     public Animator animator;
+    public PlayableDirector sequence;
 
     public void Start()
     {
+        sequence.Play();
+        Debug.Log("Loaded Main Menu");
         Invoke("FadeInToScene", 5);
     }
 
@@ -20,7 +24,7 @@ public class MainMenuScript : MonoBehaviour {
 
     void ChangeLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+       SceneManager.LoadScene("NewGameScene");
     }
 
     public void StartGame()
