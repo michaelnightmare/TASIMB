@@ -23,6 +23,7 @@ public class PlayerConversations : MonoBehaviour
     public void InitiateDialog(DialogScr D)
     {
         currentDialog = D;
+        //D.dialogStarted.Invoke();
         currentSoundClip = currentDialog.howdyClip;
         dialogLine = 0;
         dialogBoxDisplay.SetActive(true);

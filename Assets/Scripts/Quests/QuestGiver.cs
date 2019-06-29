@@ -10,12 +10,36 @@ public class QuestGiver : MonoBehaviour
     public Text titleText;
     public Text descriptionText;
     public Text goldText;
+    public bool activeOnStart = false;
 
 
     //Edited out until we make a UI screen for the quest
     public void Start()
     {
+        Debug.Log(quest);
+        if (quest.questIcon == null)
+        {
+            Transform iconT = transform.Find("GoalTracker");
+            if(iconT!= null)
+            {
+                quest.questIcon = iconT.gameObject;
+            }
+            else
+            {
+                Debug.Log(gameObject);
+            }
+        }
+
+
         //goldText.text = quest.goldReward.ToString(); uncomment later
+        if (activeOnStart)
+        {
+            GiveQuest();
+        }
+        else
+        {
+            quest.DeactivateQuest();
+        }
     }
 
     // This whole script will need adjusting etc if we decide to have quests that unlock after certain conditions are met.
@@ -28,7 +52,7 @@ public class QuestGiver : MonoBehaviour
         titleText.text = quest.questName;
         descriptionText.text = quest.questDescription;
 
-        quest.isActive = true;
+        quest.ActivateQuest();
         player.GetComponent<QuestManager>().AddQuest(quest);
 
         Debug.Log("Quest Recieved");
@@ -47,9 +71,10 @@ public class QuestGiver : MonoBehaviour
             else if(currentQuest.isComplete && currentQuest.questCompleteCondition == CompleteCondition.KILL_BOSS)
             {
                 player.GetComponent<QuestManager>().CompleteTargetKillQuest(currentQuest);
-      
             }
         }
+
+        quest.Complete();
     }
 
     public void MarkKillAsComplete()

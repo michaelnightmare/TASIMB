@@ -14,8 +14,21 @@ public class Quest
     public CompleteCondition questCompleteCondition;
     public GameObject turnInPoint;
     public GameObject killTarget;
+    public GameObject questIcon;
 
     private bool isTargetDead;
+
+    public void DeactivateQuest()
+    {
+        HideGoalTracker();
+        isActive = false;
+    }
+
+    public void ActivateQuest()
+    {
+        isActive = true;
+        questIcon.SetActive(true);
+    }
 
     public void CheckGoals()
     {
@@ -32,9 +45,10 @@ public class Quest
         Complete();
     }
 
-    private void Complete()
+    public void Complete()
     {
         isComplete = true;
+        HideGoalTracker();
         Debug.Log("Quest Complete: " + questName);
     }
 
@@ -47,6 +61,13 @@ public class Quest
     {
         isTargetDead = true;
         CheckGoals();
+    }
+
+    public void HideGoalTracker()
+    {
+        questIcon.SetActive(false);
+
+
     }
 }
 
