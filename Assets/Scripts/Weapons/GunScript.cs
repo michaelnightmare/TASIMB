@@ -81,8 +81,7 @@ public class GunScript : MonoBehaviour
         {
           
             shootingScript.Shoot();
-            PlayerSounds.clip = shotClip;
-            PlayerSounds.Play();
+            PlayerSounds.PlayOneShot(shotClip);
             bulletCount--;
             muzzleFlare();
             if (bulletCount < 0)
@@ -90,8 +89,7 @@ public class GunScript : MonoBehaviour
                
                 canShoot = false;
                 Debug.Log("click");
-                PlayerSounds.clip = outOfAmmo;
-                PlayerSounds.Play();
+                PlayerSounds.PlayOneShot(outOfAmmo);
 
                 if (!canReload)
                 {
@@ -101,7 +99,12 @@ public class GunScript : MonoBehaviour
                 
             }
         }
-     
+        else
+        {
+            Debug.Log("click");
+            PlayerSounds.PlayOneShot(outOfAmmo);
+        }
+
     }
     public void EquipGun(bool equipped)
     {
@@ -126,8 +129,8 @@ public class GunScript : MonoBehaviour
     public void Reload()
     {
         bulletCount = clipSize;
-        PlayerSounds.clip = reloadClip;
-        PlayerSounds.Play();
+        PlayerSounds.PlayOneShot(reloadClip);
+        //Debug.Log(PlayerSounds.isPlaying + " " + PlayerSounds.clip);
         canShoot = true;
 
         for (int i = 0; i < bullets.Length; i++)
