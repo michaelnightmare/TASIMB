@@ -77,6 +77,22 @@ public class EnemySpawnScript : MonoBehaviour
 
     }
 
+    public void KillRemainingEnemies()
+    {
+        foreach(AIEnemy ai in enemyAis)
+        {
+            Destroy(ai.gameObject);
+        }
+
+        foreach (AIWolf ai in alienAis)
+        {
+            Destroy(ai.gameObject);
+        }
+
+        alienAis.Clear();
+        enemyAis.Clear();
+    }
+
     public void EnemyDied(AIEnemy enemy)
     {
         if (enemyAis.Contains(enemy)) enemyAis.Remove(enemy);
