@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class QuestGiver : MonoBehaviour
 {
+    /*
+     
     public Quest quest;
     public GameObject player;
     public Text titleText;
@@ -83,4 +85,6 @@ public class QuestGiver : MonoBehaviour
      
         CompleteQuestForPlayer();
     }
+
+    */
 }

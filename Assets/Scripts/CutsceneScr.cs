@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class CutsceneScr : MonoBehaviour
-{ 
-    public AIEnemy[] enemyAis;
-    public AIWolf[] alienAis;
+{
+    public bool enabled = true;
+    public List<AIEnemy> enemyAis = new List<AIEnemy>();
+    public List<AIWolf> alienAis = new List<AIWolf>();
     public Transform[] enemyPosition;
     public Transform[] alienPosition; 
     bool cutscenePlayed = false;
@@ -30,16 +31,20 @@ public class CutsceneScr : MonoBehaviour
 		
 	}
 
+    public void EnableCutscene()
+    {
+        enabled = true;
+    }
+
     void OnTriggerEnter(Collider other)
     {
-        if (cutscenePlayed) return; 
+        if (cutscenePlayed || !enabled) return; 
 
         if (other.gameObject.layer == 9)
         {
             player = other.gameObject;
             cutscenePlayed = true;
             StartCoroutine(RunningCutscene());
-       
         }
 
     }
@@ -49,7 +54,7 @@ public class CutsceneScr : MonoBehaviour
 
         camScript.SetFollowTarget(camCutsceneTarget);
 
-        for(int i=0; i < enemyAis.Length; i++ )
+        for(int i=0; i < enemyAis.Count; i++ )
         {
             enemyAis[i].gameObject.SetActive(true);
             enemyAis[i].DisableAi();
@@ -57,7 +62,7 @@ public class CutsceneScr : MonoBehaviour
 
         }
 
-        for (int i = 0; i < alienAis.Length; i++)
+        for (int i = 0; i < alienAis.Count; i++)
         {
   
 
@@ -75,16 +80,18 @@ public class CutsceneScr : MonoBehaviour
             yield return null;
         }
 
-        for (int i = 0; i < enemyAis.Length; i++)
+        for (int i = 0; i < enemyAis.Count; i++)
         {
+            AIEnemy ai = enemyAis[i];
             enemyAis[i].EnableAi();
-          
+            enemyAis[i].OnEnemyDeath.AddListener(delegate { EnemyDied(ai); });
         }
 
-        for (int i = 0; i < alienAis.Length; i++)
+        for (int i = 0; i < alienAis.Count; i++)
         {
+            AIWolf wolf = alienAis[i];
             alienAis[i].EnableAi();
-
+            alienAis[i].OnEnemyDeath.AddListener(delegate { WolfDied(wolf); });
         }
 
       
@@ -96,6 +103,26 @@ public class CutsceneScr : MonoBehaviour
         OnCutsceneFinish.Invoke();
 
         yield break;
+    }
+
+    public void EnemyDied(AIEnemy enemy)
+    {
+        if(enemyAis.Contains(enemy)) enemyAis.Remove(enemy);
+        CheckAllDead();
+    }
+
+    public void WolfDied(AIWolf wolf)
+    {
+        if (alienAis.Contains(wolf)) alienAis.Remove(wolf);
+        CheckAllDead();
+    }
+
+    void CheckAllDead()
+    {
+        if(alienAis.Count == 0 && enemyAis.Count == 0)
+        {
+            QuestSystem.quests.NotifyKill(gameObject);
+        }
     }
 
 

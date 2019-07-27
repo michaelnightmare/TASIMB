@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class TriggerZone : MonoBehaviour
 {
+    public bool isQuestLocation = false;
     public UnityEvent onEnterTriggerZone = new UnityEvent();
     bool fired = false;
 
@@ -14,6 +15,10 @@ public class TriggerZone : MonoBehaviour
 
         if (other.gameObject.layer == 9)
         {
+            if (isQuestLocation)
+            {
+                QuestSystem.quests.NotifyArrivedAtLocation(gameObject);
+            }
             onEnterTriggerZone.Invoke();
             fired = true;
             Debug.Log("ROCKS ACTIVE");

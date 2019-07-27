@@ -9,16 +9,19 @@ public class DialogScr : MonoBehaviour
  
     public GameObject OverHeadUIPrefab;
     GameObject spawnedOverheadRef;
-  
     AudioSource NPCSounds;
     public AudioClip howdyClip;
     public bool disableDialogOnceComplete;
     public UnityEvent dialogFinished = new UnityEvent();
     public UnityEvent dialogStarted = new UnityEvent();
 
+    QuestSystem quests;
+
     void Start()
     {
         NPCSounds = GetComponent<AudioSource>();
+        quests = QuestSystem.quests;
+        dialogFinished.AddListener(delegate { quests.NotifyDialog(gameObject); });
     }
 
 

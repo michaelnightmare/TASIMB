@@ -17,6 +17,10 @@ public class EnemySpawnScript : MonoBehaviour
     public int maxSpawnable;
     private int spawnEnemyCount;
 
+    public List<AIEnemy> enemyAis = new List<AIEnemy>();
+    public List<AIWolf> alienAis = new List<AIWolf>();
+
+
     void Start()
     {
         spawnEnemyCount = Random.Range(minSpawnable, maxSpawnable);
@@ -56,14 +60,40 @@ public class EnemySpawnScript : MonoBehaviour
 
         if (enemyTemp.GetComponent<AIEnemy>())
         {
-           enemyTemp.GetComponent<AIEnemy>().target = PlayerRef.transform;
+            AIEnemy ai = enemyTemp.GetComponent<AIEnemy>();
+            enemyAis.Add(ai);
+            ai.OnEnemyDeath.AddListener(delegate { EnemyDied(ai); });
+            ai.target = PlayerRef.transform;
         }
 
         if(enemyTemp.GetComponent<AIWolf>())
         {
-           enemyTemp.GetComponent<AIWolf>().target = PlayerRef.transform;
-           enemyTemp.GetComponent<AIWolf>().playerInteraction = PlayerRef.GetComponent<PlayerScript>();
+            AIWolf wolf = enemyTemp.GetComponent<AIWolf>();
+            alienAis.Add(wolf);
+            wolf.OnEnemyDeath.AddListener(delegate { WolfDied(wolf); });
+            wolf.target = PlayerRef.transform;
+            wolf.playerInteraction = PlayerRef.GetComponent<PlayerScript>();
         }
 
+    }
+
+    public void EnemyDied(AIEnemy enemy)
+    {
+        if (enemyAis.Contains(enemy)) enemyAis.Remove(enemy);
+        CheckAllDead();
+    }
+
+    public void WolfDied(AIWolf wolf)
+    {
+        if (alienAis.Contains(wolf)) alienAis.Remove(wolf);
+        CheckAllDead();
+    }
+
+    void CheckAllDead()
+    {
+        if (alienAis.Count == 0 && enemyAis.Count == 0)
+        {
+            QuestSystem.quests.NotifyKill(gameObject);
+        }
     }
 }

@@ -48,7 +48,6 @@ public class AIEnemy : AIBase
 
 
 
-    public UnityEvent OnEnemyDeath = new UnityEvent();
 
     // Use this for initialization
     void Start ()
@@ -137,7 +136,6 @@ public class AIEnemy : AIBase
         GameManagerScr._instance.enemyCounterIncrease();
         Invoke("ItemDrop", 2);
         isWounded = false;
-        OnEnemyDeath.Invoke();
     }
 
     void ItemDrop()

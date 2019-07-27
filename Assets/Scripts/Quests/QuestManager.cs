@@ -35,8 +35,7 @@ public class QuestManager : MonoBehaviour
         signQuestAccepted.SetActive(true);
         signAcceptedActive = true;
         onQuestAccepted.Invoke();
-  
-        
+ 
     }
 
     public void CloseHUDQuest()

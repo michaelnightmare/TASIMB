@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class AIBase : MonoBehaviour
 {
@@ -34,6 +35,9 @@ public class AIBase : MonoBehaviour
     public AudioSource PlayerSounds;
     public AudioClip shotClip;
 
+    public UnityEvent OnEnemyDeath = new UnityEvent();
+
+
     protected virtual void Initialize()
     {
         nma = GetComponent<NavMeshAgent>();
@@ -59,10 +63,10 @@ public class AIBase : MonoBehaviour
 
     public virtual void Death()
     {
+        OnEnemyDeath.Invoke();
         isAlive = false;
         anim.SetBool("dead", true);
         clearBodies.enabled = true;
-
         hitbox.enabled = false;
         mCollider.enabled = false;
         mRB.isKinematic = true;
