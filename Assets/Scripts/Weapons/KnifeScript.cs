@@ -23,7 +23,7 @@ public class KnifeScript : MonoBehaviour
     {
         //KnifeActive = CrossPlatformInputManager.GetButtonDown("KnifeActive");
 
-        if (Input.GetKey(KeyCode.LeftAlt) || CrossPlatformInputManager.GetButton("KnifeActive"))
+        if (Input.GetKey(KeyCode.CapsLock) || CrossPlatformInputManager.GetButton("KnifeActive"))
           
         {
            
