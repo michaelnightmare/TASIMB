@@ -81,6 +81,7 @@ public class QuestSystem : MonoBehaviour
     public List<Objective> objectives;
     public int currentObjective = -1;
 
+
     private void Awake()
     {
         if(quests == null)
@@ -146,4 +147,6 @@ public class QuestSystem : MonoBehaviour
             GiveNextQuest();
         }
     }
+
+    
 }

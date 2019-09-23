@@ -15,7 +15,8 @@ public class QuestManager : MonoBehaviour
     public UnityEvent onQuestComplete = new UnityEvent();
     public UnityEvent onQuestAccepted = new UnityEvent();
     bool signAcceptedActive = false;
-    bool signCompleteActive = false; 
+    bool signCompleteActive = false;
+    public GameObject endingCredits; 
 
     private void Start()
     {
@@ -73,6 +74,12 @@ public class QuestManager : MonoBehaviour
             Debug.Log("quest complete");
             activeQuest = null; //otherwise null the active quest.
             HudQuests.SetActive(false);
+        }
+
+        if(currentQuests.Count > 16)
+        {
+            HudQuests.SetActive(false);
+            endingCredits.SetActive(true);
         }
     }
 
@@ -133,4 +140,6 @@ public class QuestManager : MonoBehaviour
       
         QuestCompleted(quest);
     }
+
+    
 }

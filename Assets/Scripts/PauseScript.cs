@@ -13,7 +13,11 @@ public class PauseScript : MonoBehaviour {
     public Button MainMenuButton;
     public Button QuitGameButton;
     public Button CreditsButton;
+    public Button TutorialButton;
+
     public GameObject creditsScreen;
+    public GameObject tutorialScreen;
+    public bool tutorialOnScreen = false; 
     public bool creditsOnScreen = false; 
     
    
@@ -48,11 +52,23 @@ public class PauseScript : MonoBehaviour {
             showCredits();
           
         }
-        if (Input.GetButtonDown("X") && GameIsPaused == true && creditsOnScreen == true)
+        if (Input.GetButtonDown("B") && GameIsPaused == true && creditsOnScreen == true)
         {
             hideCredits();
 
         }
+        if (Input.GetButtonDown("X") && GameIsPaused == true && tutorialOnScreen == false)
+        {
+            showTutorial();
+
+        }
+        if (Input.GetButtonDown("B") && GameIsPaused == true && tutorialOnScreen == true)
+        {
+            hideTutorial();
+
+        }
+
+
 
 
     }
@@ -81,6 +97,8 @@ public class PauseScript : MonoBehaviour {
     {
         creditsOnScreen = true;
         creditsScreen.SetActive(true);
+        pauseMenuUI.SetActive(false);
+        GameIsPaused = true; 
    
 
     }
@@ -88,7 +106,24 @@ public class PauseScript : MonoBehaviour {
     {
         creditsOnScreen = false;
         creditsScreen.SetActive(false);
+        pauseMenuUI.SetActive(true);
       
+    }
+    public void showTutorial()
+    {
+        tutorialOnScreen = true;
+        tutorialScreen.SetActive(true);
+        pauseMenuUI.SetActive(false);
+        GameIsPaused = true;
+
+
+    }
+    public void hideTutorial()
+    {
+        tutorialOnScreen = false;
+        tutorialScreen.SetActive(false);
+        pauseMenuUI.SetActive(true);
+
     }
 
     public void QuitGame()

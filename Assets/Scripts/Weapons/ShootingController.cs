@@ -168,7 +168,7 @@ public class ShootingController : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.R) || Input.GetButton("Reload") && guns[selectedWeaponIndex].canReload && menu.GameIsPaused==false)
+        if (Input.GetKeyDown(KeyCode.R) || Input.GetButton("Reload") || Input.GetButton("X") && guns[selectedWeaponIndex].canReload && menu.GameIsPaused==false)
         {
             guns[selectedWeaponIndex].Reload();
         }
