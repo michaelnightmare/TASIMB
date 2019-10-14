@@ -79,6 +79,7 @@ public class QuestSystem : MonoBehaviour
 
 
     public List<Objective> objectives;
+    public int startingObjective = 0;
     public int currentObjective = -1;
 
 
@@ -96,7 +97,7 @@ public class QuestSystem : MonoBehaviour
 
     private void Start()
     {
-        currentObjective = 0;
+        currentObjective = startingObjective;
         GiveQuest(currentObjective);
     }
 
@@ -132,6 +133,7 @@ public class QuestSystem : MonoBehaviour
 
     public void NotifyKill(GameObject target)
     {
+        Debug.Log(target.name);
         if (objectives[currentObjective].CheckComplete(Objective.CompletionCriteria.Kill, target))
         {
             CompleteCurrentQuest();

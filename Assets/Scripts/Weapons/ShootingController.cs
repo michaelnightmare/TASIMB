@@ -138,7 +138,6 @@ public class ShootingController : MonoBehaviour
             anims.SetBool("Aim", true);
             guns[selectedWeaponIndex].gameObject.SetActive(true);
             raycastgun.rayCastShot();
-            Debug.Log(Input.mousePosition);
 
             if (InputShoot() && Time.time > nextShot)
             {

@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class FinalCutscene : MonoBehaviour
 { 
-    public AIEnemy[] enemyAis;
+    public List<AIEnemy> enemyAis;
     public Transform[] enemyPosition;
     bool cutscenePlayed = false;
     private GameObject player;
@@ -71,11 +71,11 @@ public class FinalCutscene : MonoBehaviour
 
         camScript.SetFollowTarget(camCutsceneTarget2);
 
-        for (int i=0; i < enemyAis.Length; i++)
+        for (int i=0; i < enemyAis.Count; i++)
         {
-        enemyAis[i].gameObject.SetActive(true);
-        enemyAis[i].DisableAi();
-        enemyAis[i].enemyMoveToPoint(enemyPosition[i].position);
+            enemyAis[i].gameObject.SetActive(true);
+            enemyAis[i].DisableAi();
+            enemyAis[i].enemyMoveToPoint(enemyPosition[i].position);
         }
 
         playerConvo.InitiateDialog(cutsceneDialog);
@@ -85,9 +85,11 @@ public class FinalCutscene : MonoBehaviour
             yield return null;
         }
 
-        for (int i = 0; i < enemyAis.Length; i++)
+        for (int i = 0; i < enemyAis.Count; i++)
         {
             enemyAis[i].EnableAi();
+            AIEnemy ai = enemyAis[i];
+            ai.OnEnemyDeath.AddListener(delegate { EnemyDied(ai); });
         }
 
         camScript.Reset();
@@ -99,5 +101,24 @@ public class FinalCutscene : MonoBehaviour
         yield break;
     }
 
+
+    public void EnemyDied(AIEnemy enemy)
+    {
+        if (enemyAis.Contains(enemy)) enemyAis.Remove(enemy);
+        CheckAllDead();
+    }
+
+    public void WolfDied(AIWolf wolf)
+    {
+
+    }
+
+    void CheckAllDead()
+    {
+        if (enemyAis.Count == 0 && enemyAis.Count == 0)
+        {
+            QuestSystem.quests.NotifyKill(gameObject);
+        }
+    }
 
 }
