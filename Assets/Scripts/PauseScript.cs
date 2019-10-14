@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class PauseScript : MonoBehaviour {
 
     public string mainMenuSceneName = "NewMainMenu";
 
+    public EventSystem es;
+
     public bool GameIsPaused = false;
+
     public GameObject pauseMenuUI;
     public Button MainMenuButton;
     public Button QuitGameButton;
     public Button CreditsButton;
     public Button TutorialButton;
+    public Button ResumeButton;
 
     public GameObject creditsScreen;
     public GameObject tutorialScreen;
@@ -85,6 +90,7 @@ public class PauseScript : MonoBehaviour {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
+        es.SetSelectedGameObject(ResumeButton.gameObject);
     }
  
     public void LoadMainMenu()
