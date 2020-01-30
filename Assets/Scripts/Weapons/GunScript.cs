@@ -24,8 +24,7 @@ public class GunScript : MonoBehaviour
     public GameObject muzzleFlash;
     public float holdTime;
     public float gunHoldTime;
-
-
+  
     public GameObject GunIcon;
     public GameObject Highlight;
     public GunDisplayScr gunDisplay;
@@ -33,9 +32,10 @@ public class GunScript : MonoBehaviour
     void Start()
     {
         if (!initialized) Initialize();
-        Reload();
-        holdTime = .10f;
-        gunHoldTime = .5f;
+        
+        holdTime = 0.1f;
+        gunHoldTime = 0.1f;
+       
     }
 
     void Initialize()
@@ -75,9 +75,12 @@ public class GunScript : MonoBehaviour
     }
     public void Shoot()
     {
+        if (!canReload && bulletCount <= 0)
+        {
+            StartCoroutine(gunHold());
+        }
 
-      
-        if (bulletCount >= 0)
+        if (bulletCount >= 1)
         {
           
             shootingScript.Shoot();
@@ -86,17 +89,9 @@ public class GunScript : MonoBehaviour
             muzzleFlare();
             if (bulletCount < 0)
             {
-               
                 canShoot = false;
                 Debug.Log("click");
                 PlayerSounds.PlayOneShot(outOfAmmo);
-
-                if (!canReload)
-                {
-
-                    StartCoroutine(gunHold());
-                }
-                
             }
         }
         else
@@ -113,8 +108,9 @@ public class GunScript : MonoBehaviour
             gameObject.SetActive(true);
             ToggleUI(true);
             Highlight.SetActive(true);
-            
-            
+            bulletCount = clipSize;
+
+
         }
         else
         {
@@ -128,35 +124,39 @@ public class GunScript : MonoBehaviour
     }
     public void Reload()
     {
-        bulletCount = clipSize;
-        PlayerSounds.PlayOneShot(reloadClip);
-        //Debug.Log(PlayerSounds.isPlaying + " " + PlayerSounds.clip);
-        canShoot = true;
-
-        for (int i = 0; i < bullets.Length; i++)
+        if (canReload)
         {
-            if (i > bulletCount)
+            for (int i = 0; i < bullets.Length; i++)
             {
-                bullets[i].enabled = true;
-            }
+                if (i > bulletCount)
+                {
+                    bullets[i].enabled = true;
+                }
 
-            else
-            {
-                bullets[i].enabled = true;
+                else
+                {
+                    bullets[i].enabled = true;
+                }
             }
+            canShoot = true;
+            bulletCount = clipSize;
+            PlayerSounds.PlayOneShot(reloadClip);
+            //Debug.Log(PlayerSounds.isPlaying + " " + PlayerSounds.clip);
         }
 
+
+       
+        
+
+       
     }
 
     public void Lock()
     {
         
         isUnlocked = false;
-       
         GunIcon.SetActive(false);
 
-       
-       
     }
 
     public void Unlock()
@@ -171,7 +171,6 @@ public class GunScript : MonoBehaviour
     {
         //don't do anything for hold time seconds
         yield return new WaitForSeconds(holdTime);
-
         muzzleFlash.SetActive(false);
         yield break;
     }
@@ -189,8 +188,6 @@ public class GunScript : MonoBehaviour
         muzzleFlash.transform.position = shootingScript.bulletSpawn.position;
         muzzleFlash.transform.rotation = Quaternion.LookRotation(shootingScript.bulletSpawn.forward, Vector3.up);
         muzzleFlash.transform.localScale = new Vector3(Random.Range(0.6f, 1.5f), 0, Random.Range(0.8f, 1.3f));
-      
-
         StartCoroutine(flashFlare());
     }
 

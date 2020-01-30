@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShootingScriptShotgun : ShootingScript {
 
-    public int numBullets = 6;
+    public int numBullets = 3;
     public float spreadAngle = 20f;
 
      public override void Shoot()

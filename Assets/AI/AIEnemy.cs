@@ -133,6 +133,7 @@ public class AIEnemy : AIBase
     {
         base.Death();
         anim.SetBool("enemyAlive", false);
+
         GameManagerScr._instance.enemyCounterIncrease();
         Invoke("ItemDrop", 2);
         isWounded = false;

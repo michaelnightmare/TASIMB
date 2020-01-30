@@ -27,6 +27,8 @@ public class GameManagerScr : MonoBehaviour
     public bool GameOverLose;
 
     public GameObject minimap;
+    public GameObject questLog;
+    bool isQuestOn;
     bool isMapOn;
 
 
@@ -50,6 +52,7 @@ public class GameManagerScr : MonoBehaviour
     void Start ()
     {
         isMapOn = true;
+        isQuestOn = true;
         Cursor.SetCursor(cursorTex, hotSpot, cursorMode);
     }
 	
@@ -68,6 +71,20 @@ public class GameManagerScr : MonoBehaviour
         else
         {
             minimap.SetActive(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            isQuestOn = !isQuestOn;
+        }
+
+        if (isQuestOn)
+        {
+            questLog.SetActive(true);
+        }
+        else
+        {
+            questLog.SetActive(false);
         }
 
     }

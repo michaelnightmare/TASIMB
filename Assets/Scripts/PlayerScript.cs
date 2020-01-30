@@ -82,7 +82,7 @@ public class PlayerScript : MonoBehaviour
     }
     public void playerGetHealth(int healthAmount)
     {
-        if (playerHealth < 5)
+        if (playerHealth < 10)
         {
             playerHealth += healthAmount;
             for (int i = 0; i < stars.Length; i++)

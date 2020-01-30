@@ -19,6 +19,7 @@ public class PauseScript : MonoBehaviour {
     public Button CreditsButton;
     public Button TutorialButton;
     public Button ResumeButton;
+    public Button ExitButton;
 
     public GameObject creditsScreen;
     public GameObject tutorialScreen;
@@ -30,7 +31,7 @@ public class PauseScript : MonoBehaviour {
 	
 	void Update ()
     {
-		if(Input.GetButtonDown("StartButton"))
+		if(Input.GetButtonDown("StartButton") || Input.GetKeyDown(KeyCode.Escape) && creditsOnScreen==false && tutorialOnScreen==false)
         {
             if (GameIsPaused)
             {
@@ -42,31 +43,30 @@ public class PauseScript : MonoBehaviour {
                     
             }
 
-            
         }
-        if(Input.GetButtonDown("A")&& GameIsPaused==true && creditsOnScreen==false)
-        {
-           MainMenuButton.onClick.Invoke();
-        }
-        if(Input.GetButtonDown("B")&& GameIsPaused==true && creditsOnScreen==false)
-        {
-            QuitGameButton.onClick.Invoke();
-        }
-        if (Input.GetButtonDown("Y") && GameIsPaused == true && creditsOnScreen == false)
-        {
-            showCredits();
-          
-        }
+        //if(Input.GetButtonDown("A")&& GameIsPaused==true && creditsOnScreen==false)
+        //{
+        //   MainMenuButton.onClick.Invoke();
+        //}
+        //if(Input.GetButtonDown("B")&& GameIsPaused==true && creditsOnScreen==false)
+        //{
+        //    QuitGameButton.onClick.Invoke();
+        //}
+        //if (Input.GetButtonDown("Y") && GameIsPaused == true && creditsOnScreen == false)
+        //{
+        //    showCredits();
+
+        //}
         if (Input.GetButtonDown("B") && GameIsPaused == true && creditsOnScreen == true)
         {
             hideCredits();
 
         }
-        if (Input.GetButtonDown("X") && GameIsPaused == true && tutorialOnScreen == false)
-        {
-            showTutorial();
+        ////if (Input.GetButtonDown("X") && GameIsPaused == true && tutorialOnScreen == false)
+        ////{
+        ////    showTutorial();
 
-        }
+        //}
         if (Input.GetButtonDown("B") && GameIsPaused == true && tutorialOnScreen == true)
         {
             hideTutorial();

@@ -81,7 +81,9 @@ public class AIBase : MonoBehaviour
         {
             Debug.Log("dead");
             Death();
+            
         }
+      
     }
 
     // Use this for initialization
